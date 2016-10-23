@@ -14,11 +14,11 @@ public class Task2b_PrintReversedSequence {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int number = sc.nextInt();
+        int startNumber = sc.nextInt();
         int inputNumber;
         String mirrorNumbers = "";
 
-        for (int i = 0; i < number; i++) {
+        for (int i = 0; i < startNumber; i++) {
             inputNumber = sc.nextInt();
             mirrorNumbers = Integer.toString(inputNumber) + " " + mirrorNumbers;
 
