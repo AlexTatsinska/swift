@@ -16,18 +16,23 @@ public class Task1f_ToBinaryAndHexa {
         Scanner sc = new Scanner(System.in);
         int number = sc.nextInt();
         int c = number;
+        String binaryNum = "";
         
         while (number!=0){
             if (number%2 == 0){
-                int result = 0;
-                System.out.printf("%d",result);
+                
+               // System.out.println("0"+binaryNum);
+                binaryNum = "0"+binaryNum;
                 number = number/2;
             } else{
-                int result = 1;
-                System.out.printf("%d",result);
+                
+               // System.out.println("1"+binaryNum);
+                binaryNum = "1"+binaryNum;
                 number = number/2;
             }
+            
         }
+        System.out.println(binaryNum);
         System.out.println("");
         /*
         while (c != 0){
