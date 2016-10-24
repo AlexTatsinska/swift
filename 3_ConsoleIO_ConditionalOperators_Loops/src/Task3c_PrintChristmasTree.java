@@ -16,6 +16,7 @@ public class Task3c_PrintChristmasTree {
         Scanner sc = new Scanner(System.in);
         int number = sc.nextInt();
         String tree = "*";
+        String tree1 = tree;
         
         for (int i=1;i<=number;i++){
             for (int j=1;j<=number-i;j++){
@@ -25,9 +26,14 @@ public class Task3c_PrintChristmasTree {
             tree = tree+"**";
             
         }
+        for (int i=1;i<=2;i++){
+            for (int j=1;j<=number-i;j++){
+                System.out.print(" ");
+            }
+            System.out.println(tree1);
+            tree1 = tree1+"**";
         
-        
-           
+        }
     }
     
 }
