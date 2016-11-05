@@ -16,11 +16,10 @@ public class SwiftDate {
     byte month;
     byte day;
 
-    SwiftDate() {
-        Scanner sc = new Scanner(System.in);
-        year = sc.nextShort();
-        month = sc.nextByte();
-        day = sc.nextByte();
+    SwiftDate(short year, byte date, byte day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
     boolean isLeapYear() {
@@ -138,11 +137,11 @@ public class SwiftDate {
     }
 
     void printInfo() {
-        
+
         if (isLeapYear() == true) {
             System.out.println(year + " " + month + " " + day + " -" + getCentury() + " century. It is LEAP year.");
         } else {
-            System.out.println(year + " " + month + " " + day + " -" + getCentury()+"century");
+            System.out.println(year + " " + month + " " + day + " -" + getCentury() + "century");
         }
     }
 }
