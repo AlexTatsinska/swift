@@ -19,8 +19,8 @@ public class Task1_DateDifference {
         String date1 = sc.nextLine();
         String[] split1 = date1.split(" ");
 
-        SwiftDate first = new SwiftDate(Short.parseShort(split[0]), Byte.parseByte(split[1]), Byte.parseByte(split[2]));
-        SwiftDate second = new SwiftDate(Short.parseShort(split1[0]), Byte.parseByte(split1[1]), Byte.parseByte(split1[2]));
+        SwiftDate first = new SwiftDate(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+        SwiftDate second = new SwiftDate(Integer.parseInt(split1[0]), Integer.parseInt(split1[1]), Integer.parseInt(split1[2]));
 
         System.out.println(first.getDaysDiference(second));
         first.printInfo();

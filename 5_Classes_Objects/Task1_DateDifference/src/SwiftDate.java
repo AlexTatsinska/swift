@@ -12,11 +12,11 @@ import java.util.Scanner;
  */
 public class SwiftDate {
 
-    short year;
-    byte month;
-    byte day;
+    int year;
+    int month;
+    int day;
 
-    SwiftDate(short year, byte date, byte day) {
+    SwiftDate(int year, int date, int day) {
         this.year = year;
         this.month = month;
         this.day = day;
