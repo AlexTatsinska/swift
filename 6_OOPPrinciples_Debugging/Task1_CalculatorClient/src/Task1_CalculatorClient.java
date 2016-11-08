@@ -16,7 +16,8 @@ public class Task1_CalculatorClient {
 
         Scanner sc = new Scanner(System.in);
         int counter = 1;
-        // Calculator[] calculatorArr ;  
+
+        Calculator[] calculatorArr;
 
         for (int i = 0; i < counter; i++) {
 
@@ -29,7 +30,7 @@ public class Task1_CalculatorClient {
                 String command = split[0];
                 double a = Double.parseDouble(split[1]);
                 double b = Double.parseDouble(split[2]);
-                Calculator[] calculatorArr = new Calculator[counter];
+                calculatorArr = new Calculator[counter];
                 calc = new Calculator(a, b, command);
                 calculatorArr[i] = calc;
                 counter++;
