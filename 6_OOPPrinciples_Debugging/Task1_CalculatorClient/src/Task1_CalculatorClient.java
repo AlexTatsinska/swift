@@ -15,41 +15,55 @@ public class Task1_CalculatorClient {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        int counter = 1;
+        String inputInfo = "";
+        String input = sc.nextLine();
+        Calculator calc = null;
+        while (!"END".equals(input)) {
+            inputInfo = inputInfo + ";" + input;
+            input = sc.nextLine();
+        }
+        String[] splitInputInfo = inputInfo.split(";");
 
-        Calculator[] calculatorArr;
+        Calculator[] calculatorArr = new Calculator[splitInputInfo.length];
 
-        for (int i = 0; i < counter; i++) {
+        for (int i = 0; i < splitInputInfo.length; i++) {
+            String command = "";
+            double a = 0;
+            double b = 0;
+            String[] split = splitInputInfo[i].split(" ");
+            for (int j = 0; j < split.length; j++) {
 
-            String input = sc.nextLine();
-            if (input != "END") {
-
-                String[] split = input.split(" ");
-
-                Calculator calc = null;
-                String command = split[0];
-                double a = Double.parseDouble(split[1]);
-                double b = Double.parseDouble(split[2]);
-                calculatorArr = new Calculator[counter];
-                calc = new Calculator(a, b, command);
-                calculatorArr[i] = calc;
-                counter++;
-                if ((calculatorArr[i].command).equals("SUM")) {
-                    System.out.println(calculatorArr[i].sum());
-
+                if (j == 0) {
+                    command = split[0].trim();
                 }
-                if ((calculatorArr[i].command).equals("SUB")) {
-                    System.out.println(calculatorArr[i].subtract());
+                if (j == 1) {
+                    a = Double.parseDouble(split[1].trim());
                 }
-                if ((calculatorArr[i].command).equals("MUL")) {
-                    System.out.println(calculatorArr[i].multiply());
+                if (j == 2) {
+                    b = Double.parseDouble(split[2].trim());
                 }
-                if ((calculatorArr[i].command).equals("DIV")) {
-                    System.out.println(calculatorArr[i].divide());
-                }
-                if ((calculatorArr[i].command).equals("PER")) {
-                    System.out.println(calculatorArr[i].percentage());
-                }
+
+            }
+            calc = new Calculator(a, b, command);
+            calculatorArr[i] = calc;
+        }
+        for (int i = 0; i < calculatorArr.length; i++) {
+
+            if ((calculatorArr[i].command).equals("SUM")) {
+                System.out.printf("%.3f%n", calculatorArr[i].sum());
+
+            }
+            if ((calculatorArr[i].command).equals("SUB")) {
+                System.out.printf("%.3f%n", calculatorArr[i].subtract());
+            }
+            if ((calculatorArr[i].command).equals("MUL")) {
+                System.out.printf("%.3f%n", calculatorArr[i].multiply());
+            }
+            if ((calculatorArr[i].command).equals("DIV")) {
+                System.out.printf("%.3f%n", calculatorArr[i].divide());
+            }
+            if ((calculatorArr[i].command).equals("PER")) {
+                System.out.printf("%.3f%n", calculatorArr[i].percentage());
             }
 
         }

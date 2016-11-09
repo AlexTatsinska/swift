@@ -43,7 +43,7 @@ public class Calculator {
     }
 
     double percentage() {
-        double percentage = (b % a);
+        double percentage = ((b - a) / b);
         return percentage;
     }
 
