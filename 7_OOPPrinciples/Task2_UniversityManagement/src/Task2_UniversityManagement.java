@@ -78,6 +78,27 @@ public class Task2_UniversityManagement {
                                 i = univercity.length;
                                 input = "END";
                             }
+                        } else if (univercity[i] instanceof Teacher) {
+                            ((Teacher) univercity[i]).setTolerance(tolerance);
+                            if (((Teacher) univercity[i]).getTolerance() == 0) {
+                                System.out.println(((Teacher) univercity[i]).getName() + " is not happy.");
+                                i = univercity.length;
+                                input = "END";
+                            }
+                        } else if (univercity[i] instanceof MaintenanceEmployee) {
+                            ((MaintenanceEmployee) univercity[i]).setTolerance(tolerance);
+                            if (((MaintenanceEmployee) univercity[i]).getTolerance() == 0) {
+                                System.out.println(((MaintenanceEmployee) univercity[i]).getName() + " is not happy.");
+                                i = univercity.length;
+                                input = "END";
+                            }
+                        } else if (univercity[i] instanceof AdministrationEmployee) {
+                            ((AdministrationEmployee) univercity[i]).setTolerance(tolerance);
+                            if (((AdministrationEmployee) univercity[i]).getTolerance() == 0) {
+                                System.out.println(((AdministrationEmployee) univercity[i]).getName() + " is not happy.");
+                                i = univercity.length;
+                                input = "END";
+                            }
                         }
                     }
                 }
