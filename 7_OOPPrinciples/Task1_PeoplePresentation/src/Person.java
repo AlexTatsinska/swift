@@ -8,7 +8,7 @@
  *
  * @author AlexT
  */
-public class Person {
+public abstract class Person {
 
     private String firstName;
     private String lastName;
