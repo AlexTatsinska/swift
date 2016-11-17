@@ -8,14 +8,15 @@
  *
  * @author AlexT
  */
-public class Student extends Person{
+public class Student extends Person {
+
     private String facultyNumber;
     private String[] disciplines;
-    
+
     public Student(String name, String phone, String facultyNumber, String[] disciplines) {
         super(name, phone);
-        this.facultyNumber=facultyNumber;
+        this.facultyNumber = facultyNumber;
         this.disciplines = disciplines;
     }
-    
+
 }

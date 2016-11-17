@@ -9,31 +9,32 @@
  * @author AlexT
  */
 public abstract class Person {
-   private String name;
-   private String phone;
-   private int tolerance;
-    
-   Person(String name, String phone){
-       this.name=name;
-       this.phone=phone;
-       this.tolerance = 20;
-   } 
-   String getName(){
-       return name;
-   }
-   String getPhone(){
-       return phone;       
-   }
-   int getTolerance(){
-       return tolerance;
-   }
-   int setToleranceUp(int toleranceChange){
-       tolerance = tolerance+toleranceChange;
-       return tolerance;
-   }
-   int setToleranceDown(int toleranceChange){
-       tolerance = tolerance-toleranceChange;
-       return tolerance;
-   }
-    
+
+    private String name;
+    private String phone;
+    private int tolerance;
+
+    Person(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+        this.tolerance = 20;
+    }
+
+    String getName() {
+        return name;
+    }
+
+    String getPhone() {
+        return phone;
+    }
+
+    int getTolerance() {
+        return tolerance;
+    }
+
+    int setTolerance(int toleranceChange) {
+        tolerance = tolerance + toleranceChange;
+        return tolerance;
+    }
+
 }

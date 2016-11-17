@@ -8,10 +8,10 @@
  *
  * @author AlexT
  */
-public class MaintenanceEmployee extends Employee{
-    
+public class MaintenanceEmployee extends Employee {
+
     public MaintenanceEmployee(String name, String phone) {
         super(name, phone);
     }
-    
+
 }

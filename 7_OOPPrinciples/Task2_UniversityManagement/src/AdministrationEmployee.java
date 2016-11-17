@@ -9,11 +9,12 @@
  * @author AlexT
  */
 public class AdministrationEmployee extends Employee {
+
     private String[] disciplines;
-    
+
     public AdministrationEmployee(String name, String phone, String[] disciplines) {
         super(name, phone);
-        this.disciplines=disciplines;
+        this.disciplines = disciplines;
     }
-    
+
 }
