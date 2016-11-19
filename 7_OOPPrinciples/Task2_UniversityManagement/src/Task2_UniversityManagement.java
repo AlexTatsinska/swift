@@ -15,7 +15,8 @@ public class Task2_UniversityManagement {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        Object[] univercity = new Object[500];
+        Object newUnivesity = null;
+        Object[] university = new Object[500];
         int count = 0;
         while (!input.equals("END")) {
             //NEW <MAINT|ADMIN|TEACH|STUD> <name> <phoneNo> [<facultyNo>] [<предмет1> <предмет2> ... <предметN>]
@@ -27,7 +28,7 @@ public class Task2_UniversityManagement {
                 switch (command) {
                     case "MAINT":
                         MaintenanceEmployee maintenanceEmployee = new MaintenanceEmployee(name, phone);
-                        univercity[count] = maintenanceEmployee;
+                        newUnivesity = maintenanceEmployee;
                         count++;
                         break;
                     case "ADMIN":
@@ -38,7 +39,7 @@ public class Task2_UniversityManagement {
                             }
                         }
                         AdministrationEmployee administrationEmployee = new AdministrationEmployee(name, phone, disciplines);
-                        univercity[count] = administrationEmployee;
+                        newUnivesity = administrationEmployee;
                         count++;
                         break;
                     case "TEACH":
@@ -49,7 +50,7 @@ public class Task2_UniversityManagement {
                             }
                         }
                         Teacher teacher = new Teacher(name, phone, disciplines1);
-                        univercity[count] = teacher;
+                        newUnivesity = teacher;
                         count++;
                         break;
                     case "STUD":
@@ -61,42 +62,72 @@ public class Task2_UniversityManagement {
                         }
                         String facultyNumber = split[4];
                         Student student = new Student(name, phone, facultyNumber, disciplines2);
-                        univercity[count] = student;
+                        newUnivesity = student;
                         count++;
                         break;
                 }
+                for (int i =0;i<university.length;i++){
+                    if((university[i])==null&&(count<=500)){
+                        university[i]=newUnivesity;
+                        break;
+                    }
+                    
+                } input = sc.nextLine();
             } else if (split[0].equals("WORK")) {
+                for(int i=0;i<university.length;i++){
+                    if(university[i]!=null){
+                          if((((Person) university[i]).getName()).equals(split[1])){
+                              
+                          }
+                    }
+                }
+/*Работещ: Промяна при останалите:
+Поддръжка
++2 за всички
+Администрация
++3 за всеки студент
++3 за всеки учител
++1 за поддръжката
+Учител
++3 за всеки студент
+-3 за поддръжката
+-1 за всяко административно лице
+Студент
++2 за студента
+-1 за поддръжката
+Никой
+-5 за всички*/
 
             } else if (split[0].equals("IDLE")) {
-                for (int i = 0; i < univercity.length; i++) {
-                    if (univercity[i] != null) {
+                for (int i = 0; i < university.length; i++) {
+                    if (university[i] != null) {
                         int tolerance = -5;
-                        if (univercity[i] instanceof Student) {
-                            ((Student) univercity[i]).setTolerance(tolerance);
-                            if (((Student) univercity[i]).getTolerance() == 0) {
-                                System.out.println(((Student) univercity[i]).getName() + " is not happy.");
-                                i = univercity.length;
+                        if (university[i] instanceof Student) {
+                            ((Student) university[i]).setTolerance(tolerance);
+                            if (((Student) university[i]).getTolerance() == 0) {
+                                System.out.println(((Student) university[i]).getName() + " is not happy.");
+                                i = university.length;
                                 input = "END";
                             }
-                        } else if (univercity[i] instanceof Teacher) {
-                            ((Teacher) univercity[i]).setTolerance(tolerance);
-                            if (((Teacher) univercity[i]).getTolerance() == 0) {
-                                System.out.println(((Teacher) univercity[i]).getName() + " is not happy.");
-                                i = univercity.length;
+                        } else if (university[i] instanceof Teacher) {
+                            ((Teacher) university[i]).setTolerance(tolerance);
+                            if (((Teacher) university[i]).getTolerance() == 0) {
+                                System.out.println(((Teacher) university[i]).getName() + " is not happy.");
+                                i = university.length;
                                 input = "END";
                             }
-                        } else if (univercity[i] instanceof MaintenanceEmployee) {
-                            ((MaintenanceEmployee) univercity[i]).setTolerance(tolerance);
-                            if (((MaintenanceEmployee) univercity[i]).getTolerance() == 0) {
-                                System.out.println(((MaintenanceEmployee) univercity[i]).getName() + " is not happy.");
-                                i = univercity.length;
+                        } else if (university[i] instanceof MaintenanceEmployee) {
+                            ((MaintenanceEmployee) university[i]).setTolerance(tolerance);
+                            if (((MaintenanceEmployee) university[i]).getTolerance() == 0) {
+                                System.out.println(((MaintenanceEmployee) university[i]).getName() + " is not happy.");
+                                i = university.length;
                                 input = "END";
                             }
-                        } else if (univercity[i] instanceof AdministrationEmployee) {
-                            ((AdministrationEmployee) univercity[i]).setTolerance(tolerance);
-                            if (((AdministrationEmployee) univercity[i]).getTolerance() == 0) {
-                                System.out.println(((AdministrationEmployee) univercity[i]).getName() + " is not happy.");
-                                i = univercity.length;
+                        } else if (university[i] instanceof AdministrationEmployee) {
+                            ((AdministrationEmployee) university[i]).setTolerance(tolerance);
+                            if (((AdministrationEmployee) university[i]).getTolerance() == 0) {
+                                System.out.println(((MaintenanceEmployee) university[i]).getName() + " is not happy.");
+                                i = university.length;
                                 input = "END";
                             }
                         }
