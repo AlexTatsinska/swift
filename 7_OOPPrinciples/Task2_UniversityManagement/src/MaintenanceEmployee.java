@@ -23,6 +23,8 @@ public class MaintenanceEmployee extends Employee {
             if(people[i]!=null){               
                     tolerance = 2;
                     people[i].changeTolerance(tolerance);                
+            } else{
+                break;
             }           
         }        
         return balance;

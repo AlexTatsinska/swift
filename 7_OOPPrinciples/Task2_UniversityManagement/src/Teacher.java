@@ -25,7 +25,7 @@ public class Teacher extends Employee {
 -3 за поддръжката
 -1 за всяко административно лице*/
         int tolerance;
-        balance = balance -super.getSalaryPerHour();
+        balance = balance -this.getSalaryPerHour();
         for(int i=0;i<people.length;i++){
             if(people[i]!=null){
                 if(people[i] instanceof MaintenanceEmployee){
@@ -39,7 +39,7 @@ public class Teacher extends Employee {
                     tolerance = 3;
                     people[i].changeTolerance(tolerance);
                 }
-            }           
+            } else break;           
         }        
         return balance;
     }

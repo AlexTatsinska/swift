@@ -17,7 +17,7 @@ public class Task2_UniversityManagement {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         Person newUnivesity = null;
-        Person[] people = new Person[500];
+        Person[] people = new Person[20];
         double balance = 500;
         int count = 0;
         while (!input.equals("END")) {
@@ -84,7 +84,8 @@ public class Task2_UniversityManagement {
                     if(people[i]!=null){
                         if(balance>0){
                           if(people[i].getName().equals(split[1])){
-                                people[i].work(people);
+                                balance = balance+people[i].work(people);
+                                
                             if ( people[i].getTolerance() <= 0) {
                                 System.out.println(people[i].getName() + " is not happy.");                                
                                 return; 
@@ -94,8 +95,12 @@ public class Task2_UniversityManagement {
                                       System.out.println("Bankrupcy");
                                       return;
                                   }
-                              }                             
+                              } else{
+                        break;
+                    }      
+                    break;
                           }
+                input = sc.nextLine();
                     }
 else if (split[0].equals("IDLE")) {
                 for (int i = 0; i < people.length; i++) {
@@ -108,6 +113,7 @@ else if (split[0].equals("IDLE")) {
                         }
                     }
                 }
+                input = sc.nextLine();
             }
         }
     }

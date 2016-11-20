@@ -26,7 +26,7 @@ public class Student extends Person {
 +2 за студента
 -1 за поддръжката*/
         int tolerance = 2;
-        super.changeTolerance(tolerance);
+        this.changeTolerance(tolerance);
         for(int i=0;i<people.length;i++){
             if(people[i]!=null){
                 if(people[i] instanceof MaintenanceEmployee){
