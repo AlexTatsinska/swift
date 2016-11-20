@@ -8,7 +8,7 @@
  *
  * @author AlexT
  */
-public abstract class Person {
+public abstract class Person implements Work {
 
     private String name;
     private String phone;
@@ -32,9 +32,10 @@ public abstract class Person {
         return tolerance;
     }
 
-    int setTolerance(int toleranceChange) {
+    int changeTolerance(int toleranceChange) {
         tolerance = tolerance + toleranceChange;
         return tolerance;
     }
+    
 
 }

@@ -10,8 +10,23 @@
  */
 public class MaintenanceEmployee extends Employee {
 
-    public MaintenanceEmployee(String name, String phone) {
-        super(name, phone);
+    public MaintenanceEmployee(String name, String phone, double salary) {
+        super(name, phone, salary);
     }
+    @Override
+    public double work(Person[] people) {
+        double balance = 0;
+/*+2 за всички*/
+        int tolerance;
+        balance = balance -super.getSalaryPerHour();
+        for(int i=0;i<people.length;i++){
+            if(people[i]!=null){               
+                    tolerance = 2;
+                    people[i].changeTolerance(tolerance);                
+            }           
+        }        
+        return balance;
+    }
+
 
 }

@@ -12,9 +12,35 @@ public class AdministrationEmployee extends Employee {
 
     private String[] disciplines;
 
-    public AdministrationEmployee(String name, String phone, String[] disciplines) {
-        super(name, phone);
+    public AdministrationEmployee(String name, String phone, double salary, String[] disciplines) {
+        super(name, phone, salary);
         this.disciplines = disciplines;
     }
+    @Override
+    public double work(Person[] people) {
+        double balance = 0;
+/*+3 за всеки студент
++3 за всеки учител
++1 за поддръжката*/
+        int tolerance;
+        balance = balance -super.getSalaryPerHour();
+        for(int i=0;i<people.length;i++){
+            if(people[i]!=null){
+                if(people[i] instanceof MaintenanceEmployee){
+                    tolerance = 1;
+                    people[i].changeTolerance(tolerance);
+                } else if (people[i] instanceof Teacher){
+                    tolerance = 3;
+                    people[i].changeTolerance(tolerance);
+                }
+                else if (people[i] instanceof Student){
+                    tolerance = 3;
+                    people[i].changeTolerance(tolerance);
+                }
+            }           
+        }        
+        return balance;
+    }
+
 
 }

@@ -19,4 +19,27 @@ public class Student extends Person {
         this.disciplines = disciplines;
     }
 
+    @Override
+    public double work(Person[] people) {
+        double balance = 0;
+        /*Студент
++2 за студента
+-1 за поддръжката*/
+        int tolerance = 2;
+        super.changeTolerance(tolerance);
+        for(int i=0;i<people.length;i++){
+            if(people[i]!=null){
+                if(people[i] instanceof MaintenanceEmployee){
+                    tolerance = -1;
+                    people[i].changeTolerance(tolerance);
+                }
+            }
+            
+        }
+        if (super.getTolerance() >= 50) {
+            balance = balance + 10;
+        }
+        return balance;
+    }
+
 }

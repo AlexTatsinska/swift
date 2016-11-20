@@ -8,13 +8,23 @@
  *
  * @author AlexT
  */
-public class Employee extends Person{
+public abstract class Employee extends Person{
    private double salaryPerHour;
 
-    public Employee(String name, String phone) {
+    public Employee(String name, String phone, double salary) {
         super(name, phone);
-        this.salaryPerHour = 0.00;
+        this.salaryPerHour = salaryPerHour;
         
     }
+   double getSalaryPerHour(){
+       return salaryPerHour;
+   }
+
+   // @Override
+   // public double work() {
+   //     double balance = 0;
+    //    balance = balance-salaryPerHour;
+      //  return balance;    
+      //      }
     
 }
