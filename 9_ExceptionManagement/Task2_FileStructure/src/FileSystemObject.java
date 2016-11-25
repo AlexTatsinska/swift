@@ -17,15 +17,13 @@ public abstract class FileSystemObject {
         this.parent = parent;
         this.name = name;
     }
-
     String getName() {
         return name;
     }
-
     String getParent() {
         return parent;
     }
-
-    abstract void isExist(String name, FileSystemObject[] folder);
-   
+    abstract boolean isParentExist(String name, FileSystemObject[] folder); 
+    abstract boolean isNameExist(String name, FileSystemObject[] folder); 
+       
 }
