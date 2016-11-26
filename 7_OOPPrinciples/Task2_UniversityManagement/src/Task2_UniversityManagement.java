@@ -1,4 +1,7 @@
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -11,113 +14,77 @@ import java.util.Scanner;
  * @author AlexT
  */
 public class Task2_UniversityManagement {
-    
 
     public static void main(String[] args) {
+        double balance = 500;
+
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        Person newUnivesity = null;
-        Person[] people = new Person[20];
-        double balance = 500;
-        int count = 0;
+
+        Person newPerson = null;
+        List<Person> people = new ArrayList<>();
+
         while (!input.equals("END")) {
             //NEW <MAINT|ADMIN|TEACH|STUD> <name> <phoneNo> [<facultyNo>] [<предмет1> <предмет2> ... <предметN>]
             String[] split = input.split(" ");
-            if (split[0].equals("NEW")) {
-                double salary;
-                String command = split[1];
-                String name = split[2];
-                String phone = split[3];
-                switch (command) {
-                    case "MAINT":
-                        salary = 15;
-                        MaintenanceEmployee maintenanceEmployee = new MaintenanceEmployee(name, phone, salary);
-                        newUnivesity = maintenanceEmployee;
-                        count++;
-                        break;
-                    case "ADMIN":
-                        salary =19;
-                        String[] disciplines = new String[split.length - 4];
-                        for (int i = 0; i < disciplines.length; i++) {
-                            for (int j = split.length - 5; j > 0; j--) {
-                                disciplines[i] = split[j];
-                            }
-                        }
-                        AdministrationEmployee administrationEmployee = new AdministrationEmployee(name, phone,salary, disciplines);
-                        newUnivesity = administrationEmployee;
-                        count++;
-                        break;
-                    case "TEACH":
-                        salary = 25;
-                        String[] disciplines1 = new String[split.length - 4];
-                        for (int i = 0; i < disciplines1.length; i++) {
-                            for (int j = split.length - 5; j > 0; j--) {
-                                disciplines1[i] = split[j];
-                            }
-                        }
-                        Teacher teacher = new Teacher(name, phone,salary, disciplines1);
-                        newUnivesity = teacher;
-                        count++;
-                        break;
-                    case "STUD":
-                        String[] disciplines2 = new String[split.length - 4];
-                        for (int i = 0; i < disciplines2.length; i++) {
-                            for (int j = split.length - 6; j > 0; j--) {
-                                disciplines2[i] = split[j];
-                            }
-                        }
-                        String facultyNumber = split[4];
-                        Student student = new Student(name, phone, facultyNumber, disciplines2);
-                        newUnivesity = student;
-                        count++;
-                        break;
-                }
-                for (int i =0;i<people.length;i++){
-                    if((people[i])==null&&(count<=500)){
-                        people[i]=newUnivesity;
-                        break;
+            switch (split[0]) {
+                case "NEW":
+                    String command = split[1];
+                    String name = split[2];
+                    String phone = split[3];
+                    switch (command) {
+                        case "MAINT":
+                            newPerson = new MaintenanceEmployee(name, phone);
+                            break;
+                        case "ADMIN":
+                            newPerson = new AdministrationEmployee(name, phone, Arrays.copyOfRange(split, 5, split.length - 1));
+                            break;
+                        case "TEACH":
+                            newPerson = new Teacher(name, phone, Arrays.copyOfRange(split, 5, split.length - 1));
+                            break;
+                        case "STUD":
+                            String facultyNumber = split[4];
+                            newPerson = new Student(name, phone, facultyNumber, Arrays.copyOfRange(split, 5, split.length - 1));
+                            break;
                     }
-                    
-                } input = sc.nextLine();
-            } else if (split[0].equals("WORK")) {
-                for(int i=0;i<people.length;i++){
-                    if(people[i]!=null){
-                        if(balance>0){
-                          if(people[i].getName().equals(split[1])){
-                                balance = balance+people[i].work(people);
-                                
-                            if ( people[i].getTolerance() <= 0) {
-                                System.out.println(people[i].getName() + " is not happy.");                                
-                                return; 
-                                        }                                                                             
-                            }                                     
-                                  } else {
-                                      System.out.println("Bankrupcy");
-                                      return;
-                                  }
-                              } else{
-                        break;
-                    }      
+                    people.add(newPerson);
                     break;
-                          }
-                input = sc.nextLine();
+                case "WORK":
+                    balance += findPerson(people, split[1]).work(people);
+                    if (balance <= 0) {
+                        System.out.println("Bankrupcy");
+                        return;
                     }
-else if (split[0].equals("IDLE")) {
-                for (int i = 0; i < people.length; i++) {
-                    if (people[i] != null) {
-                        int tolerance = -5;
-                        people[i].changeTolerance(tolerance);
-                        if(people[i].getTolerance()<=0){
-                           System.out.println(people[i].getName() + " is not happy."); 
-                           return;
-                        }
+                    if (anyUntolerant(people)) {
+                        return;
                     }
-                }
-                input = sc.nextLine();
+                    break;
+                case "IDLE":
+                    for (Person person : people) {
+                        person.increaseTolerance(-5);
+                    }
+                    if (anyUntolerant(people)) {
+                        return;
+                    }
+                    break;
+                default:
+                    break;
             }
+            input = sc.nextLine();
         }
     }
+
+    private static boolean anyUntolerant(List<Person> people) {
+        for (Person person : people) {
+            if (person.getTolerance() <= 0) {
+                System.out.println(person.getName() + " is not happy.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Person findPerson(List<Person> people, String name) {
+        return people.stream().filter(x -> x.getName().equals(name)).findFirst().get();
+    }
 }
-            
-
-

@@ -32,7 +32,7 @@ public abstract class Person implements Work {
         return tolerance;
     }
 
-    int changeTolerance(int toleranceChange) {
+    int increaseTolerance(int toleranceChange) {
         tolerance = tolerance + toleranceChange;
         return tolerance;
     }

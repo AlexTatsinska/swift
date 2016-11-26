@@ -9,11 +9,11 @@
  * @author AlexT
  */
 public abstract class Employee extends Person{
-   private double salaryPerHour;
+   private final double salaryPerHour;
 
     public Employee(String name, String phone, double salary) {
         super(name, phone);
-        this.salaryPerHour = salaryPerHour;
+        this.salaryPerHour = salary;
         
     }
    double getSalaryPerHour(){

@@ -1,9 +1,11 @@
+
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author AlexT
@@ -19,27 +21,22 @@ public class Student extends Person {
         this.disciplines = disciplines;
     }
 
-    @Override
-    public double work(Person[] people) {
-        double balance = 0;
-        /*Студент
+    /*Студент
 +2 за студента
 -1 за поддръжката*/
-        int tolerance = 2;
-        this.changeTolerance(tolerance);
-        for(int i=0;i<people.length;i++){
-            if(people[i]!=null){
-                if(people[i] instanceof MaintenanceEmployee){
-                    tolerance = -1;
-                    people[i].changeTolerance(tolerance);
-                }
-            }
-            
+    @Override
+    public double work(List<Person> people) {
+
+        this.increaseTolerance(2);
+        people.stream().filter((person) -> (person instanceof MaintenanceEmployee)).forEach((person) -> {
+            person.increaseTolerance(-1);
+        });
+
+        if (this.getTolerance() >= 50) {
+            return 10;
         }
-        if (super.getTolerance() >= 50) {
-            balance = balance + 10;
-        }
-        return balance;
+
+        return 0;
     }
 
 }
