@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,55 +13,21 @@
  * @author AlexT
  */
 public class FolderObject extends FileSystemObject {
+     public List<FileSystemObject> children;
 
-    public String children[];
-
-    public FolderObject(String parent, String name, String[] children) {
+    public FolderObject(FolderObject parent, String name) {   
         super(parent, name);
-        this.children = children;
+        this.children = new ArrayList<>();       
     }
 
-    String[] getChildren() {
+    List<FileSystemObject> getChildren() {
         return children;
     }
 
-    void setChildren(String children,FileSystemObject dyrectory) {       
-        for (int i = 0; i < this.getChildren().length; i++) {
-            for (int j = 0; j <= this.children.length - 1; j++) {
-                this.children[i] = children;
-            }
-        }
-
+    void addChild(FileSystemObject obj){
+        children.add(obj);
     }
 
-    @Override
-    boolean isParentExist(String name, FileSystemObject[] folder) {
-        boolean result = false;
-        for (int i = 0; i < folder.length; i++) {
-            if (folder[i] instanceof FolderObject) {
-                if (folder[i].getParent() == name) {
-                    result = true;
-                    break;
-                } else if (i == folder.length) {
-                    result = false;
-                }
-            }
-        }
-        return result;
-    }
-    @Override
-    boolean isNameExist(String name, FileSystemObject[] folder) {
-        boolean result = false;
-        for (int i = 0; i < folder.length; i++) {
-            if (folder[i] instanceof FolderObject) {
-                if (folder[i].getName() == name) {
-                    result = true;
-                    break;
-                } else if (i == folder.length) {
-                    result = false;
-                }
-            }
-        }
-        return result;
-    }
+   
+    
 }

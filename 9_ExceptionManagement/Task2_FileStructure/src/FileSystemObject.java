@@ -10,20 +10,44 @@
  */
 public abstract class FileSystemObject {
 
-    private String parent;
+    private FileSystemObject parent;
     private String name;
 
-    FileSystemObject(String parent, String name) {
-        this.parent = parent;
-        this.name = name;
+    FileSystemObject(FileSystemObject parent, String name) {
+        if (checkName(name) == false) {
+            throw (new IllegalArgumentException("Invalid name specified"));            
+        } else {
+            this.parent = parent;
+            this.name = name;
+        }
     }
+
     String getName() {
         return name;
     }
-    String getParent() {
+
+    FileSystemObject getParent() {
         return parent;
     }
-    abstract boolean isParentExist(String name, FileSystemObject[] folder); 
-    abstract boolean isNameExist(String name, FileSystemObject[] folder); 
-       
+
+    boolean checkName(String name) {
+        boolean result = false;
+        String check = "ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefjhijklmnopqrstuvwxyz";
+        char[] nameArr = name.toCharArray();
+
+        if (name.length() > 0 && name != null) {
+            for (int i = 0; i < nameArr.length; i++) {
+                if (i > 0) {
+                    check = check + "()_!.&";
+                    String checkName = "" + nameArr[i];
+                    result = check.contains(checkName);
+                } else if (i == 0) {
+                    String checkName = "" + nameArr[i];
+                    result = check.contains(checkName);
+                }
+            }
+        }
+        return result;
+    }
+
 }

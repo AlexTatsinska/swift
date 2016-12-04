@@ -8,17 +8,11 @@
  *
  * @author AlexT
  */
-public class FileObject extends FileSystemObject {
-    public FileObject(String parent, String name) {
+public class FileObject extends FileSystemObject{
+    public FileObject(FolderObject parent, String name) {
         super(parent, name);
     }
-    @Override
-    boolean isParentExist(String name, FileSystemObject[] folder) throws IllegalArgumentException { 
-        return true;
-    }
-    @Override
-    boolean isNameExist(String name, FileSystemObject[] folder) throws IllegalArgumentException { 
-        return true;
-    }
 
+    
+    
 }
