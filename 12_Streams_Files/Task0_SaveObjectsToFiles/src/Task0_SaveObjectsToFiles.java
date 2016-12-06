@@ -1,7 +1,9 @@
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import static java.lang.System.out;
 import java.time.LocalDate;
@@ -30,6 +32,16 @@ public class Task0_SaveObjectsToFiles {
             oos.writeObject(movie);
             System.out.println("Done");
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        try (ObjectInputStream oos
+                = new ObjectInputStream(new FileInputStream("taskTest/Test.txt"))) {
+            Movie newMovie = (Movie) oos.readObject();
+
+            System.out.println(movie.compareMovie(newMovie));
+            //System.out.println(newMovie.director+" "+newMovie.title+" "+newMovie.releaseDate+" "+movie.releaseDate);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
