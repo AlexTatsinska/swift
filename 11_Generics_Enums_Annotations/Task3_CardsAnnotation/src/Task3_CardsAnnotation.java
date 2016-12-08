@@ -24,7 +24,19 @@ public class Task3_CardsAnnotation {
         for (Annotation annotation : card.getClass().getDeclaredAnnotations()) {
             String classInfo = card.getClass().toString();
             String annotationInfo = annotation.toString();
-            System.out.println(classInfo.substring(classInfo.lastIndexOf(" ")+1)+" "+classInfo.substring(classInfo.indexOf(classInfo), 0)+" "+annotationInfo.substring(annotationInfo.indexOf("Represents"), annotationInfo.indexOf(")")));
+            System.out.println(classInfo.substring(classInfo.lastIndexOf(" ")+1)+" "+classInfo.substring(classInfo.indexOf(classInfo),classInfo.lastIndexOf(" "))+" "+annotationInfo.substring(annotationInfo.lastIndexOf("=")+1, annotationInfo.indexOf(")")));
+            
+        }
+        for (Annotation annotation : card.getRank().getClass().getDeclaredAnnotations()) {
+            String classInfo = card.getRank().getClass().toString();
+            String annotationInfo = annotation.toString();
+            System.out.println(classInfo.substring(classInfo.lastIndexOf(" ")+1)+" "+classInfo.substring(classInfo.indexOf(classInfo),classInfo.lastIndexOf(" "))+" "+annotationInfo.substring(annotationInfo.lastIndexOf("=")+1, annotationInfo.indexOf(")")));
+            
+        }
+        for (Annotation annotation : card.getSuit().getClass().getDeclaredAnnotations()) {
+            String classInfo = card.getSuit().getClass().toString();
+            String annotationInfo = annotation.toString();
+            System.out.println(classInfo.substring(classInfo.lastIndexOf(" ")+1)+" "+classInfo.substring(classInfo.indexOf(classInfo),classInfo.lastIndexOf(" "))+" "+annotationInfo.substring(annotationInfo.lastIndexOf("=")+1, annotationInfo.indexOf(")")));
             
         }
     }
