@@ -16,10 +16,17 @@ public class Task3_CardsAnnotation {
         Card card = new Card(CardRank.King, CardSuit.Diamonds);
 
         //String result = card.getClass().getAnnotations().toString();
-        //System.out.println(result);
-        System.out.println(card.getClass());
-        System.out.println(card.getRank().getClass());
-        System.out.println(card.getSuit().getClass());
+        
+       // System.out.println(card.getClass());
+        //System.out.println(card.getRank().getClass());
+        //System.out.println(card.getSuit().getClass());
+
+        for (Annotation annotation : card.getClass().getDeclaredAnnotations()) {
+            String classInfo = card.getClass().toString();
+            String annotationInfo = annotation.toString();
+            System.out.println(classInfo.substring(classInfo.lastIndexOf(" ")+1)+" "+classInfo.substring(classInfo.indexOf(classInfo), 0)+" "+annotationInfo.substring(annotationInfo.indexOf("Represents"), annotationInfo.indexOf(")")));
+            
+        }
     }
 
 }
