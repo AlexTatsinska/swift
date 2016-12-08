@@ -33,15 +33,12 @@ public class Task3_CardsAnnotation {
             System.out.println(classInfo.substring(classInfo.lastIndexOf(" ") + 1) + " " + classInfo.substring(classInfo.indexOf(classInfo), classInfo.lastIndexOf(" ")) + " " + annotationInfo.substring(annotationInfo.lastIndexOf("=") + 1, annotationInfo.indexOf(")")));
 
         }
-      //  printInfo(card.getClass().toString(),card.getClass().getDeclaredAnnotations().toString());
+        //  printInfo(card.getClass().toString(),card.getClass().getDeclaredAnnotations().toString());
     }
 
-   // static void printInfo( String classInfo, String annotationInfo) {
-        
+    // static void printInfo(Annotation[] annotations, String classInfo, String annotationInfo) {
+    // for (Annotation annotation : annotations) {
     //        System.out.println(classInfo.substring(classInfo.lastIndexOf(" ") + 1) + " " + classInfo.substring(classInfo.indexOf(classInfo), classInfo.lastIndexOf(" ")) + " " + annotationInfo.substring(annotationInfo.lastIndexOf("=") + 1, annotationInfo.indexOf(")")));
-
-        
-
-  //  }
-
+//}
+    //  }
 }
