@@ -20,16 +20,16 @@ public class MySqlSchoolData {
 
     /*
      insertTeacher
- getTeacher (by ID)
- getTeachers (with salary between X and Y)
- insertStudent
+ getTeacher (by ID) ready
+ getTeachers (with salary between X and Y) ready
+ insertStudent ready
  getStudent (by ID)
  getStudents (with enrollmentDate after date X)
  getDisciplinesByTeacherId (by teacher ID, retrieves all disciplines he/she is teaching)
  getTeachersByDisciplineName (by discipline name, retrieves all teachers that are teaching it)
     
      */
-    static public StringBuilder getTeacher(int id) throws SQLException {
+    public static StringBuilder getTeacher(int id) throws SQLException {
         StringBuilder result = new StringBuilder();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/school", "root", "SwiftTraining1");
                 PreparedStatement statement = conn.prepareStatement(
@@ -59,7 +59,7 @@ public class MySqlSchoolData {
         return result;
     }
 
-    static public StringBuilder getTeachers(double salary1, double salary2) throws SQLException {
+    public static StringBuilder getTeachers(double salary1, double salary2) throws SQLException {
         StringBuilder result = new StringBuilder();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/school", "root", "SwiftTraining1");
                 PreparedStatement statement = conn.prepareStatement(
@@ -92,6 +92,15 @@ public class MySqlSchoolData {
             }
         }
         return result;
+    }
+
+    public static void insertStudent(String name, String date) throws SQLException {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/school", "root", "SwiftTraining1");
+                PreparedStatement statement = conn.prepareStatement("INSERT INTO `school`.`students` (`name`, `enrollment_date`) VALUES (?, ?);")) {
+            statement.setString(1, name);
+            statement.setString(2, date);
+            statement.execute();
+        }
     }
 
 }
