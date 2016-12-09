@@ -34,6 +34,7 @@ public class Task3_CardsAnnotation {
             System.out.println(classInfo.substring(classInfo.lastIndexOf(" ") + 1) + " " + classInfo.substring(classInfo.indexOf(classInfo), classInfo.lastIndexOf(" ")) + " " + annotationInfo.substring(annotationInfo.lastIndexOf("=") + 1, annotationInfo.indexOf(")")));
 
         }*/
+        
         printInfo(card.getClass().getDeclaredAnnotations(), card.getClass().toString(), Arrays.toString(card.getClass().getDeclaredAnnotations()));
         printInfo(card.getRank().getClass().getDeclaredAnnotations(), card.getSuit().getClass().toString(), Arrays.toString(card.getRank().getClass().getDeclaredAnnotations()));
         printInfo(card.getSuit().getClass().getDeclaredAnnotations(), card.getRank().getClass().toString(), Arrays.toString(card.getSuit().getClass().getDeclaredAnnotations()));
@@ -41,8 +42,8 @@ public class Task3_CardsAnnotation {
     }
 
     static void printInfo(Annotation[] annotations, String classInfo, String annotationInfo) {
-        for (Annotation annotation : annotations) {
-            System.out.println(classInfo.substring(classInfo.lastIndexOf(" ") + 1) + " " + classInfo.substring(classInfo.indexOf(classInfo), classInfo.lastIndexOf(" ")) + " " + annotationInfo.substring(annotationInfo.lastIndexOf("=") + 1, annotationInfo.indexOf(")")));
+        for (Annotation annotation : annotations) {            
+            System.out.println(classInfo.substring(classInfo.lastIndexOf(" ") + 1) + " " + annotationInfo.substring(annotationInfo.indexOf("type=")+5, annotationInfo.indexOf(",")) + " " + annotationInfo.substring(annotationInfo.lastIndexOf("=") + 1, annotationInfo.indexOf(")")));
         }
     }
 }
