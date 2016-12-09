@@ -103,4 +103,35 @@ public class MySqlSchoolData {
         }
     }
 
+    public static StringBuilder getStudent(int id) throws SQLException {
+        StringBuilder result = new StringBuilder();
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/school", "root", "SwiftTraining1");
+                PreparedStatement statement = conn.prepareStatement(
+                        "select\n"
+                        + "st.name,\n"
+                        + "st.enrollment_date\n"
+                        + "from \n"
+                        + "school.students st\n"
+                        + "where\n"
+                        + "st.id =  ?;")) {
+            statement.setInt(1, id);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    result = result.append(String.format("Name: %s - enrollment_date: %s.%n", rs.getString("st.name"),
+                            rs.getString("st.enrollment_date")));
+                }
+            }
+        } catch (SQLException ex) {
+
+            while (ex != null) {
+                System.out.println(ex.getSQLState());
+                System.out.println(ex.getMessage());
+                System.out.println(ex.getErrorCode());
+                ex = ex.getNextException();
+            }
+        }
+        return result;
+    }
+
 }

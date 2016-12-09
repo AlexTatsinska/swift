@@ -22,6 +22,8 @@ public class Task1_School {
         System.out.println("Teachers with salary between 1700 and 1900:");
         System.out.println(MySqlSchoolData.getTeachers(1700, 1900));
         // MySqlSchoolData.insertStudent("Georgi Sirakov", "2000-11-18");
+        System.out.println("Student with id = 3:");
+        System.out.println(MySqlSchoolData.getStudent(3));
     }
 
 }
