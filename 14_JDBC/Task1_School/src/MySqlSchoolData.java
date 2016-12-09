@@ -23,8 +23,8 @@ public class MySqlSchoolData {
  getTeacher (by ID) ready
  getTeachers (with salary between X and Y) ready
  insertStudent ready
- getStudent (by ID)
- getStudents (with enrollmentDate after date X)
+ getStudent (by ID) ready
+ getStudents (with enrollmentDate after date X) rady
  getDisciplinesByTeacherId (by teacher ID, retrieves all disciplines he/she is teaching)
  getTeachersByDisciplineName (by discipline name, retrieves all teachers that are teaching it)
     
@@ -115,6 +115,39 @@ public class MySqlSchoolData {
                         + "where\n"
                         + "st.id =  ?;")) {
             statement.setInt(1, id);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    result = result.append(String.format("Name: %s - enrollment_date: %s.%n", rs.getString("st.name"),
+                            rs.getString("st.enrollment_date")));
+                }
+            }
+        } catch (SQLException ex) {
+
+            while (ex != null) {
+                System.out.println(ex.getSQLState());
+                System.out.println(ex.getMessage());
+                System.out.println(ex.getErrorCode());
+                ex = ex.getNextException();
+            }
+        }
+        return result;
+    }
+
+    public static StringBuilder getStudents(String minDate, String maxDate) throws SQLException {
+        StringBuilder result = new StringBuilder();
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/school", "root", "SwiftTraining1");
+                PreparedStatement statement = conn.prepareStatement(
+                        "select\n"
+                        + "st.name,\n"
+                        + "st.enrollment_date\n"
+                        + "from \n"
+                        + "school.students st\n"
+                        + "where\n"
+                        + "st.enrollment_date >= ?\n"
+                        + "and st.enrollment_date <= ?")) {
+            statement.setString(1, minDate);
+            statement.setString(2, maxDate);
 
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {

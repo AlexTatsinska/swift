@@ -24,6 +24,8 @@ public class Task1_School {
         // MySqlSchoolData.insertStudent("Georgi Sirakov", "2000-11-18");
         System.out.println("Student with id = 3:");
         System.out.println(MySqlSchoolData.getStudent(3));
+        System.out.println("Students with enrollment_date between 2001-01-01 and 2010-01-01:");
+        System.out.println(MySqlSchoolData.getStudents("2001-01-01", "2010-01-01"));
     }
 
 }
