@@ -43,7 +43,7 @@ public class MySqlSchoolData {
 
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    result = result.append(String.format("Name: %s - email: %s, salary: %.2f.%n", rs.getString("tch.name"),
+                    result.append(String.format("Name: %s - email: %s, salary: %.2f.%n", rs.getString("tch.name"),
                             rs.getString("tch.email"), rs.getDouble("tch.salary")));
                 }
             }
