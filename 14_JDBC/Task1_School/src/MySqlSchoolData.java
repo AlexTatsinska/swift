@@ -29,7 +29,7 @@ public class MySqlSchoolData {
  getTeachersByDisciplineName (by discipline name, retrieves all teachers that are teaching it)
     
      */
-    public static StringBuilder getTeacher(int id) throws SQLException {
+    public static String getTeacher(int id) throws SQLException {
         StringBuilder result = new StringBuilder();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/school", "root", "SwiftTraining1");
                 PreparedStatement statement = conn.prepareStatement(
@@ -56,7 +56,7 @@ public class MySqlSchoolData {
                 ex = ex.getNextException();
             }
         }
-        return result;
+        return result.toString();
     }
 
     public static StringBuilder getTeachers(double salary1, double salary2) throws SQLException {
