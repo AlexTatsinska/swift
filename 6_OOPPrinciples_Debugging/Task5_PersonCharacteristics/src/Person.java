@@ -84,20 +84,20 @@ public class Person {
         String hisOrHer;
         if (gender == "M") {
             heOrShe = "He";
-            hisOrHer = "She";
+            hisOrHer = "His";
         } else {
-            heOrShe = "His";
+            heOrShe = "She";
             hisOrHer = "Her";
             //   System.out.println(firstName + " " + lastName + " is " + getAge() + " years old. Her weight is " + weight + " and she is " + height + " cm tall. She is a " + profession + " with an average grade of " + getAvrGrade() + "." + firstName + " " + lastName + " is under-aged.");
         }
         if (getAge() < 18) {
-          if(education.isGraduated()){
+          if(education.isGraduated()==true){
         result = firstName+" "+lastName+ " " + lastName + " is " + getAge() + " years old. "+heOrShe+"  was born in "+dateOfBirth.getYear()+". "+heOrShe+" started "+education.getInstitutionName()+" on "+education.getEnrollmentDate()+" and finished on "+education.getGraduationDate()+" with a grade of "+education.getFinalGrade()+ "." + firstName + " " + lastName + " is under-aged.";        
           } else {
          result = firstName+" "+lastName+ " " + lastName + " is " + getAge() + " years old. "+heOrShe+"  was born in "+dateOfBirth.getYear()+". "+heOrShe+" started "+education.getInstitutionName()+" on "+education.getEnrollmentDate()+" and is supposed to graduate on "+education.getGraduationDate()+"." + firstName + " " + lastName + " is under-aged.";      
           }
         } else {
-            if(education.isGraduated()){
+            if(education.isGraduated()==true){
         result = firstName+" "+lastName+ " " + lastName + " is " + getAge() + " years old. "+heOrShe+"  was born in "+dateOfBirth.getYear()+". "+heOrShe+" started "+education.getInstitutionName()+" on "+education.getEnrollmentDate()+" and finished on "+education.getGraduationDate()+" with a grade of "+education.getFinalGrade()+ ".";        
           } else {
          result = firstName+" "+lastName+ " " + lastName + " is " + getAge() + " years old. "+heOrShe+"  was born in "+dateOfBirth.getYear()+". "+heOrShe+" started "+education.getInstitutionName()+" on "+education.getEnrollmentDate()+" and is supposed to graduate on "+education.getGraduationDate()+".";      
