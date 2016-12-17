@@ -32,5 +32,16 @@ public class Task0a_FindIntegers {
             System.out.printf("Found match [%s] at index [%d]%n", matcher.group(), matcher.start());
         }
     }
+    private static int countOfRegexMatches(String input, String pattern){
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(input);        
+        int i = 0;
+
+        while (matcher.find()) {
+            i++;            
+        }
+        return i;
+    }
+    
     
 }
