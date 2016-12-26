@@ -8,21 +8,20 @@ import java.sql.DriverManager;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author AlexT
  */
 public class CitizenStorageManagerCLI {
-    
-    public static void main(String[] args) throws SQLException{
-    MySqlAddressStorage addr = new MySqlAddressStorage();
-    //final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations";
-    //final String DBMS_USERNAME = "root";
-    //final String DBMS_PASSWORD = "SwiftTraining1";
-       // String url = DBMS_CONN_STRING+","+DBMS_USERNAME+","+DBMS_PASSWORD;
-        Address address = new Address("Bulgaria", "Sofia","Mladost","1766","saharov 7","25",7,111);
+
+    public static void main(String[] args) throws SQLException {
+        MySqlAddressStorage addr = new MySqlAddressStorage();
+        //final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations";
+        //final String DBMS_USERNAME = "root";
+        //final String DBMS_PASSWORD = "SwiftTraining1";
+        // String url = DBMS_CONN_STRING+","+DBMS_USERNAME+","+DBMS_PASSWORD;
+        Address address = new Address("Bulgaria", "Sofia", "Mladost", "1766", "saharov 7", "25", 7, 111);
         addr.insertAddress(address);
-        
+
     }
 }
