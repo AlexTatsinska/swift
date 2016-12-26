@@ -21,7 +21,7 @@ public class CitizenStorageManagerCLI {
     //final String DBMS_USERNAME = "root";
     //final String DBMS_PASSWORD = "SwiftTraining1";
        // String url = DBMS_CONN_STRING+","+DBMS_USERNAME+","+DBMS_PASSWORD;
-        Address address = new Address("Bulgaria", "Sofia","Mladost","1766","Malinov 77","25",7,111);
+        Address address = new Address("Bulgaria", "Sofia","Mladost","1766","saharov 7","25",7,111);
         addr.insertAddress(address);
         
     }
