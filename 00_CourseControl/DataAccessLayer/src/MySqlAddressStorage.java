@@ -17,13 +17,14 @@ import address.Address;
  * @author AlexT
  */
 public class MySqlAddressStorage implements AddressStorage {
+
     static final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations";
     static final String DBMS_USERNAME = "root";
     static final String DBMS_PASSWORD = "SwiftTraining1";
 
     @Override
     public void insertAddress(Address address) throws SQLException {
-        try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING,DBMS_USERNAME,DBMS_PASSWORD);
+        try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
                 CallableStatement statement = con.prepareCall("{call insert_address(?,?,?,?,?,?,?,?)}")) {
 
             statement.setString("country", address.getCountry());
@@ -36,7 +37,7 @@ public class MySqlAddressStorage implements AddressStorage {
             statement.setInt("apartmentNo", address.getApartmentNo());
 
             statement.executeQuery();
-        } 
+        }
     }
 
 }
