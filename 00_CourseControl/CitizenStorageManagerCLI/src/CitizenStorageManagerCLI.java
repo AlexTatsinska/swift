@@ -26,10 +26,10 @@ public class CitizenStorageManagerCLI {
         //final String DBMS_USERNAME = "root";
         //final String DBMS_PASSWORD = "SwiftTraining1";
         // String url = DBMS_CONN_STRING+","+DBMS_USERNAME+","+DBMS_PASSWORD;
-        Address address = new Address("България", "Козлодуй", "Жк. 2А", "3320", " ", "77", 1, 31);
+        Address address = new Address("България", "Козлодуй", "Жк. 3", "3320", " ", "6", 4, 10);
         addr.insertAddress(address);
         //LocalDate date = LocalDate.parse("1987-06-02", formatter);
-        Citizen person = new Citizen("Петър","Ангелов","Тацински",Gender.Male,180,LocalDate.parse("1956-10-14", formatter));
+        Citizen person = new Citizen("Цветн","Ангелов","Христов",Gender.Male,180,LocalDate.parse("1986-12-19", formatter));
         per.insertPerson(person);
 
     }
