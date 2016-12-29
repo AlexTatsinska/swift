@@ -28,7 +28,7 @@ public class MySqlPersonStorage implements PersonStorage {
     public void insertPerson(Citizen person) throws SQLException {
        // final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
-                CallableStatement statement = con.prepareCall("{call insert_person(?,?,?,?,?,?)}")) {
+                CallableStatement statement = con.prepareCall("{call insert_person(?,?,?,?,?,?,?)}")) {
 
             statement.setString("first_name", person.getFirstName());
             statement.setString("middle_name", person.getMiddleName());
@@ -36,6 +36,7 @@ public class MySqlPersonStorage implements PersonStorage {
             statement.setString("gender", "Мъж");
             statement.setInt("height", person.getHeight());
             statement.setDate("birth_date", (Date.valueOf(person.getDateOfBirth())));
+            statement.setInt("current_address", 0);
             
 
             statement.executeQuery();
