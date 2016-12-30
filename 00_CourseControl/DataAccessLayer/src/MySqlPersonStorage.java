@@ -33,7 +33,7 @@ public class MySqlPersonStorage implements PersonStorage {
             statement.setString("first_name", person.getFirstName());
             statement.setString("middle_name", person.getMiddleName());
             statement.setString("last_name", person.getLastName());
-            statement.setString("gender", "Мъж");
+            statement.setString("gender", person.getGender().toString());
             statement.setInt("height", person.getHeight());
             statement.setDate("birth_date", (Date.valueOf(person.getDateOfBirth())));
             statement.setInt("current_address", 0);
