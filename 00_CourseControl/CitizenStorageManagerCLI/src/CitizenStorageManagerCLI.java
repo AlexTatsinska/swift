@@ -1,5 +1,9 @@
 
 import address.Address;
+import education.Education;
+import education.GradedEducation;
+import education.PrimaryEducation;
+import education.SecondaryEducation;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.time.LocalDate;
@@ -20,17 +24,21 @@ public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        MySqlAddressStorage addr = new MySqlAddressStorage();
-        MySqlPersonStorage per = new MySqlPersonStorage();
+        MySqlAddressStorage address = new MySqlAddressStorage();
+        MySqlPersonStorage person = new MySqlPersonStorage();
+        MySqlEducationStorage addEducation = new MySqlEducationStorage();
         //final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations";
         //final String DBMS_USERNAME = "root";
         //final String DBMS_PASSWORD = "SwiftTraining1";
         // String url = DBMS_CONN_STRING+","+DBMS_USERNAME+","+DBMS_PASSWORD;
-        Address address = new Address("България", "Козлодуй", "Жк. 3", "3320", " ", "6", 4, 10);
-        addr.insertAddress(address);
+        Address newAddress = new Address("България", "Козлодуй", "Жк. 2А", "3320", " ", "22", 4, 15);
+        address.insertAddress(newAddress);
         //LocalDate date = LocalDate.parse("1987-06-02", formatter);
-        Citizen person = new Citizen("Цветн","Ангелов","Христов",Gender.Male,180,LocalDate.parse("1986-12-19", formatter));
-        per.insertPerson(person);
+        Citizen newPerson = new Citizen("Димитър","Андреев","Димитров",Gender.Male,180,LocalDate.parse("1976-02-17", formatter));
+        person.insertPerson(newPerson);
+        PrimaryEducation education = new PrimaryEducation("СОУ Христо Ботев",LocalDate.parse("1996-09-15", formatter),LocalDate.parse("2000-06-30", formatter));
+        Education newEducation = education;
+        addEducation.insertEducation(newEducation);
 
     }
 }
