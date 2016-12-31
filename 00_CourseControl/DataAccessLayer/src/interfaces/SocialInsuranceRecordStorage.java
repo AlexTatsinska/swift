@@ -1,5 +1,7 @@
+package interfaces;
 
-import education.Education;
+
+import insurance.SocialInsuranceRecord;
 import java.sql.SQLException;
 
 /*
@@ -12,6 +14,7 @@ import java.sql.SQLException;
  *
  * @author AlexT
  */
-public interface EducationStorage {
-    public void insertEducation(Education education) throws SQLException;
+public interface SocialInsuranceRecordStorage {
+     public void insertSocialInsurance(SocialInsuranceRecord socialInsurance) throws SQLException;
+    
 }

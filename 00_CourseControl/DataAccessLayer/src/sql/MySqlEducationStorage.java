@@ -1,4 +1,7 @@
+package sql;
 
+
+import interfaces.EducationStorage;
 import education.Education;
 import education.GradedEducation;
 import java.sql.CallableStatement;

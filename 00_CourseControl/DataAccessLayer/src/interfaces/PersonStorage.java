@@ -1,6 +1,9 @@
+package interfaces;
 
-import insurance.SocialInsuranceRecord;
+
+
 import java.sql.SQLException;
+import personaldetails.Citizen;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author AlexT
  */
-public interface SocialInsuranceRecordStorage {
-     public void insertSocialInsurance(SocialInsuranceRecord socialInsurance) throws SQLException;
-    
+public interface PersonStorage {
+    public void insertPerson(Citizen person) throws SQLException;
+
 }

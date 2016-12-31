@@ -1,4 +1,7 @@
+package sql;
 
+
+import interfaces.SocialInsuranceRecordStorage;
 import insurance.SocialInsuranceRecord;
 import java.sql.CallableStatement;
 import java.sql.Connection;

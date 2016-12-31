@@ -1,7 +1,8 @@
+package interfaces;
 
 
+import education.Education;
 import java.sql.SQLException;
-import personaldetails.Citizen;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,7 +14,6 @@ import personaldetails.Citizen;
  *
  * @author AlexT
  */
-public interface PersonStorage {
-    public void insertPerson(Citizen person) throws SQLException;
-
+public interface EducationStorage {
+    public void insertEducation(Education education) throws SQLException;
 }
