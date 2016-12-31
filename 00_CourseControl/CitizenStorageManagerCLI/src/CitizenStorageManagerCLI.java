@@ -86,6 +86,16 @@ public class CitizenStorageManagerCLI {
                  //System.out.println(pEducation.getDegree().toString());
                  addEducation.insertEducation(pEducation);
                     break;
+                case "S":
+                    SecondaryEducation sEducation= null;
+                 institution = split[++i];
+                // System.out.println(split[++i]);
+                 enrollmentDate = LocalDate.parse(split[++i], formatter);
+                 graduationDate= LocalDate.parse(split[++i], formatter);
+                 sEducation = new SecondaryEducation(institution,enrollmentDate,graduationDate);
+                 //System.out.println(pEducation.getDegree().toString());
+                 addEducation.insertEducation(sEducation);
+                    break;
 
             }
         }
