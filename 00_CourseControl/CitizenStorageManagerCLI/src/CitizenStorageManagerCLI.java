@@ -25,7 +25,7 @@ import personaldetails.Gender;
 public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException {
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.M.yyyy");
         MySqlAddressStorage addAddress = new MySqlAddressStorage();
         MySqlPersonStorage addPerson = new MySqlPersonStorage();
         MySqlEducationStorage addEducation = new MySqlEducationStorage();
@@ -38,6 +38,10 @@ public class CitizenStorageManagerCLI {
         String[] split = input.split(";");
         Address newAddress = null;
         Citizen newPerson = null;
+        Education newEducation = null;
+        String institution;
+        LocalDate enrollmentDate;
+        LocalDate graduationDate;
         
         String country = split[6];
         String city = split[7];
@@ -69,6 +73,22 @@ public class CitizenStorageManagerCLI {
             newPerson = new Citizen(firstName, middleName, lastName, Gender.Male, height, birthDate);
         }
         addPerson.insertPerson(newPerson);
+        
+        for (int i = 14; i < split.length; i++) {
+            switch (split[i]) {
+                case "P":
+                 PrimaryEducation pEducation= null;
+                 institution = split[++i];
+                // System.out.println(split[++i]);
+                 enrollmentDate = LocalDate.parse(split[++i], formatter);
+                 graduationDate= LocalDate.parse(split[++i], formatter);
+                 pEducation = new PrimaryEducation(institution,enrollmentDate,graduationDate);
+                 //System.out.println(pEducation.getDegree().toString());
+                 addEducation.insertEducation(pEducation);
+                    break;
+
+            }
+        }
         
         /* Address newAddress = new Address("България", "Козлодуй", "Жк. 2", "3320", " ", "25", 4, 15);
         address.insertAddress(newAddress);
