@@ -49,7 +49,7 @@ public class CitizenStorageManagerCLI {
 //for (int i =0;i<split.length;i++){
         //   System.out.println(i+" "+split[i]);
 //}
-        if (!split[12].equals("")) {
+        if (split.length > 12 && !split[12].equals("")) {
             int floor = Integer.parseInt(split[12]);
 
             int apartmentNumber = Integer.parseInt(split[13]);
@@ -73,7 +73,7 @@ public class CitizenStorageManagerCLI {
             newPerson = new Citizen(firstName, middleName, lastName, Gender.Male, height, birthDate);
         }
         addPerson.insertPerson(newPerson);
-        if (split.length > 14) {
+        if (split.length > 13) {
             for (int i = 14; i < split.length; i++) {
                 switch (split[i]) {
                     case "P":
