@@ -39,5 +39,21 @@ public class MySqlAddressStorage implements AddressStorage {
             statement.executeQuery();
         }
     }
+    
+        public void insertShortAddress(Address address) throws SQLException {
+        try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+                CallableStatement statement = con.prepareCall("{call insert_short_address(?,?,?,?,?,?)}")) {
+
+            statement.setString("country", address.getCountry());
+            statement.setString("city", address.getCity());
+            statement.setString("municipality", address.getMunicipality());
+            statement.setString("postal_code", address.getPostalCode());
+            statement.setString("street", address.getStreet());
+            statement.setString("number", address.getNumber());            
+
+            statement.executeQuery();
+        }
+    }
+
 
 }
