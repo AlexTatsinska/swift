@@ -1,7 +1,9 @@
 
 import address.Address;
 import education.Education;
+import education.EducationDegree;
 import education.GradedEducation;
+import education.HigherEducation;
 import education.PrimaryEducation;
 import education.SecondaryEducation;
 import insurance.SocialInsuranceRecord;
@@ -25,7 +27,7 @@ import personaldetails.Gender;
 public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException {
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.M.yyyy");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
         MySqlAddressStorage addAddress = new MySqlAddressStorage();
         MySqlPersonStorage addPerson = new MySqlPersonStorage();
         MySqlEducationStorage addEducation = new MySqlEducationStorage();
@@ -42,7 +44,7 @@ public class CitizenStorageManagerCLI {
         String institution;
         LocalDate enrollmentDate;
         LocalDate graduationDate;
-        
+
         String country = split[6];
         String city = split[7];
         String municipality = split[8];
@@ -73,33 +75,52 @@ public class CitizenStorageManagerCLI {
             newPerson = new Citizen(firstName, middleName, lastName, Gender.Male, height, birthDate);
         }
         addPerson.insertPerson(newPerson);
-        
+
         for (int i = 14; i < split.length; i++) {
             switch (split[i]) {
                 case "P":
-                 PrimaryEducation pEducation= null;
-                 institution = split[++i];
-                // System.out.println(split[++i]);
-                 enrollmentDate = LocalDate.parse(split[++i], formatter);
-                 graduationDate= LocalDate.parse(split[++i], formatter);
-                 pEducation = new PrimaryEducation(institution,enrollmentDate,graduationDate);
-                 //System.out.println(pEducation.getDegree().toString());
-                 addEducation.insertEducation(pEducation);
+                    PrimaryEducation pEducation = null;
+                    institution = split[++i];
+                    // System.out.println(split[++i]);
+                    enrollmentDate = LocalDate.parse(split[++i], formatter);
+                    graduationDate = LocalDate.parse(split[++i], formatter);
+                    pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
+                    //System.out.println(pEducation.getDegree().toString());
+                    addEducation.insertEducation(pEducation);
                     break;
                 case "S":
-                    SecondaryEducation sEducation= null;
-                 institution = split[++i];
-                // System.out.println(split[++i]);
-                 enrollmentDate = LocalDate.parse(split[++i], formatter);
-                 graduationDate= LocalDate.parse(split[++i], formatter);
-                 sEducation = new SecondaryEducation(institution,enrollmentDate,graduationDate);
-                 //System.out.println(pEducation.getDegree().toString());
-                 addEducation.insertEducation(sEducation);
+                    SecondaryEducation sEducation = null;
+                    institution = split[++i];
+                    // System.out.println(split[++i]);
+                    enrollmentDate = LocalDate.parse(split[++i], formatter);
+                    graduationDate = LocalDate.parse(split[++i], formatter);
+                    sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
+                    //System.out.println(pEducation.getDegree().toString());
+                    addEducation.insertEducation(sEducation);
                     break;
-
+                case "B":
+                case "M":
+                case "D":
+                    EducationDegree degree = null;
+                    if (split[i].equals("B")) {
+                        degree = EducationDegree.Bachelor;
+                    } else if (split[i].equals("M")) {
+                        degree = EducationDegree.Master;
+                    } else {
+                        degree = EducationDegree.Doctorate;
+                    }
+                    HigherEducation hEducation = null;
+                    institution = split[++i];
+                    // System.out.println(split[++i]);
+                    enrollmentDate = LocalDate.parse(split[++i], formatter);
+                    graduationDate = LocalDate.parse(split[++i], formatter);
+                    hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
+                    //System.out.println(pEducation.getDegree().toString());
+                    addEducation.insertEducation(hEducation);
+                    break;
             }
         }
-        
+
         /* Address newAddress = new Address("България", "Козлодуй", "Жк. 2", "3320", " ", "25", 4, 15);
         address.insertAddress(newAddress);
         //LocalDate date = LocalDate.parse("1987-06-02", formatter);
