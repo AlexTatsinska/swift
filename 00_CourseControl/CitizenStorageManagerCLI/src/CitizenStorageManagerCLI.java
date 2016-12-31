@@ -35,6 +35,7 @@ public class CitizenStorageManagerCLI {
         Address newAddress = null;
         Citizen newPerson = null;
         Education newEducation = null;
+        SocialInsuranceRecord newInsurance = null;
         String institution;
         LocalDate enrollmentDate;
         LocalDate graduationDate;
@@ -45,9 +46,12 @@ public class CitizenStorageManagerCLI {
         String zip = split[9];
         String street = split[10];
         String number = split[11];
-
-        if (!split[12].equals("") && !split[13].equals("")) {
+//for (int i =0;i<split.length;i++){
+        //   System.out.println(i+" "+split[i]);
+//}
+        if (!split[12].equals("")) {
             int floor = Integer.parseInt(split[12]);
+
             int apartmentNumber = Integer.parseInt(split[13]);
             newAddress = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
             addAddress.insertAddress(newAddress);
@@ -69,44 +73,54 @@ public class CitizenStorageManagerCLI {
             newPerson = new Citizen(firstName, middleName, lastName, Gender.Male, height, birthDate);
         }
         addPerson.insertPerson(newPerson);
-
-        for (int i = 14; i < split.length; i++) {
-            switch (split[i]) {
-                case "P":
-                    PrimaryEducation pEducation = null;
-                    institution = split[++i];
-                    enrollmentDate = LocalDate.parse(split[++i], formatter);
-                    graduationDate = LocalDate.parse(split[++i], formatter);
-                    pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
-                    addEducation.insertEducation(pEducation);
-                    break;
-                case "S":
-                    SecondaryEducation sEducation = null;
-                    institution = split[++i];
-                    enrollmentDate = LocalDate.parse(split[++i], formatter);
-                    graduationDate = LocalDate.parse(split[++i], formatter);
-                    sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
-                    addEducation.insertEducation(sEducation);
-                    break;
-                case "B":
-                case "M":
-                case "D":
-                    EducationDegree degree = null;
-                    if (split[i].equals("B")) {
-                        degree = EducationDegree.Bachelor;
-                    } else if (split[i].equals("M")) {
-                        degree = EducationDegree.Master;
-                    } else {
-                        degree = EducationDegree.Doctorate;
-                    }
-                    HigherEducation hEducation = null;
-                    institution = split[++i];
-                    enrollmentDate = LocalDate.parse(split[++i], formatter);
-                    graduationDate = LocalDate.parse(split[++i], formatter);
-                    hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
-                    addEducation.insertEducation(hEducation);
-                    break;
+        if (split.length > 14) {
+            for (int i = 14; i < split.length; i++) {
+                switch (split[i]) {
+                    case "P":
+                        PrimaryEducation pEducation = null;
+                        institution = split[++i];
+                        enrollmentDate = LocalDate.parse(split[++i], formatter);
+                        graduationDate = LocalDate.parse(split[++i], formatter);
+                        pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
+                        addEducation.insertEducation(pEducation);
+                        break;
+                    case "S":
+                        SecondaryEducation sEducation = null;
+                        institution = split[++i];
+                        enrollmentDate = LocalDate.parse(split[++i], formatter);
+                        graduationDate = LocalDate.parse(split[++i], formatter);
+                        sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
+                        addEducation.insertEducation(sEducation);
+                        break;
+                    case "B":
+                    case "M":
+                    case "D":
+                        EducationDegree degree = null;
+                        if (split[i].equals("B")) {
+                            degree = EducationDegree.Bachelor;
+                        } else if (split[i].equals("M")) {
+                            degree = EducationDegree.Master;
+                        } else {
+                            degree = EducationDegree.Doctorate;
+                        }
+                        HigherEducation hEducation = null;
+                        institution = split[++i];
+                        enrollmentDate = LocalDate.parse(split[++i], formatter);
+                        graduationDate = LocalDate.parse(split[++i], formatter);
+                        hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
+                        addEducation.insertEducation(hEducation);
+                        break;
+                }
             }
+        }
+        input = sc.nextLine();
+        String[] insuranceSplit = input.split(";");
+        for (int i = 0; i < insuranceSplit.length; i++) {
+            int year = Integer.parseInt(insuranceSplit[i]);
+            int month = Integer.parseInt(insuranceSplit[++i]);
+            double amount = Double.parseDouble(insuranceSplit[++i]);
+            newInsurance = new SocialInsuranceRecord(year, month, amount);
+            addSocialInsurance.insertSocialInsurance(newInsurance);
         }
 
         /* 
