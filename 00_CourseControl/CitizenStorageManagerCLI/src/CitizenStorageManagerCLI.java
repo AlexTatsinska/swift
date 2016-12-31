@@ -26,8 +26,8 @@ public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
-        MySqlAddressStorage address = new MySqlAddressStorage();
-        MySqlPersonStorage person = new MySqlPersonStorage();
+        MySqlAddressStorage addAddress = new MySqlAddressStorage();
+        MySqlPersonStorage addPerson = new MySqlPersonStorage();
         MySqlEducationStorage addEducation = new MySqlEducationStorage();
         MySqlSocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage();
 
@@ -38,6 +38,7 @@ public class CitizenStorageManagerCLI {
         String[] split = input.split(";");
         Address newAddress = null;
         Citizen newPerson = null;
+        
         String country = split[6];
         String city = split[7];
         String municipality = split[8];
@@ -49,10 +50,10 @@ public class CitizenStorageManagerCLI {
             int floor = Integer.parseInt(split[12]);
             int apartmentNumber = Integer.parseInt(split[13]);
             newAddress = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
-            address.insertAddress(newAddress);
+            addAddress.insertAddress(newAddress);
         } else {
             newAddress = new Address(country, city, municipality, zip, street, number);
-            address.insertShortAddress(newAddress);
+            addAddress.insertShortAddress(newAddress);
         }
 
         String firstName = split[0];
@@ -67,7 +68,8 @@ public class CitizenStorageManagerCLI {
         } else {
             newPerson = new Citizen(firstName, middleName, lastName, Gender.Male, height, birthDate);
         }
-        person.insertPerson(newPerson);
+        addPerson.insertPerson(newPerson);
+        
         /* Address newAddress = new Address("България", "Козлодуй", "Жк. 2", "3320", " ", "25", 4, 15);
         address.insertAddress(newAddress);
         //LocalDate date = LocalDate.parse("1987-06-02", formatter);
