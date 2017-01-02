@@ -16,4 +16,5 @@ import java.sql.SQLException;
  */
 public interface EducationStorage {
     public void insertEducation(Education education) throws SQLException;
+    public void insertShortEducation(Education education) throws SQLException;
 }

@@ -43,6 +43,7 @@ public class MySqlAddressStorage implements AddressStorage {
         }
     }
     
+    @Override
         public void insertShortAddress(Address address) throws SQLException {
         try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
                 CallableStatement statement = con.prepareCall("{call insert_short_address(?,?,?,?,?,?)}")) {
