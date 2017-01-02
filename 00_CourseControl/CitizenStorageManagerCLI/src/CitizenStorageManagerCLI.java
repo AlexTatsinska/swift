@@ -1,4 +1,8 @@
 
+import sql.MySqlEducationStorage;
+import sql.MySqlAddressStorage;
+import sql.MySqlSocialInsuranceRecordStorage;
+import sql.MySqlPersonStorage;
 import address.Address;
 import education.*;
 import insurance.SocialInsuranceRecord;
@@ -34,11 +38,11 @@ public class CitizenStorageManagerCLI {
         int count = 0;
         Address newAddress = null;
         Citizen newPerson = null;
-        Education newEducation = null;
         SocialInsuranceRecord newInsurance = null;
         String institution;
         LocalDate enrollmentDate;
         LocalDate graduationDate;
+        float finalGrade;
 
         while (count < n) {
             String input = sc.nextLine();
@@ -86,15 +90,15 @@ public class CitizenStorageManagerCLI {
                             enrollmentDate = LocalDate.parse(split[++i], formatter);
                             graduationDate = LocalDate.parse(split[++i], formatter);
                             pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
-                            addEducation.insertEducation(pEducation);
+                            addEducation.insertShortEducation(pEducation);
                             break;
                         case "S":
                             SecondaryEducation sEducation = null;
                             institution = split[++i];
                             enrollmentDate = LocalDate.parse(split[++i], formatter);
-                            graduationDate = LocalDate.parse(split[++i], formatter);
+                            graduationDate = LocalDate.parse(split[++i], formatter);                            
                             sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
-                            addEducation.insertEducation(sEducation);
+                            addEducation.insertEducation(sEducation);           
                             break;
                         case "B":
                         case "M":
