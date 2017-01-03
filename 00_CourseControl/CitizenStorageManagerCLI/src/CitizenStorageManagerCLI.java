@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import personaldetails.Citizen;
-import personaldetails.Gender;
+import personaldetails.*;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
