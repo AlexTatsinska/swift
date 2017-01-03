@@ -99,7 +99,12 @@ public class CitizenStorageManagerCLI {
                             enrollmentDate = LocalDate.parse(split[++i], formatter);
                             graduationDate = LocalDate.parse(split[++i], formatter);                            
                             sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
-                            addEducation.insertEducation(sEducation);           
+                            if (graduationDate.isBefore(LocalDate.now())){
+                                finalGrade = Float.parseFloat(split[++i]);
+                            } else{
+                                finalGrade = -1;
+                            }
+                            addEducation.insertEducation(sEducation, finalGrade);           
                             break;
                         case "B":
                         case "M":
@@ -116,8 +121,13 @@ public class CitizenStorageManagerCLI {
                             institution = split[++i];
                             enrollmentDate = LocalDate.parse(split[++i], formatter);
                             graduationDate = LocalDate.parse(split[++i], formatter);
+                            if (graduationDate.isBefore(LocalDate.now())){
+                                finalGrade = Float.parseFloat(split[++i]);
+                            } else{
+                                finalGrade = -1;
+                            }
                             hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
-                            addEducation.insertEducation(hEducation);
+                            addEducation.insertEducation(hEducation, finalGrade);
                             break;
                     }
                 }
