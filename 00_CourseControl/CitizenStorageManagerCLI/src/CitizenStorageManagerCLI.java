@@ -133,11 +133,5 @@ public class CitizenStorageManagerCLI {
             }
             count++;
         }
-
-        /* 
-        SocialInsuranceRecord newSocialInsurance= new SocialInsuranceRecord(2015,11,322);
-       // System.out.println(newSocialInsurance.getYear());
-        addSocialInsurance.insertSocialInsurance(newSocialInsurance);
-         */
     }
 }
