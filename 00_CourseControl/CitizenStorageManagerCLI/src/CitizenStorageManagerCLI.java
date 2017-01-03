@@ -30,9 +30,14 @@ public class CitizenStorageManagerCLI {
         MySqlSocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage();
         MySqlDeleteDatabase deleteDatabase = new MySqlDeleteDatabase();
         
-        deleteDatabase.deleteDatabase();
+        deleteDatabase.deleteDatabase();   
+        
         System.out.println("Database is empty! Please insert how rows will be added:");
 
+       // System.out.println("Insert Import file path or N for import from console");
+        
+
+        
         Scanner sc = new Scanner(System.in, "UTF-8");
         int n = sc.nextInt();
         sc.nextLine();
@@ -55,9 +60,7 @@ public class CitizenStorageManagerCLI {
             String zip = split[9];
             String street = split[10];
             String number = split[11];
-//for (int i =0;i<split.length;i++){
-            //   System.out.println(i+" "+split[i]);
-//}
+
             if (split.length > 12 && !split[12].equals("")) {
                 int floor = Integer.parseInt(split[12]);
 
