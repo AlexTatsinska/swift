@@ -90,8 +90,9 @@ public class CitizenStorageManagerCLI {
                             institution = split[++i];
                             enrollmentDate = LocalDate.parse(split[++i], formatter);
                             graduationDate = LocalDate.parse(split[++i], formatter);
+                            finalGrade = -1;
                             pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
-                            addEducation.insertShortEducation(pEducation);
+                            addEducation.insertEducation(pEducation, finalGrade);               
                             break;
                         case "S":
                             SecondaryEducation sEducation = null;
