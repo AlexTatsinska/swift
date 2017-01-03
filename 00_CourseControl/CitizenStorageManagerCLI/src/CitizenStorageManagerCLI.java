@@ -1,8 +1,5 @@
 
-import sql.MySqlEducationStorage;
-import sql.MySqlAddressStorage;
-import sql.MySqlSocialInsuranceRecordStorage;
-import sql.MySqlPersonStorage;
+import sql.*;
 import address.Address;
 import education.*;
 import insurance.SocialInsuranceRecord;
@@ -31,6 +28,10 @@ public class CitizenStorageManagerCLI {
         MySqlPersonStorage addPerson = new MySqlPersonStorage();
         MySqlEducationStorage addEducation = new MySqlEducationStorage();
         MySqlSocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage();
+        MySqlDeleteDatabase deleteDatabase = new MySqlDeleteDatabase();
+        
+        deleteDatabase.deleteDatabase();
+        System.out.println("Database is empty! Please insert how rows will be added:");
 
         Scanner sc = new Scanner(System.in, "UTF-8");
         int n = sc.nextInt();
