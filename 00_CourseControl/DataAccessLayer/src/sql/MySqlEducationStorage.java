@@ -40,7 +40,6 @@ public class MySqlEducationStorage implements EducationStorage {
                 statement.setInt("graduated", 0);
             }
             statement.setDouble("final_grade", finalGrade);
-
             statement.setInt("person_id", 0);
 
             statement.executeQuery();
