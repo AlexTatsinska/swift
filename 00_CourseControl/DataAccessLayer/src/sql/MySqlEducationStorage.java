@@ -34,8 +34,10 @@ public class MySqlEducationStorage implements EducationStorage {
             statement.setString("institution_name", education.getInstitutionName());
             statement.setDate("enrollment_date", (Date.valueOf(education.getEnrollmentDate())));
             statement.setDate("graduation_date", (Date.valueOf(education.getGraduationDate())));
- if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
-                statement.setInt("graduated", 1);               
+            if (education.getGraduationDate().isBefore(LocalDate.now())) {
+                statement.setInt("graduated", 1);
+            } else {
+                statement.setInt("graduated", 0);
             }
             statement.setDouble("final_grade", finalGrade);
 
@@ -44,19 +46,4 @@ public class MySqlEducationStorage implements EducationStorage {
             statement.executeQuery();
         }
     }
-
-    @Override
-    public void insertShortEducation(Education education) throws SQLException {
-        try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
-                CallableStatement statement = con.prepareCall("{call insert_short_education(?,?,?,?,?)}")) {
-//type, institution_name, enrollment_date, graduation_date, graduated, final_grade
-            statement.setString("type", education.getDegree().toString());
-            statement.setString("institution_name", education.getInstitutionName());
-            statement.setDate("enrollment_date", (Date.valueOf(education.getEnrollmentDate())));
-            statement.setDate("graduation_date", (Date.valueOf(education.getGraduationDate())));
-
-            statement.executeQuery();
-        }
-    }
-
 }

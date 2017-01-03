@@ -15,6 +15,5 @@ import java.sql.SQLException;
  * @author AlexT
  */
 public interface EducationStorage {
-    public void insertEducation(Education education, float finalGrade) throws SQLException;
-    public void insertShortEducation(Education education) throws SQLException;
+    public void insertEducation(Education education, float finalGrade) throws SQLException;    
 }
