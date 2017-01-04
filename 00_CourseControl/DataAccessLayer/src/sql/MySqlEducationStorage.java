@@ -28,7 +28,7 @@ public class MySqlEducationStorage implements EducationStorage {
     @Override
     public void insertEducation(Education education, float finalGrade) throws SQLException {
         try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
-                CallableStatement statement = con.prepareCall("{call insert_education(?,?,?,?,?,?,?)}")) {
+                CallableStatement statement = con.prepareCall("{call insert_education(?,?,?,?,?,?)}")) {
 //type, institution_name, enrollment_date, graduation_date, graduated, final_grade
             statement.setString("type", education.getDegree().toString());
             statement.setString("institution_name", education.getInstitutionName());
@@ -40,7 +40,6 @@ public class MySqlEducationStorage implements EducationStorage {
                 statement.setInt("graduated", 0);
             }
             statement.setDouble("final_grade", finalGrade);
-            statement.setInt("person_id", 0);
 
             statement.executeQuery();
         }
