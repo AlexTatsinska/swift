@@ -1,8 +1,8 @@
 
 import sql.*;
-import address.Address;
+import address.*;
 import education.*;
-import insurance.SocialInsuranceRecord;
+import insurance.*;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.time.LocalDate;
@@ -52,25 +52,7 @@ public class CitizenStorageManagerCLI {
 
         while (count < n) {
             String input = sc.nextLine();
-            String[] split = input.split(";");
-
-            String country = split[6];
-            String city = split[7];
-            String municipality = split[8];
-            String zip = split[9];
-            String street = split[10];
-            String number = split[11];
-
-            if (split.length > 12 && !split[12].equals("")) {
-                int floor = Integer.parseInt(split[12]);
-
-                int apartmentNumber = Integer.parseInt(split[13]);
-                newAddress = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
-                addAddress.insertAddress(newAddress);
-            } else {
-                newAddress = new Address(country, city, municipality, zip, street, number);
-                addAddress.insertShortAddress(newAddress);
-            }
+            String[] split = input.split(";");            
 
             String firstName = split[0];
             String middleName = split[1];
@@ -85,6 +67,25 @@ public class CitizenStorageManagerCLI {
                 newPerson = new Citizen(firstName, middleName, lastName, Gender.Male, height, birthDate);
             }
             addPerson.insertPerson(newPerson);
+            
+            String country = split[6];
+            String city = split[7];
+            String municipality = split[8];
+            String zip = split[9];
+            String street = split[10];
+            String number = split[11];
+
+            if (split.length > 12 && !split[12].equals("")) {
+                int floor = Integer.parseInt(split[12]);
+                int apartmentNumber = Integer.parseInt(split[13]);
+                
+                newAddress = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
+                addAddress.insertAddress(newAddress);
+            } else {
+                newAddress = new Address(country, city, municipality, zip, street, number);
+                addAddress.insertShortAddress(newAddress);
+            }
+            
             if (split.length > 13) {
                 for (int i = 14; i < split.length; i++) {
                     switch (split[i]) {
