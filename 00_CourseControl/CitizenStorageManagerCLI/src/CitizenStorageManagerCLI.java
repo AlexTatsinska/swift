@@ -12,16 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 import personaldetails.*;
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author AlexT
- */
 public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException {
@@ -35,14 +25,12 @@ public class CitizenStorageManagerCLI {
 
         deleteDatabase.deleteDatabase();
 
-        System.out.println("Database is empty! Please insert how rows will be added:");
+        System.out.println("Database is empty!");
 
-        // System.out.println("Insert Import file path or N for import from console");
         Scanner sc = new Scanner(System.in, "UTF-8");
         int n = sc.nextInt();
         sc.nextLine();
-
-        int count = 0; 
+        int count = 0;
         float finalGrade;
 
         while (count < n) {
@@ -62,11 +50,10 @@ public class CitizenStorageManagerCLI {
                 addAddress.insertAddress(person.getAddress());
             }
             for (Education education : person.getEducations()) {
-                if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())){
+                if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
                     finalGrade = ((GradedEducation) education).getFinalGrade();
-                    
-                }
-                else{
+
+                } else {
                     finalGrade = 0;
                 }
                 addEducation.insertEducation(education, finalGrade);
@@ -74,15 +61,7 @@ public class CitizenStorageManagerCLI {
             for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
                 addSocialInsurance.insertSocialInsurance(socialInsurance);
             }
-            /*if (graduationDate.isBefore(LocalDate.now())) {
-                                finalGrade = Float.parseFloat(split[++i]);
-                            } else {
-                                finalGrade = -1;
-                            }
-                            addEducation.insertEducation(sEducation, finalGrade);*/
-
         }
-
     }
 
     public static void createPerson(List<Citizen> people, String input, String inputInsurance) {
@@ -111,7 +90,6 @@ public class CitizenStorageManagerCLI {
         } else {
             person = new Citizen(firstName, middleName, lastName, Gender.Male, height, birthDate);
         }
-        // addPerson.insertPerson(person);
 
         String country = split[6];
         String city = split[7];
@@ -126,11 +104,9 @@ public class CitizenStorageManagerCLI {
 
             address = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
             person.setAddress(address);
-//addAddress.insertAddress(newAddress);
         } else {
             address = new Address(country, city, municipality, zip, street, number);
             person.setAddress(address);
-            //addAddress.insertShortAddress(newAddress);
         }
 
         if (split.length > 13) {
@@ -143,20 +119,18 @@ public class CitizenStorageManagerCLI {
                         graduationDate = LocalDate.parse(split[++i], formatter);
                         pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
                         person.addEducation(pEducation);
-                        //addEducation.insertEducation(pEducation, finalGrade);
                         break;
                     case "S":
                         SecondaryEducation sEducation = null;
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
-                        sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);                       
+                        sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
                         if (graduationDate.isBefore(LocalDate.now())) {
-                                finalGrade = Float.parseFloat(split[++i]);
-                                ((GradedEducation) sEducation).gotGraduated(finalGrade);
-                            } 
+                            finalGrade = Float.parseFloat(split[++i]);
+                            ((GradedEducation) sEducation).gotGraduated(finalGrade);
+                        }
                         person.addEducation(sEducation);
-                            /*addEducation.insertEducation(sEducation, finalGrade);*/
                         break;
                     case "B":
                     case "M":
@@ -173,14 +147,13 @@ public class CitizenStorageManagerCLI {
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
-                        
+
                         hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
-                       if (graduationDate.isBefore(LocalDate.now())) {
-                                finalGrade = Float.parseFloat(split[++i]);
-                                ((GradedEducation) hEducation).gotGraduated(finalGrade);
-                            } 
+                        if (graduationDate.isBefore(LocalDate.now())) {
+                            finalGrade = Float.parseFloat(split[++i]);
+                            ((GradedEducation) hEducation).gotGraduated(finalGrade);
+                        }
                         person.addEducation(hEducation);
-                        //addEducation.insertEducation(hEducation, finalGrade);
                         break;
                 }
             }
@@ -193,9 +166,7 @@ public class CitizenStorageManagerCLI {
             double amount = Double.parseDouble(insuranceSplit[++i]);
             insurance = new SocialInsuranceRecord(year, month, amount);
             person.addSocialInsuranceRecord(insurance);
-            //addSocialInsurance.insertSocialInsurance(newInsurance);
         }
         people.add(person);
-
     }
 }
