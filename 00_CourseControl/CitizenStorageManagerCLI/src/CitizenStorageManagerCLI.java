@@ -30,16 +30,14 @@ public class CitizenStorageManagerCLI {
         Scanner sc = new Scanner(System.in, "UTF-8");
         int n = sc.nextInt();
         sc.nextLine();
-        int count = 0;
+        int counter = 0;
         float finalGrade;
 
-        while (count < n) {
+        while (counter < n) {
             String input = sc.nextLine();
             String inputInsurance = sc.nextLine();
             createPerson(people, input, inputInsurance);
-
-            count++;
-
+            counter++;
         }
 
         for (Citizen person : people) {
