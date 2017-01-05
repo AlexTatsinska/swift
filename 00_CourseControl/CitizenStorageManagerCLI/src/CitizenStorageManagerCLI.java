@@ -42,8 +42,8 @@ public class CitizenStorageManagerCLI {
         int n = sc.nextInt();
         sc.nextLine();
 
-        int count = 0;
-        float finalGrade = -1;
+        int count = 0; 
+        float finalGrade;
 
         while (count < n) {
             String input = sc.nextLine();
@@ -62,6 +62,13 @@ public class CitizenStorageManagerCLI {
                 addAddress.insertAddress(person.getAddress());
             }
             for (Education education : person.getEducations()) {
+                if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())){
+                    finalGrade = ((GradedEducation) education).getFinalGrade();
+                    
+                }
+                else{
+                    finalGrade = 0;
+                }
                 addEducation.insertEducation(education, finalGrade);
             }
             for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
@@ -134,7 +141,6 @@ public class CitizenStorageManagerCLI {
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
-                        finalGrade = -1;
                         pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
                         person.addEducation(pEducation);
                         //addEducation.insertEducation(pEducation, finalGrade);
@@ -144,14 +150,13 @@ public class CitizenStorageManagerCLI {
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
-                        sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
-                        person.addEducation(sEducation);
-                        /*if (graduationDate.isBefore(LocalDate.now())) {
+                        sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);                       
+                        if (graduationDate.isBefore(LocalDate.now())) {
                                 finalGrade = Float.parseFloat(split[++i]);
-                            } else {
-                                finalGrade = -1;
-                            }
-                            addEducation.insertEducation(sEducation, finalGrade);*/
+                                ((GradedEducation) sEducation).gotGraduated(finalGrade);
+                            } 
+                        person.addEducation(sEducation);
+                            /*addEducation.insertEducation(sEducation, finalGrade);*/
                         break;
                     case "B":
                     case "M":
@@ -168,12 +173,12 @@ public class CitizenStorageManagerCLI {
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
-                        /*if (graduationDate.isBefore(LocalDate.now())) {
-                                finalGrade = Float.parseFloat(split[++i]);
-                            } else {
-                                finalGrade = -1;
-                            }*/
+                        
                         hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
+                       if (graduationDate.isBefore(LocalDate.now())) {
+                                finalGrade = Float.parseFloat(split[++i]);
+                                ((GradedEducation) hEducation).gotGraduated(finalGrade);
+                            } 
                         person.addEducation(hEducation);
                         //addEducation.insertEducation(hEducation, finalGrade);
                         break;
