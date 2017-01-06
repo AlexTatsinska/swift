@@ -12,15 +12,6 @@ import java.time.format.DateTimeFormatter;
 import personaldetails.Citizen;
 import personaldetails.Gender;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author AlexT
- */
 public class MySqlPersonStorage implements PersonStorage {
 
     static final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
@@ -29,7 +20,7 @@ public class MySqlPersonStorage implements PersonStorage {
 
     @Override
     public void insertPerson(Citizen person) throws SQLException {
-       // final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+      
         try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
                 CallableStatement statement = con.prepareCall("{call insert_person(?,?,?,?,?,?)}")) {
 
