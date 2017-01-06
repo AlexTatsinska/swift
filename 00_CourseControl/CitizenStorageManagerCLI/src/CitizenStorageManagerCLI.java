@@ -58,7 +58,7 @@ public class CitizenStorageManagerCLI {
         for (Citizen person : people) {
             addPerson.insertPerson(person);
             addAddress.insertAddress(person.getAddress());
-        
+
             for (Education education : person.getEducations()) {
                 if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
                     finalGrade = ((GradedEducation) education).getFinalGrade();
@@ -72,6 +72,7 @@ public class CitizenStorageManagerCLI {
                 addSocialInsurance.insertSocialInsurance(socialInsurance);
             }
         }
+        System.out.println("Import successful!");
     }
 
     public static void createPerson(List<Citizen> people, String input, String inputInsurance) {
