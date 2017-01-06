@@ -57,11 +57,8 @@ public class CitizenStorageManagerCLI {
 
         for (Citizen person : people) {
             addPerson.insertPerson(person);
-            if (person.getAddress().getFloor() == null) {
-                addAddress.insertShortAddress(person.getAddress());
-            } else {
-                addAddress.insertAddress(person.getAddress());
-            }
+            addAddress.insertAddress(person.getAddress());
+        
             for (Education education : person.getEducations()) {
                 if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
                     finalGrade = ((GradedEducation) education).getFinalGrade();
