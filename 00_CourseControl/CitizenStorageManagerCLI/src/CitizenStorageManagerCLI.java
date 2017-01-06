@@ -3,6 +3,9 @@ import sql.*;
 import address.*;
 import education.*;
 import insurance.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.time.LocalDate;
@@ -14,7 +17,7 @@ import personaldetails.*;
 
 public class CitizenStorageManagerCLI {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException {
 
         List<Citizen> people = new ArrayList<>();
         MySqlAddressStorage addAddress = new MySqlAddressStorage();
@@ -25,9 +28,21 @@ public class CitizenStorageManagerCLI {
 
         deleteDatabase.deleteDatabase();
 
-        System.out.println("Database is empty!");
+        System.out.println("Database is empty! Import started!");
 
         Scanner sc = new Scanner(System.in, "UTF-8");
+        
+        if (args.length > 0 && !args[0].isEmpty()) {
+            File file = new File(args[0]);           
+            if (file.isFile()) {
+                try {
+                    sc = new Scanner(new FileInputStream(args[0]));
+                } catch (FileNotFoundException ex) {
+                    System.out.println("File " + file.getName() + " was not found.");
+                    return;
+                }
+            }
+        }
         int n = sc.nextInt();
         sc.nextLine();
         int counter = 0;
@@ -64,7 +79,6 @@ public class CitizenStorageManagerCLI {
 
     public static void createPerson(List<Citizen> people, String input, String inputInsurance) {
 
-        Scanner sc = new Scanner(System.in, "UTF-8");
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
         Address address = null;
         Citizen person = null;
