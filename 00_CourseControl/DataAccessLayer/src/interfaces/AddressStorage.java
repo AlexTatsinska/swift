@@ -17,6 +17,5 @@ import java.sql.SQLException;
 public interface AddressStorage {
 
     public void insertAddress(Address address) throws SQLException;
-    public void insertShortAddress(Address address) throws SQLException;
 
 }
