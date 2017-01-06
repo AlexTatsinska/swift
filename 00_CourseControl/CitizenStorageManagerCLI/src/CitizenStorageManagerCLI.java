@@ -31,9 +31,9 @@ public class CitizenStorageManagerCLI {
         System.out.println("Database is empty! Import started!");
 
         Scanner sc = new Scanner(System.in, "UTF-8");
-        
+
         if (args.length > 0 && !args[0].isEmpty()) {
-            File file = new File(args[0]);           
+            File file = new File(args[0]);
             if (file.isFile()) {
                 try {
                     sc = new Scanner(new FileInputStream(args[0]));
