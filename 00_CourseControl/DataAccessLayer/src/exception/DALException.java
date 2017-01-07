@@ -9,6 +9,11 @@ package exception;
  *
  * @author AlexT
  */
-public class DALException {
+public class DALException extends Exception{
+
+    public DALException(String message, Throwable ex) {   
+        super(message, ex);
+    }
+    
     
 }
