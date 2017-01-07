@@ -2,14 +2,12 @@
 import sql.*;
 import address.*;
 import education.*;
-import exception.DALException;
+import exception.*;
 import insurance.*;
 import interfaces.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
-import java.sql.DriverManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ import personaldetails.*;
 
 public class CitizenStorageManagerCLI {
 
-    public static void main(String[] args) throws SQLException, FileNotFoundException, DALException {
+    public static void main(String[] args) throws FileNotFoundException, DALException {
 
         String dbmsConnString = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
         String userName = "root";
@@ -82,10 +80,8 @@ public class CitizenStorageManagerCLI {
 
     public static void createPerson(List<Citizen> people, String input, String inputInsurance) {
 
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
-        Address address = null;
-        Citizen person = null;
-        SocialInsuranceRecord insurance = null;
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");        
+        Citizen person = null;        
         String institution;
         LocalDate enrollmentDate;
         LocalDate graduationDate;
@@ -117,10 +113,10 @@ public class CitizenStorageManagerCLI {
             int floor = Integer.parseInt(split[12]);
             int apartmentNumber = Integer.parseInt(split[13]);
 
-            address = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
+           Address address = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
             person.setAddress(address);
         } else {
-            address = new Address(country, city, municipality, zip, street, number);
+            Address address = new Address(country, city, municipality, zip, street, number);
             person.setAddress(address);
         }
 
@@ -128,19 +124,17 @@ public class CitizenStorageManagerCLI {
             for (int i = 14; i < split.length; i++) {
                 switch (split[i]) {
                     case "P":
-                        PrimaryEducation pEducation = null;
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
-                        pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
+                        PrimaryEducation pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
                         person.addEducation(pEducation);
                         break;
                     case "S":
-                        SecondaryEducation sEducation = null;
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
-                        sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
+                        SecondaryEducation sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
                         if (graduationDate.isBefore(LocalDate.now())) {
                             finalGrade = Float.parseFloat(split[++i]);
                             ((GradedEducation) sEducation).gotGraduated(finalGrade);
@@ -158,12 +152,11 @@ public class CitizenStorageManagerCLI {
                         } else {
                             degree = EducationDegree.Doctorate;
                         }
-                        HigherEducation hEducation = null;
                         institution = split[++i];
                         enrollmentDate = LocalDate.parse(split[++i], formatter);
                         graduationDate = LocalDate.parse(split[++i], formatter);
 
-                        hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
+                        HigherEducation hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, degree);
                         if (graduationDate.isBefore(LocalDate.now())) {
                             finalGrade = Float.parseFloat(split[++i]);
                             ((GradedEducation) hEducation).gotGraduated(finalGrade);
@@ -179,7 +172,7 @@ public class CitizenStorageManagerCLI {
             int year = Integer.parseInt(insuranceSplit[i]);
             int month = Integer.parseInt(insuranceSplit[++i]);
             double amount = Double.parseDouble(insuranceSplit[++i]);
-            insurance = new SocialInsuranceRecord(year, month, amount);
+            SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
             person.addSocialInsuranceRecord(insurance);
         }
         people.add(person);
