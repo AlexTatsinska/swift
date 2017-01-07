@@ -1,8 +1,7 @@
 package sql;
 
 import interfaces.EducationStorage;
-import education.Education;
-import education.GradedEducation;
+import education.*;
 import exception.DALException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -10,8 +9,6 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MySqlEducationStorage implements EducationStorage {
 
