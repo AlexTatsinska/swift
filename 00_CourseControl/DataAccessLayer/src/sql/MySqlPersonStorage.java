@@ -1,6 +1,5 @@
 package sql;
 
-
 import exception.DALException;
 import interfaces.PersonStorage;
 import java.sql.CallableStatement;
@@ -20,11 +19,20 @@ public class MySqlPersonStorage implements PersonStorage {
     static final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
     static final String DBMS_USERNAME = "root";
     static final String DBMS_PASSWORD = "SwiftTraining1";
+    private String dbmsConnString;
+    private String userName;
+    private String password;
+
+    public MySqlPersonStorage(String dbmsConnString, String userName, String password) {
+        this.dbmsConnString = dbmsConnString;
+        this.userName = userName;
+        this.password = password;
+    }
 
     @Override
     public void insertPerson(Citizen person) throws DALException {
-      
-        try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+
+        try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_person(?,?,?,?,?,?)}")) {
 
             statement.setString("first_name", person.getFirstName());
@@ -32,7 +40,7 @@ public class MySqlPersonStorage implements PersonStorage {
             statement.setString("last_name", person.getLastName());
             statement.setString("gender", person.getGender().toString());
             statement.setInt("height", person.getHeight());
-            statement.setDate("birth_date", (Date.valueOf(person.getDateOfBirth())));                       
+            statement.setDate("birth_date", (Date.valueOf(person.getDateOfBirth())));
 
             statement.executeQuery();
         } catch (SQLException ex) {
