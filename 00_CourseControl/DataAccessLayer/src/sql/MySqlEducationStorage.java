@@ -15,13 +15,19 @@ import java.util.logging.Logger;
 
 public class MySqlEducationStorage implements EducationStorage {
 
-    static final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
-    static final String DBMS_USERNAME = "root";
-    static final String DBMS_PASSWORD = "SwiftTraining1";
+    private String dbmsConnString;
+    private String userName;
+    private String password;
+
+    public MySqlEducationStorage(String dbmsConnString, String userName, String password) {
+        this.dbmsConnString = dbmsConnString;
+        this.userName = userName;
+        this.password = password;
+    }
 
     @Override
     public void insertEducation(Education education, float finalGrade) throws DALException {
-        try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_education(?,?,?,?,?,?)}")) {
             statement.setString("type", education.getDegree().toString());
             statement.setString("institution_name", education.getInstitutionName());
@@ -36,7 +42,7 @@ public class MySqlEducationStorage implements EducationStorage {
 
             statement.executeQuery();
         } catch (SQLException ex) {
-           throw new DALException("Error during educations import!", ex);
+            throw new DALException("Error during educations import!", ex);
         }
     }
 }
