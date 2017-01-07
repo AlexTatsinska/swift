@@ -3,12 +3,15 @@ package sql;
 import interfaces.EducationStorage;
 import education.Education;
 import education.GradedEducation;
+import exception.DALException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySqlEducationStorage implements EducationStorage {
 
@@ -17,7 +20,7 @@ public class MySqlEducationStorage implements EducationStorage {
     static final String DBMS_PASSWORD = "SwiftTraining1";
 
     @Override
-    public void insertEducation(Education education, float finalGrade) throws SQLException {
+    public void insertEducation(Education education, float finalGrade) throws DALException {
         try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
                 CallableStatement statement = con.prepareCall("{call insert_education(?,?,?,?,?,?)}")) {
             statement.setString("type", education.getDegree().toString());
@@ -32,6 +35,8 @@ public class MySqlEducationStorage implements EducationStorage {
             statement.setDouble("final_grade", finalGrade);
 
             statement.executeQuery();
+        } catch (SQLException ex) {
+           throw new DALException("Error during educations import!", ex);
         }
     }
 }
