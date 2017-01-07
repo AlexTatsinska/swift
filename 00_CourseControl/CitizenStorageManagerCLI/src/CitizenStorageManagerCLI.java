@@ -2,6 +2,7 @@
 import sql.*;
 import address.*;
 import education.*;
+import exception.DALException;
 import insurance.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +18,7 @@ import personaldetails.*;
 
 public class CitizenStorageManagerCLI {
 
-    public static void main(String[] args) throws SQLException, FileNotFoundException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException, DALException {
 
         List<Citizen> people = new ArrayList<>();
         MySqlAddressStorage addAddress = new MySqlAddressStorage();
