@@ -14,13 +14,19 @@ import java.util.logging.Logger;
 
 public class MySqlAddressStorage implements AddressStorage {
 
-    static final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
-    static final String DBMS_USERNAME = "root";
-    static final String DBMS_PASSWORD = "SwiftTraining1";
+    private String dbmsConnString;
+    private String userName;
+    private String password;
+
+    public MySqlAddressStorage(String dbmsConnString, String userName, String password) {
+        this.dbmsConnString = dbmsConnString;
+        this.userName = userName;
+        this.password = password;
+    }
 
     @Override
     public void insertAddress(Address address) throws DALException {
-        try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_address(?,?,?,?,?,?,?,?)}")) {
 
             statement.setString("country", address.getCountry());
@@ -29,13 +35,12 @@ public class MySqlAddressStorage implements AddressStorage {
             statement.setString("postal_code", address.getPostalCode());
             statement.setString("street", address.getStreet());
             statement.setString("number", address.getNumber());
-            if(address.getFloor() != null){
-            statement.setInt("floor", address.getFloor());
-            statement.setInt("apartmentNo", address.getApartmentNo());
-            }
-            else{
-             statement.setInt("floor", 0);
-            statement.setInt("apartmentNo", 0);   
+            if (address.getFloor() != null) {
+                statement.setInt("floor", address.getFloor());
+                statement.setInt("apartmentNo", address.getApartmentNo());
+            } else {
+                statement.setInt("floor", 0);
+                statement.setInt("apartmentNo", 0);
             }
             statement.executeQuery();
         } catch (SQLException ex) {
