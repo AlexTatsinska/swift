@@ -25,7 +25,7 @@ public class CitizenStorageManagerCLI {
         MySqlPersonStorage addPerson = new MySqlPersonStorage();
         MySqlEducationStorage addEducation = new MySqlEducationStorage();
         MySqlSocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage();
-        MySqlDeleteDatabase deleteDatabase = new MySqlDeleteDatabase();
+        MySqlDeleteDatabaseStorge deleteDatabase = new MySqlDeleteDatabaseStorge();
 
         deleteDatabase.deleteDatabase();
 
