@@ -6,11 +6,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Types;
-import address.Address;
 import exception.DALException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MySqlAddressStorage implements AddressStorage {
 
