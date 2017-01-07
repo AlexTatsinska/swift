@@ -8,6 +8,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Types;
 import address.Address;
+import exception.DALException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySqlAddressStorage implements AddressStorage {
 
@@ -16,7 +19,7 @@ public class MySqlAddressStorage implements AddressStorage {
     static final String DBMS_PASSWORD = "SwiftTraining1";
 
     @Override
-    public void insertAddress(Address address) throws SQLException {
+    public void insertAddress(Address address) throws DALException {
         try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
                 CallableStatement statement = con.prepareCall("{call insert_address(?,?,?,?,?,?,?,?)}")) {
 
@@ -35,6 +38,8 @@ public class MySqlAddressStorage implements AddressStorage {
             statement.setInt("apartmentNo", 0);   
             }
             statement.executeQuery();
+        } catch (SQLException ex) {
+            throw new DALException("Error during address import!", ex);
         }
     }
 
