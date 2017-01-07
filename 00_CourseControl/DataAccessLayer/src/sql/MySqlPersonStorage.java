@@ -7,12 +7,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import personaldetails.Citizen;
-import personaldetails.Gender;
+import personaldetails.*;
 
 public class MySqlPersonStorage implements PersonStorage {
 
