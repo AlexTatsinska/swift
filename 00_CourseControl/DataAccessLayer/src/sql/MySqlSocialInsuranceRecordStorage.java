@@ -11,13 +11,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordStorage {
-    static final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations";
-    static final String DBMS_USERNAME = "root";
-    static final String DBMS_PASSWORD = "SwiftTraining1";
+
+    private String dbmsConnString;
+    private String userName;
+    private String password;
+
+    public MySqlSocialInsuranceRecordStorage(String dbmsConnString, String userName, String password) {
+        this.dbmsConnString = dbmsConnString;
+        this.userName = userName;
+        this.password = password;
+    }
 
     @Override
     public void insertSocialInsurance(SocialInsuranceRecord socialInsurance) throws DALException {
-       try (Connection con = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_social_insurance(?,?,?)}")) {
 
             statement.setInt("year", socialInsurance.getYear());
@@ -29,5 +36,5 @@ public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordS
             throw new DALException("Error during address import!", ex);
         }
     }
-    
+
 }
