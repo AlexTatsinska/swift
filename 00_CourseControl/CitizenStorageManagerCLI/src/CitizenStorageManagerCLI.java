@@ -4,6 +4,7 @@ import address.*;
 import education.*;
 import exception.DALException;
 import insurance.*;
+import interfaces.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,12 +21,15 @@ public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException, FileNotFoundException, DALException {
 
+        String dbmsConnString = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
+        String userName = "root";
+        String password = "SwiftTraining1";
         List<Citizen> people = new ArrayList<>();
-        MySqlAddressStorage addAddress = new MySqlAddressStorage();
-        MySqlPersonStorage addPerson = new MySqlPersonStorage();
-        MySqlEducationStorage addEducation = new MySqlEducationStorage();
-        MySqlSocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage();
-        MySqlDeleteDatabaseStorge deleteDatabase = new MySqlDeleteDatabaseStorge();
+        AddressStorage addAddress = new MySqlAddressStorage(dbmsConnString, userName, password);
+        PersonStorage addPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
+        EducationStorage addEducation = new MySqlEducationStorage(dbmsConnString, userName, password);
+        SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
+        DeleteDatabaseStorage deleteDatabase = new MySqlDeleteDatabaseStorage(dbmsConnString, userName, password);
 
         deleteDatabase.deleteDatabase();
 
