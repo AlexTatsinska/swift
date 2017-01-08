@@ -61,16 +61,8 @@ public class CitizenStorageManagerCLI {
         for (Citizen person : people) {
             addPerson.insertPerson(person);
             addAddress.insertAddress(person.getAddress());
+            addEducation.insertEducation(person.getEducations());
 
-            for (Education education : person.getEducations()) {
-                if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
-                    finalGrade = ((GradedEducation) education).getFinalGrade();
-
-                } else {
-                    finalGrade = 0;
-                }
-                addEducation.insertEducation(education, finalGrade);
-            }
             for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
                 addSocialInsurance.insertSocialInsurance(socialInsurance);
             }
@@ -80,8 +72,8 @@ public class CitizenStorageManagerCLI {
 
     public static void createPerson(List<Citizen> people, String input, String inputInsurance) {
 
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");        
-        Citizen person = null;        
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
+        Citizen person = null;
         String institution;
         LocalDate enrollmentDate;
         LocalDate graduationDate;
@@ -113,7 +105,7 @@ public class CitizenStorageManagerCLI {
             int floor = Integer.parseInt(split[12]);
             int apartmentNumber = Integer.parseInt(split[13]);
 
-           Address address = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
+            Address address = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
             person.setAddress(address);
         } else {
             Address address = new Address(country, city, municipality, zip, street, number);
