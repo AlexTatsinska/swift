@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordStorage {
 
@@ -21,15 +22,17 @@ public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordS
     }
 
     @Override
-    public void insertSocialInsurance(SocialInsuranceRecord socialInsurance) throws DALException {
+    public void insertSocialInsurance(List<SocialInsuranceRecord> socialInsurances) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_social_insurance(?,?,?)}")) {
+            for (SocialInsuranceRecord socialInsurance : socialInsurances) {
 
-            statement.setInt("year", socialInsurance.getYear());
-            statement.setInt("month", socialInsurance.getMonth());
-            statement.setDouble("amount", socialInsurance.getAmount());
+                statement.setInt("year", socialInsurance.getYear());
+                statement.setInt("month", socialInsurance.getMonth());
+                statement.setDouble("amount", socialInsurance.getAmount());
 
-            statement.executeQuery();
+                statement.execute();
+            }
         } catch (SQLException ex) {
             throw new DALException("Error during address import!", ex);
         }
