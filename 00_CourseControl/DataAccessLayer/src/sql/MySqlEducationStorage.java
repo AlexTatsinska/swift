@@ -28,23 +28,19 @@ public class MySqlEducationStorage implements EducationStorage {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_education(?,?,?,?,?,?)}")) {
             for (Education education : educations) {
-                    statement.setString("type", education.getDegree().toString());
-                    statement.setString("institution_name", education.getInstitutionName());
-                    statement.setDate("enrollment_date", (Date.valueOf(education.getEnrollmentDate())));
-                    statement.setDate("graduation_date", (Date.valueOf(education.getGraduationDate())));
-                    if (education.getGraduationDate().isBefore(LocalDate.now())) {
-                        statement.setInt("graduated", 1);
-                    } else {
-                        statement.setInt("graduated", 0);
-                    }
-                    if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
-                        statement.setDouble("final_grade", ((GradedEducation) education).getFinalGrade());
+                statement.setString("type", education.getDegree().toString());
+                statement.setString("institution_name", education.getInstitutionName());
+                statement.setDate("enrollment_date", (Date.valueOf(education.getEnrollmentDate())));
+                statement.setDate("graduation_date", (Date.valueOf(education.getGraduationDate())));
+                statement.setBoolean("graduated", education.isGraduated());
 
-                    } else {
-                        statement.setDouble("final_grade", 0);
-                    }
-                    statement.execute();
-            }            
+                if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
+                    statement.setDouble("final_grade", ((GradedEducation) education).getFinalGrade());
+                } else {
+                    statement.setDouble("final_grade", 0);
+                }
+                statement.execute();
+            }
         } catch (SQLException ex) {
             throw new DALException("Error during educations import!", ex);
         }
