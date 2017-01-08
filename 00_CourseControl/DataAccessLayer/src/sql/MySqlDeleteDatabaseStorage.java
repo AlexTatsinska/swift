@@ -24,7 +24,7 @@ public class MySqlDeleteDatabaseStorage implements DeleteDatabaseStorage {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call delete_all_citizen_registration()}")) {
 
-            statement.executeQuery();
+            statement.execute();
         } catch (SQLException ex) {
             throw new DALException("Error during address import!", ex);
         }
