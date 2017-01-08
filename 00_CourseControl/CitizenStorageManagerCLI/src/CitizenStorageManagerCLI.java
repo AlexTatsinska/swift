@@ -27,11 +27,7 @@ public class CitizenStorageManagerCLI {
         PersonStorage addPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
         EducationStorage addEducation = new MySqlEducationStorage(dbmsConnString, userName, password);
         SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
-        DeleteDatabaseStorage deleteDatabase = new MySqlDeleteDatabaseStorage(dbmsConnString, userName, password);
-
-        deleteDatabase.deleteDatabase();
-
-        System.out.println("Database is empty! Import started!");
+        DeleteDatabaseStorage deleteDatabase = new MySqlDeleteDatabaseStorage(dbmsConnString, userName, password);        
 
         Scanner sc = new Scanner(System.in, "UTF-8");
 
@@ -48,21 +44,23 @@ public class CitizenStorageManagerCLI {
         }
         int n = sc.nextInt();
         sc.nextLine();
-        int counter = 0;
-        float finalGrade;
+        // int counter = 0;       
 
-        while (counter < n) {
+        for (int i = 0; i < n; i++) {
             String input = sc.nextLine();
             String inputInsurance = sc.nextLine();
             createPerson(people, input, inputInsurance);
-            counter++;
         }
+        
+        deleteDatabase.deleteDatabase();
+
+        System.out.println("Database is empty! Import started!");
 
         for (Citizen person : people) {
             addPerson.insertPerson(person);
             addAddress.insertAddress(person.getAddress());
             addEducation.insertEducation(person.getEducations());
-            addSocialInsurance.insertSocialInsurance(person.getSocialInsuranceRecords());  
+            addSocialInsurance.insertSocialInsurance(person.getSocialInsuranceRecords());
         }
         System.out.println("Import successful!");
     }
