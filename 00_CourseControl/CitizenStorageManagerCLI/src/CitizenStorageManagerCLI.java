@@ -63,9 +63,9 @@ public class CitizenStorageManagerCLI {
             addAddress.insertAddress(person.getAddress());
             addEducation.insertEducation(person.getEducations());
 
-            for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
-                addSocialInsurance.insertSocialInsurance(socialInsurance);
-            }
+            
+                addSocialInsurance.insertSocialInsurance(person.getSocialInsuranceRecords());
+            
         }
         System.out.println("Import successful!");
     }
