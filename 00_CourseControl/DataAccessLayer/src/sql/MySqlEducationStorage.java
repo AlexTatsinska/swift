@@ -43,10 +43,8 @@ public class MySqlEducationStorage implements EducationStorage {
                     } else {
                         statement.setDouble("final_grade", 0);
                     }
-
-                
-                statement.execute();
-            }
+                    statement.execute();
+            }            
         } catch (SQLException ex) {
             throw new DALException("Error during educations import!", ex);
         }
