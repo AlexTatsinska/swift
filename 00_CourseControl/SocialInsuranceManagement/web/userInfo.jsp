@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <input type="text" name="personID" value="Insert Person ID" />
+        <input type="submit" value="Search" name="serchPerson" />
     </body>
 </html>
