@@ -44,7 +44,6 @@ public class CitizenStorageManagerCLI {
         }
         int n = sc.nextInt();
         sc.nextLine();
-        // int counter = 0;       
 
         for (int i = 0; i < n; i++) {
             String input = sc.nextLine();
