@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,23 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <input type="text" name="personID" value="Insert Person ID" />
-        <input type="submit" value="Search" name="serchPerson" />
+        <form action="userInfo.jsp">
+            <input type="text" name="personId" value="" />
+        </form>
+        <%
+            if (request.getParameter("personId") != null && Integer.parseInt(request.getParameter("personId")) > 0) {
+        %>
+        <h1>ID = <%=request.getParameter("personId")%></h1>
+        <%
+        } else if (request.getParameter("personId") == null){
+        %>
+        <h1>Въведете Person ID</h1>
+        <%
+            } else {
+%>
+<h1>Невалидно Person ID, опитайте отново</h1>
+<%
+}
+        %>
     </body>
 </html>
