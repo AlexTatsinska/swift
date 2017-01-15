@@ -3,6 +3,7 @@ package sql;
 import address.*;
 import exception.DALException;
 import interfaces.AddressStorage;
+import interfaces.EducationStorage;
 import interfaces.PersonStorage;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -86,7 +87,9 @@ public class MySqlPersonStorage implements PersonStorage {
                         person = new Citizen(firstName, middleName, lastName, Gender.Male, height, dateOfBirth);
                     }
                     AddressStorage address = new MySqlAddressStorage(dbmsConnString, userName, password);                    
+                    EducationStorage education = new MySqlEducationStorage(dbmsConnString, userName, password);
                     person.setAddress(address.getAddressByPersonId(person_id));
+                    person.addEducation(education.getEducationsByPersonID(person_id));
                 }
             }
         } catch (SQLException ex) {
