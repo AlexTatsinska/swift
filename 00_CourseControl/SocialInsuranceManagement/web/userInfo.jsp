@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="personaldetails.*"%>
+<%@page import="address.*"%>
 <%@page import="sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!
@@ -50,8 +51,12 @@
                     <td>Дата на раждане</td>
                     <td><%=person.getDateOfBirth()%></td>
                 </tr>
+                <tr>
+                    <td>Адрес</td>
+                    <td><%=person.getAddress()%></td>
+                </tr>
             </tbody>
-        </table>
+        </table>              
 
         <%} else if ((request.getParameter("personId") == null) || (request.getParameter("personId").equals(""))) {
         %>
