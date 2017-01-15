@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="personaldetails.*"%>
-<%@page import="address.*"%>
+<%@page import="address.Address"%>
 <%@page import="sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!
@@ -56,7 +56,16 @@
                     <td><%=person.getAddress()%></td>
                 </tr>
             </tbody>
-        </table>              
+        </table> 
+                               
+                <table border="2">                   
+                    <tbody>
+                        <tr>
+                            <td>Образования</td>
+                            <td>Проба</td>
+                        </tr>
+                    </tbody>
+                </table>
 
         <%} else if ((request.getParameter("personId") == null) || (request.getParameter("personId").equals(""))) {
         %>
