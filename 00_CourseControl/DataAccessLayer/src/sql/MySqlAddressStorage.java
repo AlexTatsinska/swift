@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import exception.DALException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class MySqlAddressStorage implements AddressStorage {
 
@@ -42,6 +44,52 @@ public class MySqlAddressStorage implements AddressStorage {
         } catch (SQLException ex) {
             throw new DALException("Error during address import!", ex);
         }
+    }
+
+    @Override
+    public Address getAddressByPersonId(int person_id) throws DALException {
+        Address address = null;
+        StringBuilder result = new StringBuilder();
+        String sql = "select\n"
+                + "distinct\n"
+                + "addr.country,\n"
+                + "addr.city,\n"
+                + "addr.municipality,\n"
+                + "addr.postal_code,\n"
+                + "addr.street,\n"
+                + "addr.number,\n"
+                + "addr.floor,\n"
+                + "addr.apartmentNo\n"
+                + "from\n"
+                + "people pe\n"
+                + "join addresses addr on addr.person_id = pe.id\n"
+                + "where\n"
+                + "pe.id = ?\n";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, person_id);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    String country = rs.getString("country");
+                    String city = rs.getString("city");
+                    String municipality = rs.getString("municipality");
+                    String zip = rs.getString("postal_code");
+                    String street = rs.getString("street");
+                    String number = rs.getString("number");
+                    int floor = rs.getInt("floor");
+                    int apartmentNo = rs.getInt("apartmentNo");
+                    if (floor != 0 && apartmentNo != 0) {
+                        address = new Address(country, city, municipality, zip, street, number, floor, apartmentNo);
+                    } else {
+                        address = new Address(country, city, municipality, zip, street, number);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DALException("Error in address surch!", ex);
+        }
+        return address;
     }
 
 }
