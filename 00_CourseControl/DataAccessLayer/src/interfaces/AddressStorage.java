@@ -8,5 +8,6 @@ import java.sql.SQLException;
 public interface AddressStorage {
 
     public void insertAddress(Address address) throws DALException;
+    public Address getAddressByPersonId(int person_id) throws DALException;
 
 }
