@@ -4,8 +4,10 @@
     Author     : AlexT
 --%>
 
+<%@page import="java.time.LocalDate"%>
+<%@page import="education.*"%>
 <%@page import="personaldetails.*"%>
-<%@page import="address.Address"%>
+<%@page import="address.*"%>
 <%@page import="sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!
@@ -57,12 +59,23 @@
                 </tr>
             </tbody>
         </table> 
-                               
+                <br></br>  
+                Образование:
                 <table border="2">                   
                     <tbody>
-                        <tr>
-                            <td>Образования</td>
-                            <td>Проба</td>
+                        <tr>            
+                            <%for (Education education : person.getEducations()) {%>
+                            <td>Вид образование: <%=education.getDegree().toString()%>
+                                <br>Учебно заведение: <%=education.getInstitutionName()%></br>                               
+                                Начална дата: <%=education.getEnrollmentDate()%>                              
+                                <br>Дата на завършване: <%=education.getGraduationDate()%></br>                                
+                                Статус: <%=education.isGraduated()%>   
+                                <%if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {%>
+                                <br>Среден успех: <%=((GradedEducation) education).getFinalGrade()%></br> 
+                                <%}%>
+                            </td>                  
+                
+                            <% } %>
                         </tr>
                     </tbody>
                 </table>
