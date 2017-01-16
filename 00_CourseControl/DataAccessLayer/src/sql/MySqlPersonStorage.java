@@ -1,6 +1,7 @@
 package sql;
 
 import address.*;
+import education.Education;
 import exception.DALException;
 import interfaces.AddressStorage;
 import interfaces.EducationStorage;
@@ -87,9 +88,11 @@ public class MySqlPersonStorage implements PersonStorage {
                         person = new Citizen(firstName, middleName, lastName, Gender.Male, height, dateOfBirth);
                     }
                     AddressStorage address = new MySqlAddressStorage(dbmsConnString, userName, password);                    
-                    EducationStorage education = new MySqlEducationStorage(dbmsConnString, userName, password);
+                    EducationStorage educations = new MySqlEducationStorage(dbmsConnString, userName, password);
                     person.setAddress(address.getAddressByPersonId(person_id));
-                    person.addEducation(education.getEducationsByPersonID(person_id));
+                    for (Education education : educations.getEducationsByPersonID(person_id)) {
+                      person.addEducation(education);  
+                    }                    
                 }
             }
         } catch (SQLException ex) {
