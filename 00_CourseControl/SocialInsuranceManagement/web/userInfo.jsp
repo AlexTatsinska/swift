@@ -81,7 +81,9 @@
                     </tbody>
                 </table>
                         <br></br>
-                        <input type="submit" value="Добави образование" name="addEducationButton" /> <input type="submit" value="Добави социална осигуровка" name="addSocialInsuranceButton" /> <input type="submit" value="Проверка за социално подпомагане" name="checkSocialInsuranceStatusButton" />
+                        <form name="addEducation" action="newEducation.jsp">
+                            <input type="submit" value="Добави образование" name="addEducationButton" /> 
+                        </form>
         <%} else if ((request.getParameter("personId") == null) || (request.getParameter("personId").equals(""))) {
         %>
         <h1>Проверка за социално подпомагане</h1>        
