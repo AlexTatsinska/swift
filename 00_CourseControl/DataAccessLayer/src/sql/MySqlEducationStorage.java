@@ -50,8 +50,8 @@ public class MySqlEducationStorage implements EducationStorage {
     }
 
     @Override
-    public Education getEducationsByPersonID(int person_id) throws DALException {
-        Education education = null;
+    public List<Education> getEducationsByPersonID(int person_id) throws DALException {
+        List<Education> educations = new ArrayList<>();
         StringBuilder result = new StringBuilder();
         String sql = "select\n"
                 + "distinct\n"
@@ -84,14 +84,14 @@ public class MySqlEducationStorage implements EducationStorage {
                     switch (degree) {
                     case "Primary":                        
                         PrimaryEducation pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
-                        education = pEducation;
+                        educations.add(pEducation);
                         break;
                     case "Secondary":                        
                         SecondaryEducation sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
                         if (graduationDate.isBefore(LocalDate.now())) {                          
                             ((GradedEducation) sEducation).gotGraduated(finalGrade);
                         }
-                        education = sEducation;
+                        educations.add(sEducation);
                         break;
                     case "B":
                     case "M":
@@ -108,7 +108,7 @@ public class MySqlEducationStorage implements EducationStorage {
                         if (graduationDate.isBefore(LocalDate.now())) {
                             ((GradedEducation) hEducation).gotGraduated(finalGrade);
                         }
-                        education = hEducation;
+                        educations.add(hEducation);
                         break;
                 }                   
                 }
@@ -116,6 +116,6 @@ public class MySqlEducationStorage implements EducationStorage {
         } catch (SQLException ex) {
             throw new DALException("Error in education surch!", ex);
         }
-        return education;
+        return educations;
     }
 }
