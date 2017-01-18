@@ -20,7 +20,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Начало</title>
     </head>
     
         <form action="userInfo.jsp">
@@ -56,7 +56,7 @@
                 </tr>
                 <tr>
                     <td>Адрес</td>
-                    <td><%=person.getAddress()%></td>
+                    <td><%=person.getAddress().toString()%></td>
                 </tr>
             </tbody>
         </table> 
