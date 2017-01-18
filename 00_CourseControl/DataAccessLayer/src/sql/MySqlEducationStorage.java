@@ -93,9 +93,9 @@ public class MySqlEducationStorage implements EducationStorage {
                         }
                         educations.add(sEducation);
                         break;
-                    case "B":
-                    case "M":
-                    case "D":
+                    case "Bachelor":
+                    case "Master":
+                    case "Doctorate":
                         EducationDegree educationDegree = null;
                         if (degree.equals("Bachelor")) {
                             educationDegree = EducationDegree.Bachelor;
