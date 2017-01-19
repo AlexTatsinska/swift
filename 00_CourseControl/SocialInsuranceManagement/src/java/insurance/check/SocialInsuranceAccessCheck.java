@@ -53,17 +53,14 @@ public class SocialInsuranceAccessCheck {
 
     public double getSocialInsuranceInstallmentSum(Citizen person) {
         double sum = 0;
-        int counter = 1;
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
         for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
             int yearDifference = year - socialInsurance.getYear();
             if (yearDifference > -2) {
                 sum = sum + socialInsurance.getAmount();
-                counter++;
             } else if (yearDifference == -2 && socialInsurance.getMonth() >= month) {
                 sum = sum + socialInsurance.getAmount();
-                counter++;
             }
         }
         return sum / 24;
