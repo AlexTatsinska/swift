@@ -81,7 +81,7 @@ public class SocialInsuranceAccessCheck {
                 counter++;
             }
         }
-        return sum / counter;
+        return sum / 24;
     }
 
 }
