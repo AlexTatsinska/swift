@@ -71,13 +71,14 @@
     </tbody>
 </table> 
 <br></br>
-<%if(request.getParameter("checkSocialInsuranceAccess") != null){%>
+<%if (request.getParameter("checkSocialInsuranceAccess") != null) {%>
 <%if (socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)) {%>
-<h1><%=socialInsuranceAccess.getSocialInsuranceInstallmentSum(person)%></h1>
+<font color="green"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
 <%} else {%>
-<h1>Без право на социално подпомагане</h1>
-<%}
-}%>
+<bold><h1><font color="red">Без право на социално подпомагане</font></h1></bold>
+        <%}
+    }%>
+
 Образование:
 <table border="2">                   
     <tbody>
