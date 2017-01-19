@@ -3,6 +3,7 @@
     Created on : Jan 7, 2017, 9:20:40 PM
     Author     : AlexT
 --%>
+<%@page import="interfaces.*"%>
 <%@page import="insurance.SocialInsuranceRecord"%>
 <%@page import="personaldetails.*"%>
 <%@page import="address.*"%>
@@ -12,7 +13,7 @@
 <%!
     static final String dbmsConnString = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
     static final String userName = "root";
-    static final String password = "SwiftTraining1";    
+    static final String password = "SwiftTraining1";
 %>
 <!DOCTYPE html>
 <html>
@@ -23,19 +24,34 @@
     <body>
         <%
             int person_id = Integer.parseInt(session.getAttribute("personId").toString());
-            %>
-            <%
-            Class.forName("com.mysql.jdbc.Driver");                           
-                MySqlPersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
-                Citizen person = getPerson.getPresonById(person_id);
         %>
+        <%
+            Class.forName("com.mysql.jdbc.Driver");
+            PersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
+            Citizen person = getPerson.getPresonById(person_id);
+        %>
+        <% if (request.getParameter("year") != null&&request.getParameter("month") != null&&request.getParameter("amount") != null) {
+                int year = Integer.parseInt(request.getParameter("year"));                
+                int month = Integer.parseInt(request.getParameter("month"));
+                double amount = Double.parseDouble(request.getParameter("amount"));
+                SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
+                SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
+                addSocialInsurance.insertSocialInsuranceFromWebPage(insurance, person_id);
+                person.addSocialInsuranceRecord(insurance);
+            }
+        %>
+        <form action="newSosialInsuranceRecord.jsp" method="POST">
+            <label>Година:</label><input type="text" name="Year" value="" /> <label>Месец:</label><input type="text" name="Month" value="" /> <label>Внесена сума:</label><input type="text" name="Amount" value="" />
+            <br></br>
+            <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
+        </form>
         <br></br>
         <table border="0">
 
             <tbody>
                 <tr>
                     <td>Име</td>
-                    <td><%=person.getFirstName()+" "+person.getMiddleName()+" "+person.getLastName()%></td>
+                    <td><%=person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName()%></td>
                 </tr>                
                 <tr>
                     <td>Височина</td>
@@ -55,7 +71,7 @@
                 </tr>
             </tbody>
         </table> 
-                <br>
+        <br>
         <table border="2">
             <thead>
                 <tr>
@@ -74,6 +90,6 @@
                 <%}%>
             </tbody>
         </table>
-            </br>
+        </br>
     </body>
 </html>
