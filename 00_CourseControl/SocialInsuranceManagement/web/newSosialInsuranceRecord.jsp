@@ -73,6 +73,11 @@
             </tbody>
         </table> 
         <br>
+        <form name="checkSocialInsurance" action="newSosialInsuranceRecord.jsp">
+            <input type="submit" value="Преглед на внесени социални осигуровки" name="checkSocialInsurance" />
+        </form>
+        <br></br>
+        <% if(request.getParameter("checkSocialInsurance")!=null){%>
         <table border="2">
             <thead>
                 <tr>
@@ -91,6 +96,7 @@
                 <%}%>
             </tbody>
         </table>
+                <%}%>
         </br>
     </body>
 </html>
