@@ -37,7 +37,7 @@ public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordS
                 statement.execute();
             }
         } catch (SQLException ex) {
-            throw new DALException("Error during address import!", ex);
+            throw new DALException("Error during social insurance import!", ex);
         }
     }
 
@@ -72,9 +72,30 @@ public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordS
                 }
             }
         } catch (SQLException ex) {
-            throw new DALException("Error in education surch!", ex);
+            throw new DALException("Error in social insurance surch!", ex);
         }
         return socialInsurances;
     }
+
+    @Override
+    public void insertSocialInsuranceFromWebPage(SocialInsuranceRecord socialInsurance, int person_id) throws DALException {
+        
+        String sql = "INSERT INTO citizen_registrations.social_insurance (`year`, `month`, `amount`, `person_id`)\n" 
+                +"VALUES (?,?,?,?);";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, socialInsurance.getYear());
+            statement.setInt(2, socialInsurance.getMonth());
+            statement.setDouble(3, socialInsurance.getAmount());
+            statement.setInt(4, person_id);
+
+            statement.execute();
+        }catch (SQLException ex) {
+            throw new DALException("Error during social insurance import!", ex);
+        }
+        
+    }
+    
 
 }
