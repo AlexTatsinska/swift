@@ -3,9 +3,8 @@ package sql;
 import address.*;
 import education.Education;
 import exception.DALException;
-import interfaces.AddressStorage;
-import interfaces.EducationStorage;
-import interfaces.PersonStorage;
+import insurance.SocialInsuranceRecord;
+import interfaces.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -89,9 +88,13 @@ public class MySqlPersonStorage implements PersonStorage {
                     }
                     AddressStorage address = new MySqlAddressStorage(dbmsConnString, userName, password);                    
                     EducationStorage educations = new MySqlEducationStorage(dbmsConnString, userName, password);
+                    SocialInsuranceRecordStorage socialInsurances = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
                     person.setAddress(address.getAddressByPersonId(person_id));
                     for (Education education : educations.getEducationsByPersonID(person_id)) {
-                      person.addEducation(education);  
+                        person.addEducation(education);                        
+                    }
+                    for (SocialInsuranceRecord socialInsurance : socialInsurances.getSocialInsuranceByPersonId(person_id)) {
+                        person.addSocialInsuranceRecord(socialInsurance);
                     }                    
                 }
             }
