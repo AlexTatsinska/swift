@@ -23,31 +23,29 @@
     </head>
     <body>
         <%
-            int person_id = Integer.parseInt(session.getAttribute("personId").toString());
+            int personId = Integer.parseInt(session.getAttribute("personId").toString());
         %>
         <%
             Class.forName("com.mysql.jdbc.Driver");
             PersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
-            Citizen person = getPerson.getPresonById(person_id);
+            Citizen person = getPerson.getPresonById(personId);
         %>
-        <% if (request.getParameter("year") != null&&request.getParameter("month") != null&&request.getParameter("amount") != null) {
-                int year = Integer.parseInt(request.getParameter("year"));                
+        <% if (request.getParameter("addSocialInsurance") != null &&request.getParameter("year")!=null&&request.getParameter("month")!=null&&request.getParameter("amount")!=null) {
+                int year = Integer.parseInt(request.getParameter("year"));
                 int month = Integer.parseInt(request.getParameter("month"));
                 double amount = Double.parseDouble(request.getParameter("amount"));
                 SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
                 SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
-                addSocialInsurance.insertSocialInsuranceFromWebPage(insurance, person_id);
+                addSocialInsurance.insertSocialInsuranceFromWebPage(insurance, personId);
                 person.addSocialInsuranceRecord(insurance);
             }
         %>
-         <a href="userInfo.jsp">Начало</a>  
-         <br></br>
-        <form action="newSosialInsuranceRecord.jsp" method="POST">
-            <label>Година:</label><input type="text" name="Year" value="" /> <label>Месец:</label><input type="text" name="Month" value="" /> <label>Внесена сума:</label><input type="text" name="Amount" value="" />
-            <br></br>
-            <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
+        <a href="userInfo.jsp">Начало</a>  
+        <br></br>
+        <form name="addSocialInsurance" action="newSosialInsuranceRecord.jsp" method="POST">
+            <label>Година:</label><input type="text" name="year" value="" /> <label>Месец:</label><input type="text" name="month" value="" /> <label>Внесена сума:</label><input type="text" name="amount" value="" />
+            <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />            
         </form>
-       
         <br></br>
         <table border="0">
 
