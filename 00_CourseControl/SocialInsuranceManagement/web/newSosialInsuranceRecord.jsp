@@ -40,11 +40,14 @@
                 person.addSocialInsuranceRecord(insurance);
             }
         %>
+         <a href="userInfo.jsp">Начало</a>  
+         <br></br>
         <form action="newSosialInsuranceRecord.jsp" method="POST">
             <label>Година:</label><input type="text" name="Year" value="" /> <label>Месец:</label><input type="text" name="Month" value="" /> <label>Внесена сума:</label><input type="text" name="Amount" value="" />
             <br></br>
             <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
         </form>
+       
         <br></br>
         <table border="0">
 
