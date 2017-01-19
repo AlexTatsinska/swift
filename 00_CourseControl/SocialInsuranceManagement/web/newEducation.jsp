@@ -25,7 +25,7 @@
     <body>        
         <%
             final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            int person_id = Integer.parseInt(session.getAttribute("personId").toString());
+            int personId = Integer.parseInt(session.getAttribute("personId").toString());
             String institutionName = request.getParameter("institutionName");
             String degree = request.getParameter("educationDegree");
             String enrollmentDate = request.getParameter("enrollmentDate");
@@ -37,9 +37,9 @@
         <%
             Class.forName("com.mysql.jdbc.Driver");
             PersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
-            Citizen person = getPerson.getPresonById(person_id);
+            Citizen person = getPerson.getPresonById(personId);
         %>
-        
+
         <a href="userInfo.jsp">Начало</a>  
         <table border="0">
             <br></br>
@@ -91,14 +91,14 @@
                 switch (degree) {
                     case "Primary":
                         PrimaryEducation pEducation = new PrimaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
-                        addEducation.insertEducationWebPage(pEducation, person_id);
+                        addEducation.insertEducationWebPage(pEducation, personId);
                         break;
                     case "Secondary":
                         SecondaryEducation sEducation = new SecondaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
                         if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
                             ((GradedEducation) sEducation).gotGraduated(Float.parseFloat(finalGrade));
                         }
-                        addEducation.insertEducationWebPage(sEducation, person_id);
+                        addEducation.insertEducationWebPage(sEducation, personId);
                         break;
                     case "Bachelor":
                     case "Master":
@@ -116,7 +116,7 @@
                         if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
                             ((GradedEducation) hEducation).gotGraduated(Float.parseFloat(finalGrade));
                         }
-                        addEducation.insertEducationWebPage(hEducation, person_id);
+                        addEducation.insertEducationWebPage(hEducation, personId);
                         break;
                 }
 
