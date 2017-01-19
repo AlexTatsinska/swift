@@ -3,6 +3,7 @@
     Created on : Jan 7, 2017, 9:20:40 PM
     Author     : AlexT
 --%>
+<%@page import="java.util.Calendar"%>
 <%@page import="interfaces.*"%>
 <%@page import="insurance.SocialInsuranceRecord"%>
 <%@page import="personaldetails.*"%>
@@ -30,14 +31,28 @@
             PersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
             Citizen person = getPerson.getPresonById(personId);
         %>
-        <% if (request.getParameter("addSocialInsurance") != null &&request.getParameter("year")!=null&&request.getParameter("month")!=null&&request.getParameter("amount")!=null) {
+        <% if (request.getParameter("addSocialInsurance") != null && request.getParameter("year") != null && request.getParameter("month") != null && request.getParameter("amount") != null) {
                 int year = Integer.parseInt(request.getParameter("year"));
                 int month = Integer.parseInt(request.getParameter("month"));
                 double amount = Double.parseDouble(request.getParameter("amount"));
-                SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
-                SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
-                addSocialInsurance.insertSocialInsuranceFromWebPage(insurance, personId);
-                person.addSocialInsuranceRecord(insurance);
+                if (year < Calendar.getInstance().get(Calendar.YEAR) - 100) {%>
+        <br>
+        <h1>Въведената година не е коректна!</h1>
+        </br>
+        <%} else if (1 > month || month > 12) {%>
+        <br>
+        <h1>Въведения месец не е коректен!</h1>
+        </br>
+        <%} else if (amount <= 0) {%>
+        <br>
+        <h1>Въведента сума е невалидна!</h1>
+        </br>
+        <%} else {
+                    SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
+                    SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
+                    addSocialInsurance.insertSocialInsuranceFromWebPage(insurance, personId);
+                    person.addSocialInsuranceRecord(insurance);
+                }
             }
         %>
         <a href="userInfo.jsp">Начало</a>  
@@ -77,7 +92,7 @@
             <input type="submit" value="Преглед на внесени социални осигуровки" name="checkSocialInsurance" />
         </form>
         <br></br>
-        <% if(request.getParameter("checkSocialInsurance")!=null){%>
+        <% if (personId > 0 || request.getParameter("checkSocialInsurance") != null) {%>
         <table border="2">
             <thead>
                 <tr>
@@ -96,7 +111,7 @@
                 <%}%>
             </tbody>
         </table>
-                <%}%>
+        <%}%>
         </br>
     </body>
 </html>
