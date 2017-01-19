@@ -8,5 +8,6 @@ import java.util.List;
 public interface EducationStorage {
 
     public void insertEducation(List<Education> educations) throws DALException;
-    public List<Education> getEducationsByPersonID(int person_id) throws DALException;
+    public List<Education> getEducationsByPersonID(int personId) throws DALException;
+    public void insertEducationWebPage(Education education, int personID)throws DALException;
 }
