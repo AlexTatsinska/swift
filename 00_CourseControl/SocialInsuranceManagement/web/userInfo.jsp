@@ -31,6 +31,7 @@
             Class.forName("com.mysql.jdbc.Driver");
             if (request.getParameter("personId") != null && !request.getParameter("personId").equals("") && Integer.parseInt(request.getParameter("personId")) > 0) {
                 int person_id = Integer.parseInt(request.getParameter("personId"));
+                session.setAttribute("personId", person_id);
                 MySqlPersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
                 Citizen person = getPerson.getPresonById(person_id);
         %>
@@ -84,6 +85,12 @@
                         <form name="addEducation" action="newEducation.jsp">
                             <input type="submit" value="Добави образование" name="addEducationButton" /> 
                         </form>
+                        <br>
+                        <form name="addSocialInsurance" action="newSosialInsuranceRecord.jsp">
+                            <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
+                        </form>
+                        </br>
+                        
         <%} else if ((request.getParameter("personId") == null) || (request.getParameter("personId").equals(""))) {
         %>
         <h1>Проверка за социално подпомагане</h1>        
