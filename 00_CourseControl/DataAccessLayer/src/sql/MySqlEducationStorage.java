@@ -121,9 +121,9 @@ public class MySqlEducationStorage implements EducationStorage {
 
     @Override
     public void insertEducationWebPage(Education education, int personId) throws DALException {
-        String sql = "INSERT INTO citizen_registrations.educations(`type`, `institution_name`, `enrollment_date`, `graduation_date`, `graduated`, `final_grade`, `person_id`)\n" 
-                +"VALUES (?,?,?,?,?,?,?);";
-				
+        String sql = "INSERT INTO citizen_registrations.educations(`type`, `institution_name`, `enrollment_date`, `graduation_date`, `graduated`, `final_grade`, `person_id`)\n"
+                + "VALUES (?,?,?,?,?,?,?);";
+
         try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
                 PreparedStatement statement = conn.prepareStatement(sql)) {
 
@@ -139,7 +139,7 @@ public class MySqlEducationStorage implements EducationStorage {
                 statement.setDouble(6, 0);
             }
             statement.setInt(7, personId);
-            
+
             statement.execute();
 
         } catch (SQLException ex) {
