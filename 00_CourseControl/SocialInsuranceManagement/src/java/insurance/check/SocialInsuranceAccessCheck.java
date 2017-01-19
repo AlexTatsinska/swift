@@ -42,23 +42,8 @@ public class SocialInsuranceAccessCheck {
             } else if (yearDifference == 0 && month <= 3) {
                 check = false;
             } else if (yearDifference == 1 && month <= 3) {
-                switch (month) {
-                    case 1:
-                        if (socialInsurance.getMonth() > 9) {
-                            check = false;
-                        }
-                        break;
-
-                    case 2:
-                        if (socialInsurance.getMonth() > 10) {
-                            check = false;
-                        }
-                        break;
-                    case 3:
-                        if (socialInsurance.getMonth() > 11) {
-                            check = false;
-                        }
-                        break;
+                if (((month + 12) - socialInsurance.getMonth()) < 3) {
+                    check = false;
                 }
             }
             break;
