@@ -71,12 +71,13 @@
     </tbody>
 </table> 
 <br></br>
+<%if(request.getParameter("checkSocialInsuranceAccess") != null){%>
 <%if (socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)) {%>
 <h1><%=socialInsuranceAccess.getSocialInsuranceInstallmentSum(person)%></h1>
-<h1><%=socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)%></h1>
 <%} else {%>
 <h1>Без право на социално подпомагане</h1>
-<%}%>
+<%}
+}%>
 Образование:
 <table border="2">                   
     <tbody>
@@ -105,10 +106,15 @@
     <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
 </form>
 </br>
+<br>
+<form name="checkSocialInsuranceAccess" action="userInfo.jsp" method="POST">
+    <input type="submit" value="Проверка за социално подпомагане" name="checkSocialInsuranceAccess" />
+</form>
+</br>
 
 <%} else if ((request.getParameter("personId") == null) || (request.getParameter("personId").equals(""))) {
 %>
-<h1>Проверка за социално подпомагане</h1>        
+<h1>Въведете Person ID</h1>        
 <%
 } else if (!request.getParameter("personId").equals("") && Integer.parseInt(request.getParameter("personId")) <= 0) {
 %>
