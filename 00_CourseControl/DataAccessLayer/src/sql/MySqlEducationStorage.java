@@ -50,7 +50,7 @@ public class MySqlEducationStorage implements EducationStorage {
     }
 
     @Override
-    public List<Education> getEducationsByPersonID(int person_id) throws DALException {
+    public List<Education> getEducationsByPersonID(int personId) throws DALException {
         List<Education> educations = new ArrayList<>();
         StringBuilder result = new StringBuilder();
         String sql = "select\n"
@@ -70,7 +70,7 @@ public class MySqlEducationStorage implements EducationStorage {
                 + "ed.graduation_date asc";
         try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
                 PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, person_id);
+            statement.setInt(1, personId);
 
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
@@ -80,42 +80,70 @@ public class MySqlEducationStorage implements EducationStorage {
                     LocalDate graduationDate = rs.getDate("graduation_date").toLocalDate();
                     Boolean graduated = rs.getBoolean("graduated");
                     Float finalGrade = rs.getFloat("final_grade");
-                    
+
                     switch (degree) {
-                    case "Primary":                        
-                        PrimaryEducation pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
-                        educations.add(pEducation);
-                        break;
-                    case "Secondary":                        
-                        SecondaryEducation sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
-                        if (graduationDate.isBefore(LocalDate.now())) {                          
-                            ((GradedEducation) sEducation).gotGraduated(finalGrade);
-                        }
-                        educations.add(sEducation);
-                        break;
-                    case "Bachelor":
-                    case "Master":
-                    case "Doctorate":
-                        EducationDegree educationDegree = null;
-                        if (degree.equals("Bachelor")) {
-                            educationDegree = EducationDegree.Bachelor;
-                        } else if (degree.equals("Master")) {
-                            educationDegree = EducationDegree.Master;
-                        } else {
-                            educationDegree = EducationDegree.Doctorate;
-                        }                        
-                        HigherEducation hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, educationDegree);
-                        if (graduationDate.isBefore(LocalDate.now())) {
-                            ((GradedEducation) hEducation).gotGraduated(finalGrade);
-                        }
-                        educations.add(hEducation);
-                        break;
-                }                   
+                        case "Primary":
+                            PrimaryEducation pEducation = new PrimaryEducation(institution, enrollmentDate, graduationDate);
+                            educations.add(pEducation);
+                            break;
+                        case "Secondary":
+                            SecondaryEducation sEducation = new SecondaryEducation(institution, enrollmentDate, graduationDate);
+                            if (graduationDate.isBefore(LocalDate.now())) {
+                                ((GradedEducation) sEducation).gotGraduated(finalGrade);
+                            }
+                            educations.add(sEducation);
+                            break;
+                        case "Bachelor":
+                        case "Master":
+                        case "Doctorate":
+                            EducationDegree educationDegree = null;
+                            if (degree.equals("Bachelor")) {
+                                educationDegree = EducationDegree.Bachelor;
+                            } else if (degree.equals("Master")) {
+                                educationDegree = EducationDegree.Master;
+                            } else {
+                                educationDegree = EducationDegree.Doctorate;
+                            }
+                            HigherEducation hEducation = new HigherEducation(institution, enrollmentDate, graduationDate, educationDegree);
+                            if (graduationDate.isBefore(LocalDate.now())) {
+                                ((GradedEducation) hEducation).gotGraduated(finalGrade);
+                            }
+                            educations.add(hEducation);
+                            break;
+                    }
                 }
             }
         } catch (SQLException ex) {
             throw new DALException("Error in education surch!", ex);
         }
         return educations;
+    }
+
+    @Override
+    public void insertEducationWebPage(Education education, int personId) throws DALException {
+        String sql = "INSERT INTO citizen_registrations.educations(`type`, `institution_name`, `enrollment_date`, `graduation_date`, `graduated`, `final_grade`, `person_id`)\n" 
+                +"VALUES (?,?,?,?,?,?,?);";
+				
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setString(1, education.getDegree().toString());
+            statement.setString(2, education.getInstitutionName());
+            statement.setDate(3, (Date.valueOf(education.getEnrollmentDate())));
+            statement.setDate(4, (Date.valueOf(education.getGraduationDate())));
+            statement.setBoolean(5, education.isGraduated());
+
+            if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {
+                statement.setDouble(6, ((GradedEducation) education).getFinalGrade());
+            } else {
+                statement.setDouble(6, 0);
+            }
+            statement.setInt(7, personId);
+            
+            statement.execute();
+
+        } catch (SQLException ex) {
+            throw new DALException("Error during education import!", ex);
+        }
     }
 }
