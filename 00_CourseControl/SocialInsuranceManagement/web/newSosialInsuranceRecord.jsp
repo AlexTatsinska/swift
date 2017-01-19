@@ -50,8 +50,13 @@
         <%} else {
                     SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
                     SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
-                    addSocialInsurance.insertSocialInsuranceFromWebPage(insurance, personId);
+
                     person.addSocialInsuranceRecord(insurance);
+                    for (SocialInsuranceRecord personSocialInsurance : person.getSocialInsuranceRecords()) {
+                        if (personSocialInsurance.equals(insurance)) {
+                            addSocialInsurance.insertSocialInsuranceFromWebPage(personSocialInsurance, personId);
+                        }
+                    }
                 }
             }
         %>
