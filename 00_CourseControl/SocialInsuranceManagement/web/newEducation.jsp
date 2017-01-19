@@ -91,14 +91,16 @@
                 switch (degree) {
                     case "Primary":
                         PrimaryEducation pEducation = new PrimaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
-                        addEducation.insertEducationWebPage(pEducation, personId);
+                        education = pEducation;
+                        person.addEducation(education);
                         break;
                     case "Secondary":
                         SecondaryEducation sEducation = new SecondaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
                         if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
                             ((GradedEducation) sEducation).gotGraduated(Float.parseFloat(finalGrade));
                         }
-                        addEducation.insertEducationWebPage(sEducation, personId);
+                        education = sEducation;
+                        person.addEducation(education);
                         break;
                     case "Bachelor":
                     case "Master":
@@ -116,10 +118,16 @@
                         if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
                             ((GradedEducation) hEducation).gotGraduated(Float.parseFloat(finalGrade));
                         }
-                        addEducation.insertEducationWebPage(hEducation, personId);
+                        education = hEducation;
+                        person.addEducation(education);
                         break;
                 }
 
+            }
+            for (Education personEducation : person.getEducations()) {
+                if (personEducation.equals(education)) {
+                    addEducation.insertEducationWebPage(personEducation, personId);
+                }
             }
         %>
     </body>
