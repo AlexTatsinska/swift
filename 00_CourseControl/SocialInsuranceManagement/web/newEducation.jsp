@@ -4,35 +4,123 @@
     Author     : AlexT
 --%>
 
+<%@page import="personaldetails.Citizen"%>
+<%@page import="interfaces.*"%>
+<%@page import="sql.*"%>
+<%@page import="education.*"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    static final String dbmsConnString = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
+    static final String userName = "root";
+    static final String password = "SwiftTraining1";
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Добавяне на образование</title>
     </head>
-    <body>
-        <form>
-            Учебно заведение:<br></br> <input type="text" name="institutionName" value="" />
+    <body>        
+        <%
+            final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            int person_id = Integer.parseInt(session.getAttribute("personId").toString());
+            String institutionName = request.getParameter("institutionName");
+            String degree = request.getParameter("educationDegree");
+            String enrollmentDate = request.getParameter("enrollmentDate");
+            String graduationDate = request.getParameter("graduationDate");
+            String finalGrade = request.getParameter("finalGrade");
+            Education education = null;
+            EducationStorage addEducation = new MySqlEducationStorage(dbmsConnString, userName, password);
+        %>
+        <%
+            Class.forName("com.mysql.jdbc.Driver");
+            PersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
+            Citizen person = getPerson.getPresonById(person_id);
+        %>
+        
+        <a href="userInfo.jsp">Начало</a>  
+        <table border="0">
             <br></br>
-            Начална дата:<br></br> <input type="text" name="enrollnentDate" value="" />
-            <br></br>
-            Крайна дата: <br></br><input type="text" name="graduationDate" value="" />
-            <br></br>
-            Среден успех: <br></br><input type="text" name="finalGrade" value="" />
+            <tbody>
+                <tr>
+                    <td>Име</td>
+                    <td><%=person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName()%></td>
+                </tr>                
+                <tr>
+                    <td>Височина</td>
+                    <td><%=person.getHeight()%></td>
+                </tr>
+                <tr>
+                    <td>Пол</td>
+                    <td><%=person.getGender()%></td>
+                </tr>
+                <tr>
+                    <td>Дата на раждане</td>
+                    <td><%=person.getDateOfBirth()%></td>
+                </tr>
+                <tr>
+                    <td>Адрес</td>
+                    <td><%=person.getAddress().toString()%></td>
+                </tr>
+            </tbody>
+        </table> 
         <br></br>
-        Вид образование: <br></br>
-        <select name="educationDegree">
-            <option>None</option>
-            <option>Primary</option>
-            <option>Secondary</option>
-            <option>Bechelor</option>
-            <option>Master</option>
-            <option>Doctorate</option>
-        </select>
+        <form action="newEducation.jsp" method="POST">
+            <label>Учебно заведение:</label>  <input type="text" name="institutionName" value="" />           
+            <label>Начална дата:</label> <input type="text" name="enrollmentDate" value="" />         
+            <label>Крайна дата:</label> <input type="text" name="graduationDate" value="" />
+            <br></br>
+            <label>Среден успех:</label> <input type="text" name="finalGrade" value="" />
+            <label>Образоваелна степен:</label> <select name="educationDegree">
+                <option>None</option>
+                <option>Primary</option>
+                <option>Secondary</option>
+                <option>Bachelor</option>
+                <option>Master</option>
+                <option>Doctorate</option>
+            </select>
+            <br></br>
+            <input type="submit" value="Добави образование" name="addEducation" />
         </form>
-        <br></br>
-        <form action="userInfo.jsp"><input type="submit" value="Начало" />
-        </form>
+        <br></br>        
+        <%
+            Class.forName("com.mysql.jdbc.Driver");
+            if (degree != null) {
+                switch (degree) {
+                    case "Primary":
+                        PrimaryEducation pEducation = new PrimaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
+                        addEducation.insertEducationWebPage(pEducation, person_id);
+                        break;
+                    case "Secondary":
+                        SecondaryEducation sEducation = new SecondaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
+                        if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
+                            ((GradedEducation) sEducation).gotGraduated(Float.parseFloat(finalGrade));
+                        }
+                        addEducation.insertEducationWebPage(sEducation, person_id);
+                        break;
+                    case "Bachelor":
+                    case "Master":
+                    case "Doctorate":
+                        EducationDegree educationDegree = null;
+                        if (degree.equals("Bachelor")) {
+                            educationDegree = EducationDegree.Bachelor;
+                        } else if (degree.equals("Master")) {
+                            educationDegree = EducationDegree.Master;
+                        } else {
+                            educationDegree = EducationDegree.Doctorate;
+                        }
+
+                        HigherEducation hEducation = new HigherEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter), educationDegree);
+                        if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
+                            ((GradedEducation) hEducation).gotGraduated(Float.parseFloat(finalGrade));
+                        }
+                        addEducation.insertEducationWebPage(hEducation, person_id);
+                        break;
+                }
+
+            }
+        %>
     </body>
 </html>
