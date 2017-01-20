@@ -21,10 +21,31 @@
 
 <!DOCTYPE html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Начало</title>
-</head>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Начало</title>
+    </head>
+    <body>        
+        <style>
+            body {
+                background-color: GhostWhite;
+            }
+            table {
+                border-collapse: collapse;
+                width: auto;
+            }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even){background-color: #f2f2f2}
+        </style>
+
+    </body>
+</html>
 
 <form action="userInfo.jsp">
     <label>Персонален номер: </label><input type="text" name="personId" value="" />
@@ -41,12 +62,13 @@
     Class.forName("com.mysql.jdbc.Driver");
     if (personId > 0) {
         session.setAttribute("personId", personId);
+        session.setMaxInactiveInterval(120);
         MySqlPersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
         Citizen person = getPerson.getPresonById(personId);
         SocialInsuranceAccessCheck socialInsuranceAccess = new SocialInsuranceAccessCheck();
 %>
 <br></br>
-<table border="0">         
+<table border="2">         
     <tbody>
         <tr>
             <td>Име</td>
@@ -73,7 +95,7 @@
 <br></br>
 <%if (request.getParameter("checkSocialInsuranceAccess") != null) {%>
 <%if (socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)) {%>
-<font color="green"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
+<font color="LimeGreen"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
     <%} else {%>
 <bold><h1><font color="red">Без право на социално подпомагане</font></h1></bold>
         <%}
@@ -128,7 +150,7 @@
 } else if (!request.getParameter("personId").equals("") && Integer.parseInt(request.getParameter("personId")) <= 0) {
 %>
 <h1><font color = red>Невалидно Персонален номер, опитайте отново</font></h1>
-<%
-    }
-%>
+    <%
+        }
+    %>
 
