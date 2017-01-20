@@ -39,52 +39,6 @@
             PersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
             Citizen person = getPerson.getPresonById(personId);
         %>
-
-        <a href="userInfo.jsp">Начало</a>  
-        <table border="0">
-            <br></br>
-            <tbody>
-                <tr>
-                    <td>Име</td>
-                    <td><%=person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName()%></td>
-                </tr>                
-                <tr>
-                    <td>Височина</td>
-                    <td><%=person.getHeight()%></td>
-                </tr>
-                <tr>
-                    <td>Пол</td>
-                    <td><%=person.getGender()%></td>
-                </tr>
-                <tr>
-                    <td>Дата на раждане</td>
-                    <td><%=person.getDateOfBirth()%></td>
-                </tr>
-                <tr>
-                    <td>Адрес</td>
-                    <td><%=person.getAddress().toString()%></td>
-                </tr>
-            </tbody>
-        </table> 
-        <br></br>
-        <form action="newEducation.jsp" method="POST">
-            <label>Учебно заведение:</label>  <input type="text" name="institutionName" value="" />           
-            <label>Начална дата:</label> <input type="text" name="enrollmentDate" value="" />         
-            <label>Крайна дата:</label> <input type="text" name="graduationDate" value="" />
-            <br></br>
-            <label>Среден успех:</label> <input type="text" name="finalGrade" value="" />
-            <label>Образоваелна степен:</label> <select name="educationDegree">
-                <option>None</option>
-                <option>Primary</option>
-                <option>Secondary</option>
-                <option>Bachelor</option>
-                <option>Master</option>
-                <option>Doctorate</option>
-            </select>
-            <br></br>
-            <input type="submit" value="Добави образование" name="addEducation" />
-        </form>
-        <br></br>        
         <%
             Class.forName("com.mysql.jdbc.Driver");
             if (degree != null) {
@@ -130,5 +84,77 @@
                 }
             }
         %>
+
+        <a href="userInfo.jsp">Назад</a>  
+        <table border="0">
+            <br></br>
+            <tbody>
+                <tr>
+                    <td>Име</td>
+                    <td><%=person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName()%></td>
+                </tr>                
+                <tr>
+                    <td>Височина</td>
+                    <td><%=person.getHeight()%></td>
+                </tr>
+                <tr>
+                    <td>Пол</td>
+                    <td><%=person.getGender()%></td>
+                </tr>
+                <tr>
+                    <td>Дата на раждане</td>
+                    <td><%=person.getDateOfBirth()%></td>
+                </tr>
+                <tr>
+                    <td>Адрес</td>
+                    <td><%=person.getAddress().toString()%></td>
+                </tr>
+            </tbody>
+        </table> 
+        <br></br>
+        <form action="newEducation.jsp" method="POST">
+            <label>Учебно заведение:</label>  <input type="text" name="institutionName" value="" />           
+            <label>Начална дата:</label> <input type="text" name="enrollmentDate" value="" />         
+            <label>Крайна дата:</label> <input type="text" name="graduationDate" value="" />
+            <br></br>
+            <label>Среден успех:</label> <input type="text" name="finalGrade" value="" />
+            <label>Образоваелна степен:</label> <select name="educationDegree">
+                <option>None</option>
+                <option>Primary</option>
+                <option>Secondary</option>
+                <option>Bachelor</option>
+                <option>Master</option>
+                <option>Doctorate</option>
+            </select>
+            <br></br>
+            <input type="submit" value="Добави образование" name="addEducation" />
+        </form>
+        <br></br>        
+
+        <form name="checkEducation" action="newEducation.jsp">
+            <input type="submit" value="Преглед на образование" name="checkEducation" />
+        </form>
+        <br></br>
+        <% if (request.getParameter("checkEducation") != null) {%>
+        <table border="2">                   
+            <tbody>
+                <tr>            
+                    <%for (Education oldEducation : person.getEducations()) {%>
+                    <td>Вид образование: <%=oldEducation.getDegree().toString()%>
+                        <br>Учебно заведение: <%=oldEducation.getInstitutionName()%></br>                               
+                        Начална дата: <%=oldEducation.getEnrollmentDate()%>                              
+                        <br>Дата на завършване: <%=oldEducation.getGraduationDate()%></br>                                
+                        Статус: <%=oldEducation.isGraduated()%>   
+                        <%if (oldEducation instanceof GradedEducation && oldEducation.getGraduationDate().isBefore(LocalDate.now())) {%>
+                        <br>Среден успех: <%=((GradedEducation) oldEducation).getFinalGrade()%></br> 
+                        <%}%>
+                    </td>                  
+
+                    <% }%>
+                </tr>
+            </tbody>
+        </table>
+        <%}%>
+        <br></br>
     </body>
 </html>
