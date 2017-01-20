@@ -61,52 +61,52 @@
 %>
 <%
     Class.forName("com.mysql.jdbc.Driver");
-    if(degree != null&&LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.parse(enrollmentDate, formatter))){%>
-        <h1><font color = red>Въведените дати са некоректни, датата на завършване, трябва да е след датата на започване!</font></h1>
+    if (degree != null && LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.parse(enrollmentDate, formatter))) {%>
+<h1><font color = red>Въведените дати са некоректни, датата на завършване, трябва да е след датата на започване!</font></h1>
     <%
-    } else if (degree != null&&LocalDate.parse(graduationDate, formatter).isAfter(LocalDate.parse(enrollmentDate, formatter))) {
-        switch (degree) {
-            case "Primary":
-                PrimaryEducation pEducation = new PrimaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
-                education = pEducation;
-                person.addEducation(education);
-                break;
-            case "Secondary":
-                SecondaryEducation sEducation = new SecondaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
-                if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
-                    ((GradedEducation) sEducation).gotGraduated(Float.parseFloat(finalGrade));
-                }
-                education = sEducation;
-                person.addEducation(education);
-                break;
-            case "Bachelor":
-            case "Master":
-            case "Doctorate":
-                EducationDegree educationDegree = null;
-                if (degree.equals("Bachelor")) {
-                    educationDegree = EducationDegree.Bachelor;
-                } else if (degree.equals("Master")) {
-                    educationDegree = EducationDegree.Master;
-                } else {
-                    educationDegree = EducationDegree.Doctorate;
-                }
+        } else if (degree != null && LocalDate.parse(graduationDate, formatter).isAfter(LocalDate.parse(enrollmentDate, formatter))) {
+            switch (degree) {
+                case "Primary":
+                    PrimaryEducation pEducation = new PrimaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
+                    education = pEducation;
+                    person.addEducation(education);
+                    break;
+                case "Secondary":
+                    SecondaryEducation sEducation = new SecondaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
+                    if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
+                        ((GradedEducation) sEducation).gotGraduated(Float.parseFloat(finalGrade));
+                    }
+                    education = sEducation;
+                    person.addEducation(education);
+                    break;
+                case "Bachelor":
+                case "Master":
+                case "Doctorate":
+                    EducationDegree educationDegree = null;
+                    if (degree.equals("Bachelor")) {
+                        educationDegree = EducationDegree.Bachelor;
+                    } else if (degree.equals("Master")) {
+                        educationDegree = EducationDegree.Master;
+                    } else {
+                        educationDegree = EducationDegree.Doctorate;
+                    }
 
-                HigherEducation hEducation = new HigherEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter), educationDegree);
-                if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
-                    ((GradedEducation) hEducation).gotGraduated(Float.parseFloat(finalGrade));
-                }
-                education = hEducation;
-                person.addEducation(education);
-                break;
-        }
+                    HigherEducation hEducation = new HigherEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter), educationDegree);
+                    if (LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.now())) {
+                        ((GradedEducation) hEducation).gotGraduated(Float.parseFloat(finalGrade));
+                    }
+                    education = hEducation;
+                    person.addEducation(education);
+                    break;
+            }
 
-    }
-    for (Education personEducation : person.getEducations()) {
-        if (personEducation.equals(education)) {
-            addEducation.insertEducationWebPage(personEducation, personId);
         }
-    }
-%>
+        for (Education personEducation : person.getEducations()) {
+            if (personEducation.equals(education)) {
+                addEducation.insertEducationWebPage(personEducation, personId);
+            }
+        }
+    %>
 
 <a href="userInfo.jsp">Назад</a>  
 <br></br>
@@ -114,7 +114,7 @@
     <label>Учебно заведение:</label>  <input type="text" name="institutionName" value="" />           
     <label>Начална дата:</label> <input type="text" name="enrollmentDate" value="" />         
     <label>Крайна дата:</label> <input type="text" name="graduationDate" value="" />
-    
+
     <label>Среден успех:</label> <input type="text" name="finalGrade" value="" />
     <label>Образоваелна степен:</label> <select name="educationDegree">
         <option>None</option>
@@ -187,23 +187,23 @@
                             <td>Статус</td>
                             <td><%=personEducation.isGraduated()%></td>
                         </tr>
-                        
-                            <%if (personEducation instanceof GradedEducation && personEducation.getGraduationDate().isBefore(LocalDate.now())) {%>
-                            <td>Среден успех</td>
-                            <td><%=((GradedEducation) personEducation).getFinalGrade()%></td>
-                            <%} else {%>
-                            <td>Среден успех</td>
-                            <td>N/A</td>
-                            <%}%>
-                                      
-                    </tbody>
-                </table>
 
-            </td>                  
+                        <%if (personEducation instanceof GradedEducation && personEducation.getGraduationDate().isBefore(LocalDate.now())) {%>
+                    <td>Среден успех</td>
+                    <td><%=((GradedEducation) personEducation).getFinalGrade()%></td>
+                    <%} else {%>
+                    <td>Среден успех</td>
+                    <td>N/A</td>
+                    <%}%>
 
-            <% } %>
-        </tr>
     </tbody>
+</table>
+
+</td>                  
+
+<% } %>
+</tr>
+</tbody>
 </table>
 <%}%>
 <br></br>
