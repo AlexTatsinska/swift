@@ -25,14 +25,15 @@ public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordS
     }
 
     @Override
-    public void insertSocialInsurance(List<SocialInsuranceRecord> socialInsurances) throws DALException {
+    public void insertSocialInsurance(List<SocialInsuranceRecord> socialInsurances, int personId) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
-                CallableStatement statement = con.prepareCall("{call insert_social_insurance(?,?,?)}")) {
+                CallableStatement statement = con.prepareCall("{call insert_social_insurance(?,?,?,?)}")) {
             for (SocialInsuranceRecord socialInsurance : socialInsurances) {
 
                 statement.setInt("year", socialInsurance.getYear());
                 statement.setInt("month", socialInsurance.getMonth());
                 statement.setDouble("amount", socialInsurance.getAmount());
+                statement.setInt("person_id", personId);
 
                 statement.execute();
             }
