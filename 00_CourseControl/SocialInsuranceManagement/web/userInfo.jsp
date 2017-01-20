@@ -92,35 +92,63 @@
         </tr>
     </tbody>
 </table> 
-<br></br>
+
 <%if (request.getParameter("checkSocialInsuranceAccess") != null) {%>
 <%if (socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)) {%>
-<font color="LimeGreen"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
+<font color="blue"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
     <%} else {%>
 <bold><h1><font color="red">Без право на социално подпомагане</font></h1></bold>
         <%}
             }%>
-
-Образование:
+<br>
 <table border="2">                   
     <tbody>
         <tr>            
             <%for (Education education : person.getEducations()) {%>
-            <td>Вид образование: <%=education.getDegree().toString()%>
-                <br>Учебно заведение: <%=education.getInstitutionName()%></br>                               
-                Начална дата: <%=education.getEnrollmentDate()%>                              
-                <br>Дата на завършване: <%=education.getGraduationDate()%></br>                                
-                Статус: <%=education.isGraduated()%>   
-                <%if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {%>
-                <br>Среден успех: <%=((GradedEducation) education).getFinalGrade()%></br> 
-                <%}%>
+            <td>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Вид образование</th>
+                            <th><%=education.getDegree().toString()%></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Учебно заведение</td>
+                            <td><%=education.getInstitutionName()%></td>
+                        </tr>
+                        <tr>
+                            <td>Начална дата</td>
+                            <td><%=education.getEnrollmentDate()%></td>
+                        </tr>
+                        <tr>
+                            <td>Дата на завършване</td>
+                            <td><%=education.getGraduationDate()%></td>
+                        </tr>
+                        <tr>
+                            <td>Статус</td>
+                            <td><%=education.isGraduated()%></td>
+                        </tr>
+                        
+                            <%if (education instanceof GradedEducation && education.getGraduationDate().isBefore(LocalDate.now())) {%>
+                            <td>Среден успех</td>
+                            <td><%=((GradedEducation) education).getFinalGrade()%></td>
+                            <%} else {%>
+                            <td>Среден успех</td>
+                            <td>N/A</td>
+                            <%}%>
+                                      
+                    </tbody>
+                </table>
+
             </td>                  
 
             <% } %>
         </tr>
     </tbody>
 </table>
-<br></br>
+</br>
 
 
 <table border="0">                   
