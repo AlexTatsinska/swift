@@ -80,9 +80,9 @@ public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordS
 
     @Override
     public void insertSocialInsuranceFromWebPage(SocialInsuranceRecord socialInsurance, int person_id) throws DALException {
-        
-        String sql = "INSERT INTO citizen_registrations.social_insurance (`year`, `month`, `amount`, `person_id`)\n" 
-                +"VALUES (?,?,?,?);";
+
+        String sql = "INSERT INTO citizen_registrations.social_insurance (`year`, `month`, `amount`, `person_id`)\n"
+                + "VALUES (?,?,?,?);";
         try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
                 PreparedStatement statement = conn.prepareStatement(sql)) {
 
@@ -92,11 +92,10 @@ public class MySqlSocialInsuranceRecordStorage implements SocialInsuranceRecordS
             statement.setInt(4, person_id);
 
             statement.execute();
-        }catch (SQLException ex) {
-            throw new DALException("Error during social insurance import!", ex);
+        } catch (SQLException ex) {
+            throw new DALException("Error during social insert!", ex);
         }
-        
+
     }
-    
 
 }
