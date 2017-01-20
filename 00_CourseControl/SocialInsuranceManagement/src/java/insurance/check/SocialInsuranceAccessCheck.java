@@ -57,9 +57,9 @@ public class SocialInsuranceAccessCheck {
         int month = Calendar.getInstance().get(Calendar.MONTH);
         for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
             int yearDifference = year - socialInsurance.getYear();
-            if (yearDifference > -2) {
+            if (yearDifference < 2) {
                 sum = sum + socialInsurance.getAmount();
-            } else if (yearDifference == -2 && socialInsurance.getMonth() >= month) {
+            } else if (yearDifference == 2 && socialInsurance.getMonth() >= month) {
                 sum = sum + socialInsurance.getAmount();
             }
         }
