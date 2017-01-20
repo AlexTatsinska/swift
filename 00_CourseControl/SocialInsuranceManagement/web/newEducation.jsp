@@ -53,6 +53,7 @@
     Education education = null;
     EducationStorage addEducation = new MySqlEducationStorage(dbmsConnString, userName, password);
 %>
+
 <%
     Class.forName("com.mysql.jdbc.Driver");
     PersonStorage getPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
@@ -60,7 +61,10 @@
 %>
 <%
     Class.forName("com.mysql.jdbc.Driver");
-    if (degree != null) {
+    if(degree != null&&LocalDate.parse(graduationDate, formatter).isBefore(LocalDate.parse(enrollmentDate, formatter))){%>
+        <h1><font color = red>Въведените дати са некоректни, датата на завършване, трябва да е след датата на започване!</font></h1>
+    <%
+    } else if (degree != null&&LocalDate.parse(graduationDate, formatter).isAfter(LocalDate.parse(enrollmentDate, formatter))) {
         switch (degree) {
             case "Primary":
                 PrimaryEducation pEducation = new PrimaryEducation(institutionName, LocalDate.parse(enrollmentDate, formatter), LocalDate.parse(graduationDate, formatter));
