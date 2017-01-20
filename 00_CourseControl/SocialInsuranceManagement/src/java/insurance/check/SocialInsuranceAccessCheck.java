@@ -8,7 +8,9 @@ package insurance.check;
 import education.*;
 import insurance.SocialInsuranceRecord;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import personaldetails.*;
 
 /**
@@ -53,17 +55,43 @@ public class SocialInsuranceAccessCheck {
 
     public double getSocialInsuranceInstallmentSum(Citizen person) {
         double sum = 0;
-        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int year = 0;
         int month = Calendar.getInstance().get(Calendar.MONTH);
+        if(month>3){
+            year = Calendar.getInstance().get(Calendar.YEAR);
+        }else{
+            year = Calendar.getInstance().get(Calendar.YEAR)-1;
+            month = month+12;
+        }
         for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
             int yearDifference = year - socialInsurance.getYear();
             if (yearDifference < 2) {
                 sum = sum + socialInsurance.getAmount();
-            } else if (yearDifference == 2 && socialInsurance.getMonth() >= month) {
+            } else if (yearDifference == 2 && socialInsurance.getMonth() > month-3) {
                 sum = sum + socialInsurance.getAmount();
             }
         }
         return sum / 24;
+    }
+    public List<SocialInsuranceRecord> getLastSecondYearInsurances(Citizen person){
+        List<SocialInsuranceRecord> lastInsurances = new ArrayList<>();
+        int year = 0;
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        if(month>3){
+            year = Calendar.getInstance().get(Calendar.YEAR);
+        }else{
+            year = Calendar.getInstance().get(Calendar.YEAR)-1;
+            month = month+12;
+        }
+        for (SocialInsuranceRecord socialInsurance : person.getSocialInsuranceRecords()) {
+            int yearDifference = year - socialInsurance.getYear();
+            if (yearDifference < 2) {
+                lastInsurances.add(socialInsurance);
+            } else if (yearDifference == 2 && socialInsurance.getMonth() > month-3) {
+                lastInsurances.add(socialInsurance);
+            }
+        }
+        return lastInsurances;
     }
 
 }
