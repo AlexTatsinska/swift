@@ -12,7 +12,7 @@ import exception.DALException;
  * @author AlexT
  */
 public interface DeleteDatabaseStorage {
-    
-    public void deleteDatabase()throws DALException;
-    
+
+    public void deleteDatabase() throws DALException;
+
 }
