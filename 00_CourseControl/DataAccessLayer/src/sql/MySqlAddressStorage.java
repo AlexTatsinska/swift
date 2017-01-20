@@ -11,22 +11,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class MySqlAddressStorage implements AddressStorage {
-
+    
     private String dbmsConnString;
     private String userName;
     private String password;
-
+    
     public MySqlAddressStorage(String dbmsConnString, String userName, String password) {
         this.dbmsConnString = dbmsConnString;
         this.userName = userName;
         this.password = password;
     }
-
+    
     @Override
     public void insertAddress(Address address, int personId) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_address(?,?,?,?,?,?,?,?,?)}")) {
-
+            
             statement.setString("country", address.getCountry());
             statement.setString("city", address.getCity());
             statement.setString("municipality", address.getMunicipality());
@@ -46,7 +46,7 @@ public class MySqlAddressStorage implements AddressStorage {
             throw new DALException("Error during address import!", ex);
         }
     }
-
+    
     @Override
     public Address getAddressByPersonId(int person_id) throws DALException {
         Address address = null;
@@ -69,7 +69,7 @@ public class MySqlAddressStorage implements AddressStorage {
         try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
                 PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, person_id);
-
+            
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     String country = rs.getString("country");
@@ -92,5 +92,5 @@ public class MySqlAddressStorage implements AddressStorage {
         }
         return address;
     }
-
+    
 }
