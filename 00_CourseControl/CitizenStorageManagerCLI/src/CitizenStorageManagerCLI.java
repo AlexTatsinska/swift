@@ -22,11 +22,8 @@ public class CitizenStorageManagerCLI {
         String dbmsConnString = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
         String userName = "root";
         String password = "SwiftTraining1";
-        List<Citizen> people = new ArrayList<>();
-        AddressStorage addAddress = new MySqlAddressStorage(dbmsConnString, userName, password);
+        List<Citizen> people = new ArrayList<>();        
         PersonStorage addPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
-        EducationStorage addEducation = new MySqlEducationStorage(dbmsConnString, userName, password);
-        SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
         DeleteDatabaseStorage deleteDatabase = new MySqlDeleteDatabaseStorage(dbmsConnString, userName, password);        
 
         Scanner sc = new Scanner(System.in, "UTF-8");
@@ -56,10 +53,7 @@ public class CitizenStorageManagerCLI {
         System.out.println("Database is empty! Import started!");
 
         for (Citizen person : people) {
-            addPerson.insertPerson(person);
-            addAddress.insertAddress(person.getAddress());
-            addEducation.insertEducation(person.getEducations());
-            addSocialInsurance.insertSocialInsurance(person.getSocialInsuranceRecords());
+            addPerson.insertPerson(person);            
         }
         System.out.println("Import successful!");
     }
