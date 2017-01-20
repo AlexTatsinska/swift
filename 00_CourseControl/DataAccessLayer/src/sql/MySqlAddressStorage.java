@@ -23,9 +23,9 @@ public class MySqlAddressStorage implements AddressStorage {
     }
 
     @Override
-    public void insertAddress(Address address) throws DALException {
+    public void insertAddress(Address address, int personId) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
-                CallableStatement statement = con.prepareCall("{call insert_address(?,?,?,?,?,?,?,?)}")) {
+                CallableStatement statement = con.prepareCall("{call insert_address(?,?,?,?,?,?,?,?,?)}")) {
 
             statement.setString("country", address.getCountry());
             statement.setString("city", address.getCity());
@@ -40,6 +40,7 @@ public class MySqlAddressStorage implements AddressStorage {
                 statement.setInt("floor", 0);
                 statement.setInt("apartmentNo", 0);
             }
+            statement.setInt("person_id", personId);
             statement.executeQuery();
         } catch (SQLException ex) {
             throw new DALException("Error during address import!", ex);
