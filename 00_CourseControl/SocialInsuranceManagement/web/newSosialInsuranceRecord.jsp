@@ -59,7 +59,7 @@
                 }
             }
         %>
-        <a href="userInfo.jsp">Начало</a>  
+        <a href="userInfo.jsp">Назад</a>  
         <br></br>
         <form name="addSocialInsurance" action="newSosialInsuranceRecord.jsp" method="POST">
             <label>Година:</label><input type="text" name="year" value="" /> <label>Месец:</label><input type="text" name="month" value="" /> <label>Внесена сума:</label><input type="text" name="amount" value="" />
