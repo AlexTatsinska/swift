@@ -175,7 +175,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%for (SocialInsuranceRecord socialInsurance : socialInsuranceAccess.getLastSecondYearInsurances(person)) {%>
+                <%for (SocialInsuranceRecord socialInsurance : socialInsuranceAccess.getLastTwoYearInsurances(person)) {%>
                 <tr>                   
                     <td><%=socialInsurance.getYear()%> </td>
                     <td><%=socialInsurance.getMonth()%></td>
@@ -195,7 +195,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%for (SocialInsuranceRecord socialInsurance : socialInsuranceAccess.getLastSecondYearInsurances(person)) {%>
+                <%for (SocialInsuranceRecord socialInsurance : socialInsuranceAccess.getLastTwoYearInsurances(person)) {%>
                 <tr>                   
                     <td><%=socialInsurance.getYear()%> </td>
                     <td><%=socialInsurance.getMonth()%></td>
