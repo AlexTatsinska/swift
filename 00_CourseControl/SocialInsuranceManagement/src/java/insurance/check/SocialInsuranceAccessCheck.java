@@ -73,7 +73,7 @@ public class SocialInsuranceAccessCheck {
         }
         return sum / 24;
     }
-    public List<SocialInsuranceRecord> getLastSecondYearInsurances(Citizen person){
+    public List<SocialInsuranceRecord> getLastTwoYearInsurances(Citizen person){
         List<SocialInsuranceRecord> lastInsurances = new ArrayList<>();
         int year = 0;
         int month = Calendar.getInstance().get(Calendar.MONTH);
