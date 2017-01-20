@@ -50,7 +50,6 @@
         <%} else {
                     SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
                     SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
-
                     person.addSocialInsuranceRecord(insurance);
                     for (SocialInsuranceRecord personSocialInsurance : person.getSocialInsuranceRecords()) {
                         if (personSocialInsurance.equals(insurance)) {
@@ -97,7 +96,7 @@
             <input type="submit" value="Преглед на внесени социални осигуровки" name="checkSocialInsurance" />
         </form>
         <br></br>
-        <% if (personId > 0 || request.getParameter("checkSocialInsurance") != null) {%>
+        <% if (request.getParameter("checkSocialInsurance") != null) {%>
         <table border="2">
             <thead>
                 <tr>
