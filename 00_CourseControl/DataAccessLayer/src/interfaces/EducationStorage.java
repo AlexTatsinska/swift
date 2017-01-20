@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EducationStorage {
 
-    public void insertEducation(List<Education> educations) throws DALException;
+    public void insertEducation(List<Education> educations, int personId) throws DALException;
     public List<Education> getEducationsByPersonID(int personId) throws DALException;
-    public void insertEducationWebPage(Education education, int personID)throws DALException;
+    public void insertEducationWebPage(Education education, int personId)throws DALException;
 }
