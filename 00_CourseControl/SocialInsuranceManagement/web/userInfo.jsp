@@ -27,7 +27,7 @@
 </head>
 
 <form action="userInfo.jsp">
-    <input type="text" name="personId" value="" />
+    <label>Персонален номер: </label><input type="text" name="personId" value="" />
 </form>
 <%
     if (request.getParameter("personId") != null && !request.getParameter("personId").equals("") && Integer.parseInt(request.getParameter("personId")) > 0) {
@@ -74,7 +74,7 @@
 <%if (request.getParameter("checkSocialInsuranceAccess") != null) {%>
 <%if (socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)) {%>
 <font color="green"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
-<%} else {%>
+    <%} else {%>
 <bold><h1><font color="red">Без право на социално подпомагане</font></h1></bold>
         <%}
             }%>
@@ -99,27 +99,35 @@
     </tbody>
 </table>
 <br></br>
-<form name="addEducation" action="newEducation.jsp">
-    <input type="submit" value="Добави образование" name="addEducationButton" /> 
-</form>
-<br>
-<form name="addSocialInsurance" action="newSosialInsuranceRecord.jsp">
-    <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
-</form>
-</br>
-<br>
-<form name="checkSocialInsuranceAccess" action="userInfo.jsp" method="POST">
-    <input type="submit" value="Проверка за социално подпомагане" name="checkSocialInsuranceAccess" />
-</form>
-</br>
+
+
+<table border="0">                   
+    <tbody>
+        <tr>                        
+            <td><form name="addEducation" action="newEducation.jsp">
+                    <input type="submit" value="Добави образование" name="addEducationButton" /> 
+                </form>
+            </td>                  
+            <td><form name="addSocialInsurance" action="newSosialInsuranceRecord.jsp">
+                    <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
+                </form>
+            </td> 
+            <td><form name="checkSocialInsuranceAccess" action="userInfo.jsp" method="POST">
+                    <input type="submit" value="Проверка за социално подпомагане" name="checkSocialInsuranceAccess" />
+                </form>
+            </td> 
+
+        </tr>
+    </tbody>
+</table>
 
 <%} else if ((request.getParameter("personId") == null) || (request.getParameter("personId").equals(""))) {
 %>
-<h1>Въведете Person ID</h1>        
+<h1>Въведете Персонален номер</h1>        
 <%
 } else if (!request.getParameter("personId").equals("") && Integer.parseInt(request.getParameter("personId")) <= 0) {
 %>
-<h1>Невалидно Person ID, опитайте отново</h1>
+<h1><font color = red>Невалидно Персонален номер, опитайте отново</font></h1>
 <%
     }
 %>
