@@ -21,9 +21,6 @@ import personaldetails.*;
 
 public class MySqlPersonStorage implements PersonStorage {
     
-    static final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
-    static final String DBMS_USERNAME = "root";
-    static final String DBMS_PASSWORD = "SwiftTraining1";
     private String dbmsConnString;
     private String userName;
     private String password;
@@ -36,9 +33,13 @@ public class MySqlPersonStorage implements PersonStorage {
     
     @Override
     public void insertPerson(Citizen person) throws DALException {
+        AddressStorage addAddress = new MySqlAddressStorage(dbmsConnString, userName, password);        
+        EducationStorage addEducation = new MySqlEducationStorage(dbmsConnString, userName, password);
+        SocialInsuranceRecordStorage addSocialInsurance = new MySqlSocialInsuranceRecordStorage(dbmsConnString, userName, password);
+        DeleteDatabaseStorage deleteDatabase = new MySqlDeleteDatabaseStorage(dbmsConnString, userName, password); 
         
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
-                CallableStatement statement = con.prepareCall("{call insert_person(?,?,?,?,?,?)}")) {
+                CallableStatement statement = con.prepareCall("{call insert_person(?,?,?,?,?,?,?)}")) {
             
             statement.setString("first_name", person.getFirstName());
             statement.setString("middle_name", person.getMiddleName());
@@ -46,8 +47,12 @@ public class MySqlPersonStorage implements PersonStorage {
             statement.setString("gender", person.getGender().toString());
             statement.setInt("height", person.getHeight());
             statement.setDate("birth_date", (Date.valueOf(person.getDateOfBirth())));
-            
             statement.executeQuery();
+            int personId = statement.getInt("person_id");            
+            addAddress.insertAddress(person.getAddress(), personId);
+            addEducation.insertEducation(person.getEducations(), personId);
+            addSocialInsurance.insertSocialInsurance(person.getSocialInsuranceRecords(), personId);
+                    
         } catch (SQLException ex) {
             throw new DALException("Error during person import!", ex);
         }
