@@ -26,7 +26,7 @@ public class MySqlDeleteDatabaseStorage implements DeleteDatabaseStorage {
 
             statement.execute();
         } catch (SQLException ex) {
-            throw new DALException("Error during address import!", ex);
+            throw new DALException("Error during database truncate!", ex);
         }
     }
 
