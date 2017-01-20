@@ -27,9 +27,9 @@ public class MySqlEducationStorage implements EducationStorage {
     }
 
     @Override
-    public void insertEducation(List<Education> educations) throws DALException {
+    public void insertEducation(List<Education> educations, int personId) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
-                CallableStatement statement = con.prepareCall("{call insert_education(?,?,?,?,?,?)}")) {
+                CallableStatement statement = con.prepareCall("{call insert_education(?,?,?,?,?,?,?)}")) {
             for (Education education : educations) {
                 statement.setString("type", education.getDegree().toString());
                 statement.setString("institution_name", education.getInstitutionName());
@@ -42,6 +42,7 @@ public class MySqlEducationStorage implements EducationStorage {
                 } else {
                     statement.setDouble("final_grade", 0);
                 }
+                statement.setInt("person_id", personId);
                 statement.execute();
             }
         } catch (SQLException ex) {
