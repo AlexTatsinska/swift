@@ -144,7 +144,7 @@ public class MySqlEducationStorage implements EducationStorage {
             statement.execute();
 
         } catch (SQLException ex) {
-            throw new DALException("Error during education import!", ex);
+            throw new DALException("Error during education insert!", ex);
         }
     }
 }
