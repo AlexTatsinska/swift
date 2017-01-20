@@ -4,6 +4,7 @@
     Author     : AlexT
 --%>
 
+<%@page import="insurance.SocialInsuranceRecord"%>
 <%@page import="insurance.check.SocialInsuranceAccessCheck"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="education.*"%>
@@ -93,13 +94,6 @@
     </tbody>
 </table> 
 
-<%if (request.getParameter("checkSocialInsuranceAccess") != null) {%>
-<%if (socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)) {%>
-<font color="blue"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
-    <%} else {%>
-<bold><h1><font color="red">Без право на социално подпомагане</font></h1></bold>
-        <%}
-            }%>
 <br>
 <table border="2">                   
     <tbody>
@@ -162,15 +156,60 @@
                     <input type="submit" value="Добави социална осигуровка" name="addSocialInsurance" />
                 </form>
             </td> 
-            <td><form name="checkSocialInsuranceAccess" action="userInfo.jsp" method="POST">
-                    <input type="submit" value="Проверка за социално подпомагане" name="checkSocialInsuranceAccess" />
-                </form>
+            
+            <td>
             </td> 
 
         </tr>
     </tbody>
 </table>
-
+<%if (request.getParameter("checkSocialInsuranceAccess") != null) {%>
+<%if (socialInsuranceAccess.checkSocialInsuranceInstallments(person) && socialInsuranceAccess.checkEducation(person)) {%>
+<font color="blue"><h1><%=String.format("Има право на социално подпомагане на стойност %.2f лева", socialInsuranceAccess.getSocialInsuranceInstallmentSum(person))%></h1></font>
+<table border="2">
+            <thead>
+                <tr>
+                    <th>година</th>
+                    <th>месец</th>
+                    <th>сума</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for (SocialInsuranceRecord socialInsurance : socialInsuranceAccess.getLastSecondYearInsurances(person)) {%>
+                <tr>                   
+                    <td><%=socialInsurance.getYear()%> </td>
+                    <td><%=socialInsurance.getMonth()%></td>
+                    <td><%=socialInsurance.getAmount()%></td>              
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+    <%} else {%>
+<bold><h1><font color="red">Без право на социално подпомагане</font></h1></bold>
+<table border="2">
+            <thead>
+                <tr>
+                    <th>година</th>
+                    <th>месец</th>
+                    <th>сума</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for (SocialInsuranceRecord socialInsurance : socialInsuranceAccess.getLastSecondYearInsurances(person)) {%>
+                <tr>                   
+                    <td><%=socialInsurance.getYear()%> </td>
+                    <td><%=socialInsurance.getMonth()%></td>
+                    <td><%=socialInsurance.getAmount()%></td>              
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+        <%}
+            }else{%>
+                <form name="checkSocialInsuranceAccess" action="userInfo.jsp" method="POST">
+                    <input type="submit" value="Проверка за социално подпомагане" name="checkSocialInsuranceAccess" />
+                </form>
+<%}%>
 <%} else if ((request.getParameter("personId") == null) || (request.getParameter("personId").equals(""))) {
 %>
 <h1>Въведете Персонален номер</h1>        
