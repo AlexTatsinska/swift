@@ -18,26 +18,13 @@ public class Task4a_StringWoVowels {
         char[] c = str.toCharArray();
 
         for (int i = 0; i < c.length; i++) {
-           /* if (c[i] == 'a') {
-                System.out.print("");
-            } else if (c[i] == 'e') {
-                System.out.print("");
-            } else if (c[i] == 'i') {
-                System.out.print("");
-            } else if (c[i] == 'o') {
-                System.out.print("");
-            } else if (c[i] == 'u') {
-                System.out.print("");
-            } else {
-                System.out.print(c[i]);
-            }*/
+           
             switch (c[i]) {
                 case 'a':
                 case 'e':
                 case 'i':
                 case 'o':
-                case 'u':
-                    System.out.print("");
+                case 'u':                    
                     break;
                 default:
                     System.out.print(c[i]);
