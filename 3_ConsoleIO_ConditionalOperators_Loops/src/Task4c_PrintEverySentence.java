@@ -22,7 +22,8 @@ public class Task4c_PrintEverySentence {
             switch (c[i]) {
                 case '.':
                 case '!':
-                case '?':
+                case '?':   
+                    System.out.print(c[i]);
                     System.out.println();
                     break;
                 default:
