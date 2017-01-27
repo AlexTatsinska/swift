@@ -15,45 +15,18 @@ public class Task4d_SumOfNumbersInString {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        char[] c = str.toCharArray();
-        int sum = 0;
-        String symbol = "";
-        String newStr = "";
+        String[] c = str.split(" ");
+        int sum = 0;        
 
         for (int i = 0; i < c.length; i++) {
-            switch (c[i]) {
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                case '0':
-                    //symbol = c[i];
-                    newStr = newStr + c[i];
-                    break;
-                default:
-                    newStr = newStr + '.';
-            }
-        }
-        System.out.println(newStr);
-        char[] c1 = newStr.toCharArray();
-        for (int j = 0; j < c1.length; j++) {
-            if (c1[j] != '.') {
-                symbol = symbol + c1[j];
-                //System.out.println(symbol);
-            } else {
-                sum = sum + Integer.parseInt(symbol);
-                symbol = "";
-                //System.out.println(sum);
-            }
-
+            
+                  if(c[i].contains("0")||c[i].contains("1")||c[i].contains("2")||c[i].contains("3")||
+                          c[i].contains("4")||c[i].contains("5")||c[i].contains("6")||c[i].contains("7")||
+                          c[i].contains("8")||c[i].contains("9")){
+                      sum = sum+Integer.parseInt(c[i]);
+                  }
         }
         System.out.println(sum);
-
     }
 
 }
