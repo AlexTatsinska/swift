@@ -16,7 +16,7 @@ public class SwiftDate {
     int month;
     int day;
 
-    SwiftDate(int year, int date, int day) {
+    SwiftDate(int year, int month, int day) {
         this.year = year;
         this.month = month;
         this.day = day;
@@ -47,7 +47,7 @@ public class SwiftDate {
                 }
             }
             for (int i = month; i <= 12; i++) {
-                if (((year % 4 == 0 && year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) == true) {
+                if (isLeapYear()) {
                     if ((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)) {
                         monthDiferenceDays = monthDiferenceDays + 31;
                     } else if ((month == 4) || (month == 6) || (month == 9) || (month == 11)) {
@@ -67,7 +67,7 @@ public class SwiftDate {
             daysDiference = daysDiference - monthDiferenceDays + day + 1;
             monthDiferenceDays = 0;
             for (int i = 1; i < other.month; i++) {
-                if (((other.year % 4 == 0 && other.year % 400 == 0) || (other.year % 4 == 0 && other.year % 100 != 0)) == true) {
+                if (isLeapYear()) {
                     if ((other.month == 1) || (other.month == 3) || (other.month == 5) || (other.month == 7) || (other.month == 8) || (other.month == 10) || (other.month == 12)) {
                         monthDiferenceDays = monthDiferenceDays + 31;
                     } else if ((other.month == 4) || (other.month == 6) || (other.month == 9) || (other.month == 11)) {
@@ -87,7 +87,7 @@ public class SwiftDate {
             daysDiference = daysDiference - monthDiferenceDays - other.day;
         } else {
             for (int i = year; i <= other.year; i++) {
-                if (((i % 4 == 0 && i % 400 == 0) || (i % 4 == 0 && i % 100 != 0)) == true) {
+                if (isLeapYear()) {
                     daysDiference = daysDiference + 366;
                 } else {
                     daysDiference = daysDiference + 365;
@@ -114,7 +114,7 @@ public class SwiftDate {
             daysDiference = daysDiference - monthDiferenceDays + other.day;
             monthDiferenceDays = 0;
             for (int i = 1; i < month; i++) {
-                if (((year % 4 == 0 && year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) == true) {
+                if (isLeapYear()) {
                     if ((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)) {
                         monthDiferenceDays = monthDiferenceDays + 31;
                     } else if ((month == 4) || (month == 6) || (month == 9) || (month == 11)) {
@@ -136,12 +136,13 @@ public class SwiftDate {
         return daysDiference;
     }
 
-    void printInfo() {
-
+    public String getPrintInfo() {
+        String result;
         if (isLeapYear() == true) {
-            System.out.println(year + " " + month + " " + day + " -" + getCentury() + " century. It is LEAP year.");
+            result = year + " " + month + " " + day + " -" + getCentury() + " century. It is LEAP year.";
         } else {
-            System.out.println(year + " " + month + " " + day + " -" + getCentury() + "century");
+            result = year + " " + month + " " + day + " -" + getCentury() + "century";
         }
+        return result;
     }
 }

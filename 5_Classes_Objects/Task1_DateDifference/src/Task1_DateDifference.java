@@ -23,8 +23,8 @@ public class Task1_DateDifference {
         SwiftDate second = new SwiftDate(Integer.parseInt(split1[0]), Integer.parseInt(split1[1]), Integer.parseInt(split1[2]));
 
         System.out.println(first.getDaysDiference(second));
-        first.printInfo();
-        second.printInfo();
+        System.out.println(first.getPrintInfo());
+        System.out.println(second.getPrintInfo());
 
     }
 }
