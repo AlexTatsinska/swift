@@ -16,10 +16,10 @@ public class Employee {
     float salary;
     String position;
     String department;
-    byte age;
+    int age;
     String email;
 
-    Employee(String name, float salary, String position, String department, byte age, String email) {
+    Employee(String name, float salary, String position, String department, int age, String email) {
         this.name = name;
         this.salary = salary;
         this.position = position;
@@ -28,31 +28,16 @@ public class Employee {
         this.email = email;
     }
 
-    Employee(String name, float salary, String position, String department) {
-        this.name = name;
-        this.salary = salary;
-        this.position = position;
-        this.department = department;
-        age = -1;
-        email = "n/a";
-    }
-
-    Employee(String name, float salary, String position, String department, byte age) {
-        this.name = name;
-        this.salary = salary;
-        this.position = position;
-        this.department = department;
-        this.age = age;
-        email = "n/a";
+     Employee(String name, float salary, String position, String department){
+        this(name, salary, position, department, -1, null);
     }
 
     Employee(String name, float salary, String position, String department, String email) {
-        this.name = name;
-        this.salary = salary;
-        this.position = position;
-        this.department = department;
-        age = -1;
-        this.email = email;
+        this(name, salary, position, department, -1, email);
     }
+
+    Employee(String name, float salary, String position, String department, int age) {
+        this(name, salary, position, department, age, null);
+    }   
 
 }

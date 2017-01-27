@@ -41,33 +41,21 @@ public class Task2_EmployeeSalarySort {
                     employee = new Employee(name, salary, position, department, email);
                 } else {
                     age = Integer.parseInt(split[4].trim());
-                    employee = new Employee(name, salary, position, department, (byte) age);
+                    employee = new Employee(name, salary, position, department, age);
                 }
             } else if (split.length == 6) {
                 email = split[5].trim();
                 age = Integer.parseInt(split[4].trim());
-                employee = new Employee(name, salary, position, department, (byte) age, email);
+                employee = new Employee(name, salary, position, department, age, email);
             } else if (split.length == 4) {
                 employee = new Employee(name, salary, position, department);
             }
             newEmployer[i] = employee;
             salaryArr[i] = salary;
-            /*
-            if (split.length == 6) {
-                newEmployer[i] = new Employee(split[0].trim(), Float.parseFloat(split[1].trim()), split[2].trim(), split[3].trim(), Byte.parseByte(split[4].trim()), split[5].trim());
-            } else if (split.length == 5) {
 
-                newEmployer[i] = new Employee(split[0].trim(), Float.parseFloat(split[1].trim()), split[2].trim(), split[3].trim());
-            } else if (split[split.length - 1].contains("@")) {
-                newEmployer[i] = new Employee(split[0].trim(), Float.parseFloat(split[1].trim()), split[2].trim(), split[3].trim(), split[4].trim());
-            } else {
-                newEmployer[i] = new Employee(split[0].trim(), Float.parseFloat(split[1].trim()), split[2].trim(), split[3].trim(), Byte.parseByte(split[4].trim()));
-            } */
         }
         Arrays.sort(salaryArr);
-        /*for (int i =0;i<salaryArr.length;i++){
-         System.out.println(salaryArr[i]);
-     }*/
+
         for (int i = salaryArr.length - 1; i > salaryArr.length - 4; i--) {
             for (int j = 0; j < newEmployer.length; j++) {
                 if (salaryArr[i] == newEmployer[j].salary) {
