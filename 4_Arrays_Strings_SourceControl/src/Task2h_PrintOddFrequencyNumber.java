@@ -25,10 +25,8 @@ public class Task2h_PrintOddFrequencyNumber {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length; j++) {
                 if (arr[i] == arr[j]) {
-                    check = ++check;
-                } else {
-                    check = check + 0;
-                }
+                    check++;
+                } 
             }
             if (check % 2 != 0) {
                 oddFrequencyNumber = arr[i];
