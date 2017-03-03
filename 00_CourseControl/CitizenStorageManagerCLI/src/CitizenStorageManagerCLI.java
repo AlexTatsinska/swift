@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,43 +23,33 @@ public class CitizenStorageManagerCLI {
         String dbmsConnString = "jdbc:mysql://localhost:3306/citizen_registrations?useUnicode=true&characterEncoding=UTF-8";
         String userName = "root";
         String password = "SwiftTraining1";
-        List<Citizen> people = new ArrayList<>();
         PersonStorage addPerson = new MySqlPersonStorage(dbmsConnString, userName, password);
         DeleteDatabaseStorage deleteDatabase = new MySqlDeleteDatabaseStorage(dbmsConnString, userName, password);
 
-        Scanner sc = new Scanner(System.in, "UTF-8");
+        Scanner sc = getScanner(args);
 
-        if (args.length > 0 && !args[0].isEmpty()) {
-            File file = new File(args[0]);
-            if (file.isFile()) {
-                try {
-                    sc = new Scanner(new FileInputStream(args[0]));
-                } catch (FileNotFoundException ex) {
-                    System.out.println("File " + file.getName() + " was not found.");
-                    return;
-                }
-            }
-        }
         int n = sc.nextInt();
         sc.nextLine();
-
+        deleteDatabase.deleteDatabase();
+        System.out.println("Database is empty! Import started at "+LocalDateTime.now()+"!");
+        // List<Citizen> people = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             String input = sc.nextLine();
             String inputInsurance = sc.nextLine();
-            createPerson(people, input, inputInsurance);
-        }
+            addPerson.insertPerson(createPerson(input, inputInsurance));
+            if (i % 100 == 0) {
+                System.out.println(i + "/" + n+" rows are imported "+LocalDateTime.now());
+            }
+            // people.add(createPerson(input, inputInsurance));
+        }       
 
-        deleteDatabase.deleteDatabase();
-
-        System.out.println("Database is empty! Import started!");
-
-        for (Citizen person : people) {
+        /*for (Citizen person : people) {
             addPerson.insertPerson(person);
-        }
+        }*/
         System.out.println("Import successful!");
     }
 
-    public static void createPerson(List<Citizen> people, String input, String inputInsurance) {
+    public static Citizen createPerson(String input, String inputInsurance) {
 
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
         Citizen person = null;
@@ -89,16 +80,16 @@ public class CitizenStorageManagerCLI {
         String street = split[10];
         String number = split[11];
 
+        Address address;
         if (split.length > 12 && !split[12].equals("")) {
             int floor = Integer.parseInt(split[12]);
             int apartmentNumber = Integer.parseInt(split[13]);
 
-            Address address = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
-            person.setAddress(address);
+            address = new Address(country, city, municipality, zip, street, number, floor, apartmentNumber);
         } else {
-            Address address = new Address(country, city, municipality, zip, street, number);
-            person.setAddress(address);
+            address = new Address(country, city, municipality, zip, street, number);
         }
+        person.setAddress(address);
 
         if (split.length > 13) {
             for (int i = 14; i < split.length; i++) {
@@ -155,6 +146,25 @@ public class CitizenStorageManagerCLI {
             SocialInsuranceRecord insurance = new SocialInsuranceRecord(year, month, amount);
             person.addSocialInsuranceRecord(insurance);
         }
-        people.add(person);
+
+        return person;
+    }
+
+    private static Scanner getScanner(String[] args) {
+        Scanner sc = new Scanner(System.in, "UTF-8");
+
+        if (args.length > 0 && !args[0].isEmpty()) {
+            File file = new File(args[0]);
+            if (file.isFile()) {
+                try {
+                    sc = new Scanner(new FileInputStream(args[0]));
+                } catch (FileNotFoundException ex) {
+                    System.out.println("File " + file.getName() + " was not found.");
+                    return sc;
+                }
+            }
+        }
+
+        return sc;
     }
 }
