@@ -39,6 +39,7 @@ public class PokerTool extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        addNewGamerFrame.setClosable(true);
         addNewGamerFrame.setVisible(true);
 
         gamerNameLabel.setText("Gamer name");
@@ -71,6 +72,8 @@ public class PokerTool extends javax.swing.JFrame {
 
         pokerToolTabbedPane.addTab("Add new gamer", addNewGamerFrame);
 
+        surchGamerInternalFrame.setClosable(true);
+        surchGamerInternalFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         surchGamerInternalFrame.setVisible(true);
 
         jLabel1.setText("Gamer name");
@@ -103,6 +106,7 @@ public class PokerTool extends javax.swing.JFrame {
 
         pokerToolTabbedPane.addTab("Surch gamer", surchGamerInternalFrame);
 
+        addNewInfoGamerInternalFrame.setClosable(true);
         addNewInfoGamerInternalFrame.setVisible(true);
 
         javax.swing.GroupLayout addNewInfoGamerInternalFrameLayout = new javax.swing.GroupLayout(addNewInfoGamerInternalFrame.getContentPane());
@@ -128,6 +132,8 @@ public class PokerTool extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pokerToolTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
         );
+
+        pokerToolTabbedPane.getAccessibleContext().setAccessibleName("Poker tool");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
