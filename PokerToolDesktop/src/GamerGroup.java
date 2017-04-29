@@ -19,6 +19,11 @@ public class GamerGroup {
         this.groupName = groupName;
     }
 
+    public GamerGroup(String groupName, List<Gamer> groupGamers) {
+        this.groupName = groupName;
+        this.groupGamers = groupGamers;
+    }
+
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
@@ -35,6 +40,8 @@ public class GamerGroup {
         return groupGamers;
     }
     
-    
+    public void addGamer(Gamer gamer){
+        groupGamers.add(gamer);
+    }
     
 }
