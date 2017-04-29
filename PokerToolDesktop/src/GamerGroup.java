@@ -14,5 +14,27 @@ import java.util.List;
 public class GamerGroup {
     String groupName;
     List<Gamer> groupGamers;
+
+    public GamerGroup(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void setGroupGamers(List<Gamer> groupGamers) {
+        this.groupGamers = groupGamers;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public List<Gamer> getGroupGamers() {
+        return groupGamers;
+    }
+    
+    
     
 }
