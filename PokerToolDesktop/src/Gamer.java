@@ -45,6 +45,8 @@ public class Gamer {
         return gamerPictures;
     }
     
-    
+    public void addGamerPicture(Picture picture){
+        gamerPictures.add(picture);
+    }
     
 }
