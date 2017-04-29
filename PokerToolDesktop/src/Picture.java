@@ -12,7 +12,7 @@ public class Picture {
     String pictureLink;
 
     public Picture(String pictureLink) {
-        this.pictureLink = pictureLink;
+        setPictureLink(pictureLink);
     }
 
     public void setPictureLink(String pictureLink) {
