@@ -20,12 +20,12 @@ public class GamerGroup {
     }
 
     public GamerGroup(String groupName, List<Gamer> groupGamers) {
-        this.groupName = groupName;
-        this.groupGamers = groupGamers;
+        setGroupName(groupName);
+        setGroupGamers(groupGamers);
     }
 
     public void setGroupName(String groupName) {
-        this.groupName = groupName;
+        setGroupName(groupName);
     }
 
     public void setGroupGamers(List<Gamer> groupGamers) {
