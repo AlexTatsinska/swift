@@ -10,5 +10,19 @@
  */
 public class Picture {
     String pictureLink;
+
+    public Picture(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
+
+    public String getPictureLink() {
+        return pictureLink;
+    }
+    
+    
     
 }
