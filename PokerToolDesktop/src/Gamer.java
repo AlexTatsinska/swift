@@ -17,9 +17,16 @@ public class Gamer {
     List<Picture> gamerPictures;
 
     public Gamer(String gamerName, String gamerNote) {
-        this.gamerName = gamerName;
-        this.gamerNote = gamerNote;
+        setGamerName(gamerName);
+        setGamerNote(gamerNote);
     }
+
+    public Gamer(String gamerName, String gamerNote, List<Picture> gamerPictures) {
+        setGamerName(gamerName);
+        setGamerNote(gamerNote);
+        setGamerPictures(gamerPictures);
+    }
+    
 
     public void setGamerName(String gamerName) {
         this.gamerName = gamerName;
