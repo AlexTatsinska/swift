@@ -14,6 +14,7 @@
     static final String userName = "root";
     static final String password = "SwiftTraining1";
     String gamerName = null;
+    int gamerId;
     Gamer gamer = null;
 
 %>
@@ -26,7 +27,7 @@
     <body>
         <form name="gamersForm" action="gamerBeta.jsp">          
             <br><label>Gamer name:</label>&nbsp;<input type="text" name="surchGamer" value="" />&nbsp;<input type="submit" value="Surch gamer" name="surchGamerButon" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>New gamer name:</label>&nbsp;<input type="text" name="addNewGamer" value="" />&nbsp;<input type="submit" value="Add new gamer" name="addGamerButon" /></br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>New gamer name:</label>&nbsp;<input type="text" name="addNewGamer" value="" />&nbsp;<input type="submit" value="Add new gamer" name="addGamerButton" /></br> 
 
 
             <% if (request.getParameter("surchGamerButon") != null) {
@@ -38,6 +39,8 @@
                     gamerName = session.getAttribute("surchGamerName").toString();
                     MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
                     gamer = mySqlGamer.getGamer(gamerName);
+                    gamerId = gamer.getGamerId();
+                    session.setAttribute("gamerId", gamerId);
                     if (gamer != null) {%>
             <br></br>
             <br><table border="3">
@@ -60,10 +63,18 @@
 
             <%}
                 }%>
-            <% if (request.getParameter("addNewGamerButton") != null) {
+            <% if (request.getParameter("addGamerButton") != null) {
                     gamerName = request.getParameter("addNewGamer");
                     session.setAttribute("addNewGamerName", gamerName);
-                            }%>
+                }%>
+            <% if (session.getAttribute("addNewGamerName") != null) {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    gamerName = session.getAttribute("addNewGamerName").toString();
+                    MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+                    mySqlGamer.insertNewGamer(gamerName);
+            %>
+            <h1>Gamer <font color="green"><%=session.getAttribute("addNewGamerName").toString()%></font> is added!</h1>
+                <%  }%>
 
         </form>   
     </body>

@@ -35,7 +35,7 @@ public class Test {
         //addNewSubTopic.insertNewSubTopic(subTopic);
         MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
         gamer = mySqlGamer.getGamer("first gamer");
-        
+        mySqlGamer.insertNewGamer(userName);
         System.out.println(gamer.getGamerName());
 
     }

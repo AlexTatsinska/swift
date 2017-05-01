@@ -32,7 +32,7 @@ public class MySqlGamer {
         this.password = password;
     }
     
-    public void insertNewTopic(String newGamerName) throws DALException {
+    public void insertNewGamer(String newGamerName) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_gamer(?)}")) {
             
