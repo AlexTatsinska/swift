@@ -1,6 +1,6 @@
 
+import mysql.topic.MySqlSubTopic;
 import exception.*;
-import mysql.*;
 import topic.*;
 import java.sql.DriverManager;
 

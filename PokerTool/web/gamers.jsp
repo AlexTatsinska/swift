@@ -51,6 +51,28 @@
                     groupName = request.getParameter("selectGroup");
                     session.setAttribute("selectedGroup", groupName);%>            
             <%}%>
+            <% if(session.getAttribute("selectedGroup")!= null){
+             groupName = session.getAttribute("selectedGroup").toString();%>
+             <br></br>
+             <br><table border="3">
+                <thead>
+                    <td><%=groupName%>&nbsp;</td>
+                    <td>Gamer1 &nbsp;<input type="submit" value=<%=groupName%> name=<%=groupName%> />&nbsp;<input type="submit" value="Close" name="closeGamer" />
+                        <br><img src="C:\Users\AlexT\Desktop\simple pics\download.png"/>&nbsp;<img src="C:\Users\AlexT\Desktop\simple pics\images (2).jpg"/>
+                        </br>
+                        
+                        <br>Please note that window.open is JavaScript function but not JSP,</br> 
+                        <br>JSP is for server side and JavaScript</br>   
+                        <br>is for client side.</br><br>For popping up a new window in chrome,</br> 
+                        <br>you have to specify the "specs" of the new window.</br><br> Here is an example.</br>
+                        <br><textarea name="addNote" rows="4" cols="20">
+                        </textarea></br><br><input type="submit" value="Add note" name="addNoteButton" />&nbsp;<input type="file" name="addNewPicture" value="" /></br>
+                    </td>  
+                </thead>                
+             </table>
+            </br>
+            
+            <%}%>
 
         </form>   
     </body>
