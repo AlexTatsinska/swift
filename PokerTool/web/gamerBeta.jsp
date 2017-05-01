@@ -25,7 +25,9 @@
     </head>
     <body>
         <form name="gamersForm" action="gamerBeta.jsp">          
-            <br><label>Gamer name:</label>&nbsp;<input type="text" name="surchGamer" value="" />&nbsp;<input type="submit" value="Surch gamer" name="surchGamerButon" /></br>       
+            <br><label>Gamer name:</label>&nbsp;<input type="text" name="surchGamer" value="" />&nbsp;<input type="submit" value="Surch gamer" name="surchGamerButon" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>New gamer name:</label>&nbsp;<input type="text" name="addNewGamer" value="" />&nbsp;<input type="submit" value="Add new gamer" name="addGamerButon" /></br> 
+
 
             <% if (request.getParameter("surchGamerButon") != null) {
                     gamerName = request.getParameter("surchGamer");
@@ -58,6 +60,10 @@
 
             <%}
                 }%>
+            <% if (request.getParameter("addNewGamerButton") != null) {
+                    gamerName = request.getParameter("addNewGamer");
+                    session.setAttribute("addNewGamerName", gamerName);
+                            }%>
 
         </form>   
     </body>

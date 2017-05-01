@@ -7,6 +7,7 @@ package mysql.gamer;
 
 import exception.DALException;
 import gamer.*;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,6 +30,19 @@ public class MySqlGamer {
         this.dbmsConnString = dbmsConnString;
         this.userName = userName;
         this.password = password;
+    }
+    
+    public void insertNewTopic(String newGamerName) throws DALException {
+        try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
+                CallableStatement statement = con.prepareCall("{call insert_gamer(?)}")) {
+            
+                statement.setString("gamer_name", newGamerName);
+                
+                statement.execute();
+            
+        } catch (SQLException ex) {
+            throw new DALException("Error during add new gamer!", ex);
+        }
     }
 
     public Gamer getGamer(String surchGamerName) throws DALException, SQLException {

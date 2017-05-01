@@ -68,7 +68,7 @@ public class MySqlTopic {
                 }
             }
         } catch (SQLException ex) {
-            throw new DALException("Error in social insurance surch!", ex);
+            throw new DALException("Error in topic surch!", ex);
         }
         return topics;
     }
