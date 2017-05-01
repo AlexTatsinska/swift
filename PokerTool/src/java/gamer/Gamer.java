@@ -14,27 +14,36 @@ import java.util.List;
  * @author AlexT
  */
 public class Gamer {
+    int gamerId;
     String gamerName;
-    String gamerNote;
+    List<String> gamerNote;
     List<Picture> gamerPictures;
 
-    public Gamer(String gamerName, String gamerNote) {
+    public Gamer(int gamerId, String gamerName, List<String> gamerNote) {
         setGamerName(gamerName);
         setGamerNote(gamerNote);
     }
 
-    public Gamer(String gamerName, String gamerNote, List<Picture> gamerPictures) {
+    public Gamer(int gamerId, String gamerName, List<String> gamerNote, List<Picture> gamerPictures) {
         setGamerName(gamerName);
         setGamerNote(gamerNote);
         setGamerPictures(gamerPictures);
     }
-    
 
+    public Gamer(int gamerId, String gamerName) {
+        setGamerId(gamerId);
+        setGamerName(gamerName);
+    }
+
+    public void setGamerId(int gamerId) {
+        this.gamerId = gamerId;
+    }
+    
     public void setGamerName(String gamerName) {
         this.gamerName = gamerName;
     }
 
-    public void setGamerNote(String gamerNote) {
+    public void setGamerNote(List<String> gamerNote) {
         this.gamerNote = gamerNote;
     }
 
@@ -42,11 +51,15 @@ public class Gamer {
         this.gamerPictures = gamerPictures;
     }
 
+    public int getGamerId() {
+        return gamerId;
+    }
+    
     public String getGamerName() {
         return gamerName;
     }
 
-    public String getGamerNote() {
+    public List<String> getGamerNote() {
         return gamerNote;
     }
 
