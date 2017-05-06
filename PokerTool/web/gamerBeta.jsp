@@ -50,20 +50,26 @@
             <br></br>
             <br><table border="3">
                 <thead>                    
-                <td><%=gamer.getGamerName()%> &nbsp;
+                <td><font color="blue" size=8><%=gamer.getGamerName()%></font> &nbsp;
                     <br></br>
                     <% for(Picture picture:gamer.getGamerPictures()){%>
                         
 					<img src="<%=picture.getPictureLink()%>"/>&nbsp;
                                         <%}%>
                     <br></br> 
-                    <% for(String note:gamer.getGamerNote()){%>
-                    <br><%=note%></br>   
+                    
+                    <br><textarea name="addNote" rows="10" cols="70">
+                        <% for(String note:gamer.getGamerNote()){%>
+                    <%=note.trim()%> 
                     <%}%>
-                    <br><textarea name="addNote" rows="4" cols="20"></textarea>
-                    </br><br><input type="submit" value="Add note" name="addNoteButton" /></br>
+                    </textarea>
+                    </br><br><input type="submit" value="Save note" name="addNoteButton" /></br>
                     <br><label>Add picture:</label>&nbsp;<input type="file" name="addNewPicture" value="" />&nbsp;<input type="submit" value="Add picture" name="addNewPictureButton" /></br>
                 </td>  
+                <td><ol>
+                        <li></li>
+                    </ol>
+                </td>
                 </thead>                
             </table>
             </br>
