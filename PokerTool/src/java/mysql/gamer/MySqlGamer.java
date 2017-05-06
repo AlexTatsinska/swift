@@ -113,4 +113,33 @@ public class MySqlGamer {
         }
         return notes;
     }
+
+    public List<Gamer> getAllGamers() throws DALException, SQLException {
+        Gamer gamer = null;
+        List<Gamer> gamers = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
+        String sql = "select\n"
+                + "distinct\n"
+                + "g.gamer_id,\n"
+                + "g.gamer_name\n"
+                + "from\n"
+                + "poker_tool_database.gamer g\n"
+                + "order by g.gamer_name";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int gamerId = rs.getInt("gamer_id");
+                    String gamerName = rs.getString("gamer_name");
+
+                    gamer = new Gamer(gamerId, gamerName);
+                    gamers.add(gamer);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DALException("Error in gamer surch!", ex);
+        }
+        return gamers;
+    }
 }
