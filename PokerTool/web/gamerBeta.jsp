@@ -40,7 +40,13 @@
                     gamerId = gamer.getGamerId();
                 }%>
 
-            <%if (gamer != null) {%>
+            <%if (gamer != null) {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+                    MySqlPicture mySqlPicture = new MySqlPicture(dbmsConnString, userName, password);
+                    gamer.setGamerNote(mySqlGamer.getNotes(gamer.getGamerId()));
+                    gamer.setGamerPictures(mySqlPicture.getPictures(gamer.getGamerId()));
+            %>
             <br></br>
             <br><table border="3">
                 <thead>                    
@@ -84,7 +90,7 @@
                     gamerId = gamer.getGamerId();
                     MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
                     mySqlGamer.insertNewNote(gamerId, note);
-}%>
+                }%>
 
         </form>   
     </body>
