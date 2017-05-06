@@ -24,7 +24,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Gamer</title>
     </head>
     <body>
         <form name="gamersForm" action="gamerBeta.jsp">          
@@ -51,13 +51,15 @@
             <br><table border="3">
                 <thead>                    
                 <td><%=gamer.getGamerName()%> &nbsp;<input type="submit" value="Minimize" name="minimizeButton" />&nbsp;<input type="submit" value="Close" name="closeGamerButton" />
-                    <br><img src="C:\Users\AlexT\Desktop\simple pics\download.png"/>&nbsp;<img src="C:\Users\AlexT\Desktop\simple pics\images (2).jpg"/>
-                    </br>
-
-                    <br>Please note that window.open is JavaScript function but not JSP,</br> 
-                    <br>JSP is for server side and JavaScript</br>   
-                    <br>is for client side.</br><br>For popping up a new window in chrome,</br> 
-                    <br>you have to specify the "specs" of the new window.</br><br> Here is an example.</br>
+                    <br></br>
+                    <% for(Picture picture:gamer.getGamerPictures()){%>
+                        
+					<img src="<%=picture.getPictureLink()%>"/>&nbsp;
+                                        <%}%>
+                    <br></br> 
+                    <% for(String note:gamer.getGamerNote()){%>
+                    <br><%=note%></br>   
+                    <%}%>
                     <br><textarea name="addNote" rows="4" cols="20"></textarea>
                     </br><br><input type="submit" value="Add note" name="addNoteButton" /></br>
                     <br><label>Add picture:</label>&nbsp;<input type="file" name="addNewPicture" value="" />&nbsp;<input type="submit" value="Add picture" name="addNewPictureButton" /></br>
