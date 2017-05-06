@@ -39,6 +39,13 @@
                     gamer = mySqlGamer.getGamer(gamerName);
                     gamerId = gamer.getGamerId();
                 }%>
+                <% if(request.getParameter("openGamerButton")!=null){
+                   gamerName = request.getParameter("openGamerButton");
+                    Class.forName("com.mysql.jdbc.Driver");
+                    MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+                    gamer = mySqlGamer.getGamer(gamerName);
+                    gamerId = gamer.getGamerId(); 
+                }%>
 
             <%if (gamer != null) {
                     Class.forName("com.mysql.jdbc.Driver");
@@ -52,23 +59,26 @@
                 <thead>                    
                 <td><font color="blue" size=8><%=gamer.getGamerName()%></font> &nbsp;
                     <br></br>
-                    <% for(Picture picture:gamer.getGamerPictures()){%>
-                        
-					<img src="<%=picture.getPictureLink()%>"/>&nbsp;
-                                        <%}%>
-                    <br></br> 
-                    
-                    <br><textarea name="addNote" rows="10" cols="70">
-                        <% for(String note:gamer.getGamerNote()){%>
-                    <%=note.trim()%> 
+                    <% for (Picture picture : gamer.getGamerPictures()) {%>
+
+                    <img src="<%=picture.getPictureLink()%>"/>&nbsp;
                     <%}%>
+                    <br></br> 
+
+                    <br><textarea name="addNote" rows="10" cols="70">
+                        <% for (String note : gamer.getGamerNote()) {%>
+                        <%=note.trim()%> 
+                        <%}%>
                     </textarea>
                     </br><br><input type="submit" value="Save note" name="addNoteButton" /></br>
                     <br><label>Add picture:</label>&nbsp;<input type="file" name="addNewPicture" value="" />&nbsp;<input type="submit" value="Add picture" name="addNewPictureButton" /></br>
-                </td>  
-                <td><ol>
-                        <li></li>
-                    </ol>
+                </td>                 
+                <td>   
+                    <%for (Gamer gamer : mySqlGamer.getAllGamers()) {%>  
+                    <br>
+                    <input type="submit" value="<%=gamer.getGamerName()%>" name="openGamerButton" />
+                    <%}%> 
+                    </br>
                 </td>
                 </thead>                
             </table>
