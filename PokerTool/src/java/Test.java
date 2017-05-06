@@ -5,7 +5,8 @@ import gamer.Gamer;
 import topic.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import mysql.gamer.MySqlGamer;
+import mysql.gamer.*;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,9 +35,9 @@ public class Test {
         //SubTopic subTopic = new SubTopic(newSubTopicName);
         //addNewSubTopic.insertNewSubTopic(subTopic);
         MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
-        gamer = mySqlGamer.getGamer("first gamer");
-        mySqlGamer.insertNewGamer(userName);
-        System.out.println(gamer.getGamerName());
+       // gamer = mySqlGamer.getGamer("first gamer");
+        mySqlGamer.insertNewNote(1, topicName);
+        //System.out.println(gamer.getGamerName());
 
     }
 

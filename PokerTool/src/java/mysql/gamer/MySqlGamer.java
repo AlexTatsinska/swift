@@ -72,4 +72,18 @@ public class MySqlGamer {
         }
         return gamer;
     }
+    
+    public void insertNewNote(int gamerId, String note) throws DALException {
+        try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
+                CallableStatement statement = con.prepareCall("{call insert_note(?,?)}")) {
+            
+                statement.setInt("gamer_id", gamerId);
+                statement.setString("note", note);
+                
+                statement.execute();
+            
+        } catch (SQLException ex) {
+            throw new DALException("Error during add new note!", ex);
+        }
+    }
 }

@@ -14,6 +14,8 @@
     static final String userName = "root";
     static final String password = "SwiftTraining1";
     String gamerName = null;
+    String pictureLink = null;
+    String note = null;
     int gamerId;
     Gamer gamer = null;
 
@@ -32,16 +34,13 @@
 
             <% if (request.getParameter("surchGamerButon") != null) {
                     gamerName = request.getParameter("surchGamer");
-                    session.setAttribute("surchGamerName", gamerName);%>            
-            <%}%>
-            <% if (session.getAttribute("surchGamerName") != null) {
                     Class.forName("com.mysql.jdbc.Driver");
-                    gamerName = session.getAttribute("surchGamerName").toString();
                     MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
                     gamer = mySqlGamer.getGamer(gamerName);
                     gamerId = gamer.getGamerId();
-                    session.setAttribute("gamerId", gamerId);
-                    if (gamer != null) {%>
+                }%>
+
+            <%if (gamer != null) {%>
             <br></br>
             <br><table border="3">
                 <thead>                    
@@ -55,26 +54,37 @@
                     <br>you have to specify the "specs" of the new window.</br><br> Here is an example.</br>
                     <br><textarea name="addNote" rows="4" cols="20"></textarea>
                     </br><br><input type="submit" value="Add note" name="addNoteButton" /></br>
-                    <br><label>Add picture:</label>&nbsp;<input type="file" name="addNewPicture" value="" /></br>
+                    <br><label>Add picture:</label>&nbsp;<input type="file" name="addNewPicture" value="" />&nbsp;<input type="submit" value="Add picture" name="addNewPictureButton" /></br>
                 </td>  
                 </thead>                
             </table>
             </br>
 
-            <%}
-                }%>
+            <%}%>
             <% if (request.getParameter("addGamerButton") != null) {
                     gamerName = request.getParameter("addNewGamer");
-                    session.setAttribute("addNewGamerName", gamerName);
-                }%>
-            <% if (session.getAttribute("addNewGamerName") != null) {
                     Class.forName("com.mysql.jdbc.Driver");
-                    gamerName = session.getAttribute("addNewGamerName").toString();
                     MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
                     mySqlGamer.insertNewGamer(gamerName);
             %>
-            <h1>Gamer <font color="green"><%=session.getAttribute("addNewGamerName").toString()%></font> is added!</h1>
-                <%  }%>
+            <h1>Gamer <font color="green"><%=gamer.getGamerName()%></font> is added!</h1>
+                <%}%>
+
+            <% if (request.getParameter("addNewPictureButton") != null) {
+                    pictureLink = request.getParameter("addNewPicture");
+                    Class.forName("com.mysql.jdbc.Driver");
+                    gamerId = gamer.getGamerId();
+                    MySqlPicture mySqlPicture = new MySqlPicture(dbmsConnString, userName, password);
+                    mySqlPicture.insertNewPicture(gamerId, pictureLink);
+
+                }%>
+            <% if (request.getParameter("addNoteButton") != null) {
+                    note = request.getParameter("addNote");
+                    Class.forName("com.mysql.jdbc.Driver");
+                    gamerId = gamer.getGamerId();
+                    MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+                    mySqlGamer.insertNewNote(gamerId, note);
+}%>
 
         </form>   
     </body>
