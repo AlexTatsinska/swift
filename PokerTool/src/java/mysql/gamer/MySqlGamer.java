@@ -31,15 +31,15 @@ public class MySqlGamer {
         this.userName = userName;
         this.password = password;
     }
-    
+
     public void insertNewGamer(String newGamerName) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_gamer(?)}")) {
-            
-                statement.setString("gamer_name", newGamerName);
-                
-                statement.execute();
-            
+
+            statement.setString("gamer_name", newGamerName);
+
+            statement.execute();
+
         } catch (SQLException ex) {
             throw new DALException("Error during add new gamer!", ex);
         }
@@ -61,10 +61,10 @@ public class MySqlGamer {
 
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    int gamerId=rs.getInt("gamer_id");
+                    int gamerId = rs.getInt("gamer_id");
                     String gamerName = rs.getString("gamer_name");
 
-                    gamer = new Gamer(gamerId,gamerName);
+                    gamer = new Gamer(gamerId, gamerName);
                 }
             }
         } catch (SQLException ex) {
@@ -72,18 +72,45 @@ public class MySqlGamer {
         }
         return gamer;
     }
-    
+
     public void insertNewNote(int gamerId, String note) throws DALException {
         try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
                 CallableStatement statement = con.prepareCall("{call insert_note(?,?)}")) {
-            
-                statement.setInt("gamer_id", gamerId);
-                statement.setString("note", note);
-                
-                statement.execute();
-            
+
+            statement.setInt("gamer_id", gamerId);
+            statement.setString("note", note);
+
+            statement.execute();
+
         } catch (SQLException ex) {
             throw new DALException("Error during add new note!", ex);
         }
+    }
+
+    public List<String> getNotes(int surchGamerID) throws DALException, SQLException {
+        List<String> notes = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
+        String sql = "select\n"
+                + "distinct\n"
+                + "nt.note\n"
+                + "from\n"
+                + "poker_tool_database.notes nt\n"
+                + "where\n"
+                + "nt.gamer_id = ?";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, surchGamerID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    String note = rs.getString("note");
+
+                    notes.add(note);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DALException("Error in notes surch!", ex);
+        }
+        return notes;
     }
 }
