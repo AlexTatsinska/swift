@@ -46,7 +46,7 @@ public class MySqlPicture {
         }
     }
 
-    public List<Picture> getGamer(int surchGamerID) throws DALException, SQLException {
+    public List<Picture> getPictures(int surchGamerID) throws DALException, SQLException {
         Picture picture = null;
         List<Picture> pictures = new ArrayList<>();
         StringBuilder result = new StringBuilder();
@@ -66,6 +66,7 @@ public class MySqlPicture {
                     String pictureLink = rs.getString("picture_link");
 
                     picture = new Picture(pictureLink);
+                    pictures.add(picture);
                 }
             }
         } catch (SQLException ex) {
