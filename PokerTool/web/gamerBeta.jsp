@@ -28,7 +28,7 @@
     </head>
     <body>
         <form name="gamersForm" action="gamerBeta.jsp">          
-            <br><label>Gamer name:</label>&nbsp;<input type="text" name="surchGamer" value="" />&nbsp;<input type="submit" value="Surch gamer" name="surchGamerButon" />
+            <br><label>Gamer name:</label>&nbsp;<input type="text" name="surchGamer" value="" />&nbsp;<input type="submit" value="Search gamer" name="surchGamerButon" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>New gamer name:</label>&nbsp;<input type="text" name="addNewGamer" value="" />&nbsp;<input type="submit" value="Add new gamer" name="addGamerButton" /></br> 
 
 
@@ -50,7 +50,7 @@
             <br></br>
             <br><table border="3">
                 <thead>                    
-                <td><%=gamer.getGamerName()%> &nbsp;<input type="submit" value="Minimize" name="minimizeButton" />&nbsp;<input type="submit" value="Close" name="closeGamerButton" />
+                <td><%=gamer.getGamerName()%> &nbsp;
                     <br></br>
                     <% for(Picture picture:gamer.getGamerPictures()){%>
                         
