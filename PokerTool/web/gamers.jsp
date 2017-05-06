@@ -16,22 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gamers</title>
-        <style>
-            body {
-                background-color: GhostWhite;
-            }
-            table {
-                border-collapse: collapse;
-                width: auto;
-            }
-
-            th, td {
-                text-align: left;
-                padding: 8px;
-            }
-
-            tr:nth-child(even){background-color: #f2f2f2}
-        </style>
+        
     </head>
     <body>
         <form name="gamersForm" action="gamers.jsp">
