@@ -1,9 +1,16 @@
+
+import exception.*;
+import gamer.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import mysql.gamer.*;
+import java.sql.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author AlexT
@@ -26,117 +33,154 @@ public class PokerTool extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pokerToolTabbedPane = new javax.swing.JTabbedPane();
-        addNewGamerFrame = new javax.swing.JInternalFrame();
-        gamerNameLabel = new javax.swing.JLabel();
-        newGamerNameTextField = new javax.swing.JTextField();
-        addNewGamerButton = new javax.swing.JButton();
-        javax.swing.JInternalFrame surchGamerInternalFrame = new javax.swing.JInternalFrame();
-        jLabel1 = new javax.swing.JLabel();
-        javax.swing.JTextField surchGamerTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        addNewInfoGamerInternalFrame = new javax.swing.JInternalFrame();
+        searchGamerName = new javax.swing.JTextField();
+        searchGamerButton = new javax.swing.JButton();
+        addGamerName = new javax.swing.JTextField();
+        addGamerButton = new javax.swing.JButton();
+        gamerNote = new java.awt.TextArea();
+        addNoteButton = new javax.swing.JButton();
+        addNewGamerNote = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        addNewGamerFrame.setClosable(true);
-        addNewGamerFrame.setVisible(true);
+        searchGamerButton.setText("Search gamer");
+        searchGamerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchGamerButtonActionPerformed(evt);
+            }
+        });
 
-        gamerNameLabel.setText("Gamer name");
+        addGamerButton.setText("Add new gamer");
+        addGamerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addGamerButtonActionPerformed(evt);
+            }
+        });
 
-        addNewGamerButton.setText("Add new gamer");
+        addNoteButton.setText("Add note");
+        addNoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNoteButtonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout addNewGamerFrameLayout = new javax.swing.GroupLayout(addNewGamerFrame.getContentPane());
-        addNewGamerFrame.getContentPane().setLayout(addNewGamerFrameLayout);
-        addNewGamerFrameLayout.setHorizontalGroup(
-            addNewGamerFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addNewGamerFrameLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(gamerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newGamerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(addNewGamerButton)
-                .addContainerGap(163, Short.MAX_VALUE))
-        );
-        addNewGamerFrameLayout.setVerticalGroup(
-            addNewGamerFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addNewGamerFrameLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(addNewGamerFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gamerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newGamerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addNewGamerButton))
-                .addContainerGap(398, Short.MAX_VALUE))
-        );
-
-        pokerToolTabbedPane.addTab("Add new gamer", addNewGamerFrame);
-
-        surchGamerInternalFrame.setClosable(true);
-        surchGamerInternalFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        surchGamerInternalFrame.setVisible(true);
-
-        jLabel1.setText("Gamer name");
-
-        jButton1.setText("Surch gamer");
-
-        javax.swing.GroupLayout surchGamerInternalFrameLayout = new javax.swing.GroupLayout(surchGamerInternalFrame.getContentPane());
-        surchGamerInternalFrame.getContentPane().setLayout(surchGamerInternalFrameLayout);
-        surchGamerInternalFrameLayout.setHorizontalGroup(
-            surchGamerInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(surchGamerInternalFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(surchGamerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(jButton1)
-                .addContainerGap(145, Short.MAX_VALUE))
-        );
-        surchGamerInternalFrameLayout.setVerticalGroup(
-            surchGamerInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(surchGamerInternalFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(surchGamerInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(surchGamerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(412, Short.MAX_VALUE))
-        );
-
-        pokerToolTabbedPane.addTab("Surch gamer", surchGamerInternalFrame);
-
-        addNewInfoGamerInternalFrame.setClosable(true);
-        addNewInfoGamerInternalFrame.setVisible(true);
-
-        javax.swing.GroupLayout addNewInfoGamerInternalFrameLayout = new javax.swing.GroupLayout(addNewInfoGamerInternalFrame.getContentPane());
-        addNewInfoGamerInternalFrame.getContentPane().setLayout(addNewInfoGamerInternalFrameLayout);
-        addNewInfoGamerInternalFrameLayout.setHorizontalGroup(
-            addNewInfoGamerInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        addNewInfoGamerInternalFrameLayout.setVerticalGroup(
-            addNewInfoGamerInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        pokerToolTabbedPane.addTab("Add new information to gamer", addNewInfoGamerInternalFrame);
+        addNewGamerNote.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        addNewGamerNote.setForeground(new java.awt.Color(0, 0, 153));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pokerToolTabbedPane)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(addNoteButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(gamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 161, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(searchGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(searchGamerButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(addGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(addNewGamerNote, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(6, 6, 6)
+                        .addComponent(addGamerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pokerToolTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchGamerButton)
+                    .addComponent(addGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addGamerButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addNewGamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addComponent(gamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addNoteButton)
+                .addGap(24, 24, 24))
         );
-
-        pokerToolTabbedPane.getAccessibleContext().setAccessibleName("Poker tool");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchGamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchGamerButtonActionPerformed
+        // TODO add your handling code here:
+        if (searchGamerName.getText() != null || !searchGamerName.getText().equals("")) {
+            String gamerName = searchGamerName.getText();
+            System.out.println(gamerName);
+            String dbmsConnString = "jdbc:mysql://localhost:3306/poker_tool_database";
+            String userName = "root";
+            String password = "SwiftTraining1";
+            Gamer gamer = null;
+            
+            MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+            try {
+                gamer = mySqlGamer.getGamer(gamerName);
+            } catch (DALException ex) {
+                Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (gamer != null) {            
+            MySqlPicture mySqlPicture = new MySqlPicture(dbmsConnString, userName, password);
+                try {
+                    gamer.setGamerNote(mySqlGamer.getNotes(gamer.getGamerId()));
+                } catch (DALException ex) {
+                    Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    gamer.setGamerPictures(mySqlPicture.getPictures(gamer.getGamerId()));
+                } catch (DALException ex) {
+                    Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                gamerNote.setText(gamer.getGamerNote());
+                addNewGamerNote.setText(gamerName);
+        }
+        }
+    }//GEN-LAST:event_searchGamerButtonActionPerformed
+
+    private void addNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNoteButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addNoteButtonActionPerformed
+
+    private void addGamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGamerButtonActionPerformed
+        // TODO add your handling code here:
+        if (addGamerName.getText() != null || !addGamerName.getText().equals("")) {
+            String gamerName = addGamerName.getText();
+            String dbmsConnString = "jdbc:mysql://localhost:3306/poker_tool_database";
+            String userName = "root";
+            String password = "SwiftTraining1";
+
+            MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+            try {
+                mySqlGamer.insertNewGamer(gamerName);
+            } catch (DALException ex) {
+                Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String text = gamerName + " is added!";
+            //addNewGamerNote.setText(text);
+            addGamerName.setText("");
+
+        }
+    }//GEN-LAST:event_addGamerButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,14 +218,13 @@ public class PokerTool extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addNewGamerButton;
-    private javax.swing.JInternalFrame addNewGamerFrame;
-    private javax.swing.JInternalFrame addNewInfoGamerInternalFrame;
-    private javax.swing.JLabel gamerNameLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField newGamerNameTextField;
-    private javax.swing.JTabbedPane pokerToolTabbedPane;
+    private javax.swing.JButton addGamerButton;
+    private javax.swing.JTextField addGamerName;
+    private javax.swing.JLabel addNewGamerNote;
+    private javax.swing.JButton addNoteButton;
+    private java.awt.TextArea gamerNote;
+    private javax.swing.JButton searchGamerButton;
+    private javax.swing.JTextField searchGamerName;
     // End of variables declaration//GEN-END:variables
 
 }
