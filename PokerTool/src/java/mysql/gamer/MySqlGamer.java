@@ -96,10 +96,19 @@ public class MySqlGamer {
                 + "from\n"
                 + "poker_tool_database.notes nt\n"
                 + "where\n"
-                + "nt.gamer_id = ?";
+                + "nt.gamer_id = ?\n"
+                + "and nt.note_id = (select\n"
+                + "		     distinct\n"
+                + "		     max(nt.note_id)\n"
+                + "		     from\n"
+                + "		     poker_tool_database.notes nt\n"
+                + "		     where\n"
+                + "		     nt.gamer_id = ?\n"
+                + "		     )";
         try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
                 PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, surchGamerID);
+            statement.setInt(2, surchGamerID);
 
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
