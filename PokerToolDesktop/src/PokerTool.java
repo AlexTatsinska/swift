@@ -121,12 +121,11 @@ public class PokerTool extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (searchGamerName.getText() != null || !searchGamerName.getText().equals("")) {
             String gamerName = searchGamerName.getText();
-            System.out.println(gamerName);
             String dbmsConnString = "jdbc:mysql://localhost:3306/poker_tool_database";
             String userName = "root";
             String password = "SwiftTraining1";
             Gamer gamer = null;
-            
+
             MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
             try {
                 gamer = mySqlGamer.getGamer(gamerName);
@@ -135,8 +134,8 @@ public class PokerTool extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (gamer != null) {            
-            MySqlPicture mySqlPicture = new MySqlPicture(dbmsConnString, userName, password);
+            if (gamer != null) {
+                MySqlPicture mySqlPicture = new MySqlPicture(dbmsConnString, userName, password);
                 try {
                     gamer.setGamerNote(mySqlGamer.getNotes(gamer.getGamerId()));
                 } catch (DALException ex) {
@@ -153,12 +152,33 @@ public class PokerTool extends javax.swing.JFrame {
                 }
                 gamerNote.setText(gamer.getGamerNote());
                 addNewGamerNote.setText(gamerName);
-        }
+            }
         }
     }//GEN-LAST:event_searchGamerButtonActionPerformed
 
     private void addNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNoteButtonActionPerformed
         // TODO add your handling code here:
+        String note = gamerNote.getText();
+        Gamer gamer = null;
+        int gamerId;
+        String dbmsConnString = "jdbc:mysql://localhost:3306/poker_tool_database";
+        String userName = "root";
+        String password = "SwiftTraining1";
+        String gamerName = searchGamerName.getText();
+        MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+        try {
+            gamer = mySqlGamer.getGamer(gamerName);
+        } catch (DALException ex) {
+            Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        gamerId = gamer.getGamerId();
+        try {
+            mySqlGamer.insertNewNote(gamerId, note);
+        } catch (DALException ex) {
+            Logger.getLogger(PokerTool.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_addNoteButtonActionPerformed
 
     private void addGamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGamerButtonActionPerformed
