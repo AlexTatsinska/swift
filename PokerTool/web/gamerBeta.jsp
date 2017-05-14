@@ -18,7 +18,6 @@
     String note = null;
     int gamerId;
     Gamer gamer = null;
-
 %>
 <!DOCTYPE html>
 <html>
@@ -105,7 +104,6 @@
             gamerId = gamer.getGamerId();
             MySqlPicture mySqlPicture = new MySqlPicture(dbmsConnString, userName, password);
             mySqlPicture.insertNewPicture(gamerId, pictureLink);
-
         }%>
     <% if (request.getParameter("addNoteButton") != null) {
             note = request.getParameter("addNote").trim();
