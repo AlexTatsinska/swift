@@ -45,6 +45,19 @@ public class MySqlGamer {
         }
     }
 
+    public void insertLastSearchedGamer(int gamerId) throws DALException {
+        try (Connection con = DriverManager.getConnection(dbmsConnString, userName, password);
+                CallableStatement statement = con.prepareCall("{call insert_last_searched_id(?)}")) {
+
+            statement.setInt("gamer_id", gamerId);
+
+            statement.execute();
+
+        } catch (SQLException ex) {
+            throw new DALException("Error during add last searched gamer!", ex);
+        }
+    }
+
     public Gamer getGamer(String surchGamerName) throws DALException, SQLException {
         Gamer gamer = null;
         StringBuilder result = new StringBuilder();
@@ -131,8 +144,9 @@ public class MySqlGamer {
                 + "distinct\n"
                 + "g.gamer_id,\n"
                 + "g.gamer_name\n"
-                + "from\n"
+                + "from \n"
                 + "poker_tool_database.gamer g\n"
+                + "join poker_tool_database.last_searched_gamers lsg on lsg.gamer_id = g.gamer_id\n"
                 + "order by g.gamer_name";
         try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
                 PreparedStatement statement = conn.prepareStatement(sql)) {
