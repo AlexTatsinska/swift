@@ -89,5 +89,23 @@ public class MySqlPicture {
         }
         return pictures;
 }
+    
+    public void deletePictures(int gamerId) throws DALException, SQLException {
+
+        String sql = "Delete \n"
+                + "FROM \n"
+                + "note_tracker_database.gamer_picture\n"
+                + "where\n"
+                + "gamer_id = ?";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, gamerId);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DALException("Error in gamer pictures delete!", ex);
+        }
+    }
 
 }
