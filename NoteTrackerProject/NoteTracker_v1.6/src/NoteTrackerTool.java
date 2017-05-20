@@ -71,6 +71,7 @@ public class NoteTrackerTool extends javax.swing.JFrame {
         deleteHystoryButton = new javax.swing.JButton();
         loadAllGamers = new javax.swing.JComboBox<>();
         loadAllGamersButton = new javax.swing.JButton();
+        deleteGamer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Note Tracker version 1.6");
@@ -152,6 +153,13 @@ public class NoteTrackerTool extends javax.swing.JFrame {
             }
         });
 
+        deleteGamer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DeleteGamer.png"))); // NOI18N
+        deleteGamer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteGamerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,18 +220,21 @@ public class NoteTrackerTool extends javax.swing.JFrame {
                                         .addComponent(pictureShow7)
                                         .addGap(18, 18, 18)
                                         .addComponent(pictureShow8))))
-                            .addComponent(gamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(addNoteButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(picturePath, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(searchPictureButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(addPictureButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(deleteHystoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32))))
+                            .addComponent(gamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(addNoteButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(picturePath, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(searchPictureButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addPictureButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(deleteGamer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(deleteHystoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +251,7 @@ public class NoteTrackerTool extends javax.swing.JFrame {
                     .addComponent(loadAllGamersButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addNewGamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pictureShow1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pictureShow2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -261,21 +272,24 @@ public class NoteTrackerTool extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(gamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addNoteButton)
-                    .addComponent(picturePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchPictureButton)
-                    .addComponent(addPictureButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(addNoteButton)
+                        .addComponent(picturePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchPictureButton)
+                        .addComponent(addPictureButton))
                     .addComponent(deleteHystoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteGamer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void searchGamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchGamerButtonActionPerformed
         // TODO add your handling code here:
-        
+
         String gamerName = searchGamerName.getText();
         String dbmsConnString = "jdbc:mysql://localhost:3306/note_tracker_database";
         String userName = "root";
@@ -994,14 +1008,14 @@ public class NoteTrackerTool extends javax.swing.JFrame {
 
             gamerNote.setText(gamer.getGamerNote());
             addNewGamerNote.setText(gamerName);
-            
+
         }
     }//GEN-LAST:event_loadAllGamersButtonActionPerformed
 
     private void searchGamerNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchGamerNameKeyPressed
         // TODO add your handling code here:
         String gamerName = searchGamerName.getText();
-        
+
     }//GEN-LAST:event_searchGamerNameKeyPressed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1020,19 +1034,87 @@ public class NoteTrackerTool extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            for (Gamer openedGamers : mySqlGamer.getAllGamers()) {
+                lastOpenGamers.addItem(openedGamers.getGamerName());
+                //JComboBox test = new JComboBox();
+                //test.addItem(new ComboItem(0, "orange"));
+            }
+        } catch (DALException ex) {
+            Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_formWindowActivated
+
+    private void deleteGamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGamerActionPerformed
+        // TODO add your handling code here:
+        String gamerName = addNewGamerNote.getText();
+        String dbmsConnString = "jdbc:mysql://localhost:3306/note_tracker_database";
+        String userName = "root";
+        String password = "SwiftTraining1";
+        Gamer gamer = null;
+        MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+        MySqlPicture mySqlPicture = new MySqlPicture(dbmsConnString, userName, password);
+
+        try {
+            gamer = mySqlGamer.getGamer(gamerName);
+        } catch (DALException ex) {
+            Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (gamer != null) {
             try {
-                for (Gamer openedGamers : mySqlGamer.getAllGamers()) {
-                    lastOpenGamers.addItem(openedGamers.getGamerName());
-                    //JComboBox test = new JComboBox();
-                    //test.addItem(new ComboItem(0, "orange"));
+                mySqlGamer.deleteNotes(gamer.getGamerId());
+                mySqlPicture.deletePictures(gamer.getGamerId());
+                mySqlGamer.deleteFromHystory(gamer.getGamerId());
+                mySqlGamer.deleteGamer(gamer.getGamerId());
+                pictureShow1.setIcon(null);
+                pictureShow2.setIcon(null);
+                pictureShow3.setIcon(null);
+                pictureShow4.setIcon(null);
+                pictureShow5.setIcon(null);
+                pictureShow6.setIcon(null);
+                pictureShow7.setIcon(null);
+                pictureShow8.setIcon(null);
+                pictureShow9.setIcon(null);
+                pictureShow10.setIcon(null);
+                pictureShow11.setIcon(null);
+                pictureShow12.setIcon(null);
+                gamerNote.setText("");
+                addNewGamerNote.setText(gamerName + " is deleted");
+                gamer = null;
+                lastOpenGamers.removeAllItems();
+                loadAllGamers.removeAllItems();
+                try {
+                    for (Gamer openedGamers : mySqlGamer.loadAllGamers()) {
+                        loadAllGamers.addItem(openedGamers.getGamerName());
+                    }
+                } catch (DALException ex) {
+                    Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    for (Gamer openedGamers : mySqlGamer.getAllGamers()) {
+                        lastOpenGamers.addItem(openedGamers.getGamerName());
+                        //JComboBox test = new JComboBox();
+                        //test.addItem(new ComboItem(0, "orange"));
+                    }
+                } catch (DALException ex) {
+                    Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } catch (DALException ex) {
                 Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-    }//GEN-LAST:event_formWindowActivated
+        }
+    }//GEN-LAST:event_deleteGamerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1076,6 +1158,7 @@ public class NoteTrackerTool extends javax.swing.JFrame {
     private javax.swing.JLabel addNewGamerNote;
     private javax.swing.JButton addNoteButton;
     private javax.swing.JButton addPictureButton;
+    private javax.swing.JButton deleteGamer;
     private javax.swing.JButton deleteHystoryButton;
     private java.awt.TextArea gamerNote;
     private javax.swing.JComboBox<String> lastOpenGamers;
