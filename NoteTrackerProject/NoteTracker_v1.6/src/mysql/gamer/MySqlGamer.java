@@ -181,6 +181,59 @@ public class MySqlGamer {
         }
     }
 
+    public void deleteNotes(int gamerId) throws DALException, SQLException {
+
+        String sql = "Delete \n"
+                + "FROM \n"
+                + "note_tracker_database.notes\n"
+                + "where\n"
+                + "gamer_id = ?";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, gamerId);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DALException("Error in gamer notes delete!", ex);
+        }
+    }
+    public void deleteFromHystory(int gamerId) throws DALException, SQLException {
+
+        String sql = "Delete \n"
+                + "FROM \n"
+                + "note_tracker_database.last_searched_gamers\n"
+                + "where\n"
+                + "gamer_id = ?";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, gamerId);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DALException("Error in gamer history record delete!", ex);
+        }
+    }
+
+    public void deleteGamer(int gamerId) throws DALException, SQLException {
+
+        String sql = "Delete \n"
+                + "FROM \n"
+                + "note_tracker_database.gamer\n"
+                + "where\n"
+                + "gamer_id = ?";
+        try (Connection conn = DriverManager.getConnection(dbmsConnString, userName, password);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, gamerId);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DALException("Error in gamer delete!", ex);
+        }
+    }
+
     public List<Gamer> loadAllGamers() throws DALException, SQLException {
         Gamer gamer = null;
         List<Gamer> gamers = new ArrayList<>();
