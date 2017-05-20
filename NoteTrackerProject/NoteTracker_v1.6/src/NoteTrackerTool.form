@@ -111,11 +111,12 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="addPictureButton" min="-2" pref="124" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="deleteGamer" pref="0" max="32767" attributes="0"/>
-                          <Component id="deleteHystoryButton" min="-2" pref="92" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="deletePicturesButton" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="deleteGamerButton" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="deleteHystoryButton" alignment="1" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -137,7 +138,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="addNewGamerNote" min="-2" pref="36" max="-2" attributes="0"/>
-              <EmptySpace pref="163" max="32767" attributes="0"/>
+              <EmptySpace pref="153" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pictureShow1" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="pictureShow2" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -171,8 +172,10 @@
                   <Component id="deleteHystoryButton" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="deleteGamer" min="-2" pref="23" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <Component id="deleteGamerButton" min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="deletePicturesButton" min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -287,7 +290,7 @@
     <Component class="javax.swing.JButton" name="deleteHystoryButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/deleteHystory.png"/>
+          <Image iconType="3" name="/deleteHistoryGreen1.png"/>
         </Property>
       </Properties>
       <Events>
@@ -312,15 +315,28 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadAllGamersButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="deleteGamer">
+    <Component class="javax.swing.JButton" name="deleteGamerButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/DeleteGamer.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteGamerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteGamerButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="deletePicturesButton">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/deletePictures.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePicturesButtonActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
