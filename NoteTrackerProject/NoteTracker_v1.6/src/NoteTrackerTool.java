@@ -73,7 +73,14 @@ public class NoteTrackerTool extends javax.swing.JFrame {
         loadAllGamersButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Note Tracker");
         setType(java.awt.Window.Type.POPUP);
+
+        searchGamerName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchGamerNameKeyPressed(evt);
+            }
+        });
 
         searchGamerButton.setText("Search gamer");
         searchGamerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +133,7 @@ public class NoteTrackerTool extends javax.swing.JFrame {
             }
         });
 
-        deleteHystoryButton.setText("Delete history");
+        deleteHystoryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deleteHystory.png"))); // NOI18N
         deleteHystoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteHystoryButtonActionPerformed(evt);
@@ -147,14 +154,11 @@ public class NoteTrackerTool extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(addNewGamerNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(66, 66, 66))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(searchGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchGamerButton)
                                 .addGap(27, 27, 27)
                                 .addComponent(lastOpenGamers, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,10 +168,14 @@ public class NoteTrackerTool extends javax.swing.JFrame {
                                 .addComponent(loadAllGamers, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(loadAllGamersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 28, Short.MAX_VALUE)))
+                                .addGap(0, 28, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addNewGamerNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(66, 66, 66)))
                         .addComponent(addGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addGamerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addGamerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -199,19 +207,18 @@ public class NoteTrackerTool extends javax.swing.JFrame {
                                         .addComponent(pictureShow7)
                                         .addGap(18, 18, 18)
                                         .addComponent(pictureShow8))))
-                            .addComponent(gamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addNoteButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(picturePath, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchPictureButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addPictureButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteHystoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                            .addComponent(gamerNote, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addNoteButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(picturePath, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(searchPictureButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(addPictureButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(deleteHystoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,15 +261,16 @@ public class NoteTrackerTool extends javax.swing.JFrame {
                     .addComponent(picturePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchPictureButton)
                     .addComponent(addPictureButton)
-                    .addComponent(deleteHystoryButton))
+                    .addComponent(deleteHystoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(71, 71, 71))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void searchGamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchGamerButtonActionPerformed
         // TODO add your handling code here:
+        
         String gamerName = searchGamerName.getText();
         String dbmsConnString = "jdbc:mysql://localhost:3306/note_tracker_database";
         String userName = "root";
@@ -981,8 +989,15 @@ public class NoteTrackerTool extends javax.swing.JFrame {
 
             gamerNote.setText(gamer.getGamerNote());
             addNewGamerNote.setText(gamerName);
+            
         }
     }//GEN-LAST:event_loadAllGamersButtonActionPerformed
+
+    private void searchGamerNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchGamerNameKeyPressed
+        // TODO add your handling code here:
+        String gamerName = searchGamerName.getText();
+        
+    }//GEN-LAST:event_searchGamerNameKeyPressed
 
     /**
      * @param args the command line arguments
