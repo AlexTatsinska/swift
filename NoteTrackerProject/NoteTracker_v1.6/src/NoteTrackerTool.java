@@ -73,8 +73,13 @@ public class NoteTrackerTool extends javax.swing.JFrame {
         loadAllGamersButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Note Tracker");
+        setTitle("Note Tracker version 1.6");
         setType(java.awt.Window.Type.POPUP);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         searchGamerName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -998,6 +1003,36 @@ public class NoteTrackerTool extends javax.swing.JFrame {
         String gamerName = searchGamerName.getText();
         
     }//GEN-LAST:event_searchGamerNameKeyPressed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        String dbmsConnString = "jdbc:mysql://localhost:3306/note_tracker_database";
+        String userName = "root";
+        String password = "SwiftTraining1";
+        Gamer gamer = null;
+        MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
+        try {
+            for (Gamer openedGamers : mySqlGamer.loadAllGamers()) {
+                loadAllGamers.addItem(openedGamers.getGamerName());
+            }
+        } catch (DALException ex) {
+            Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            try {
+                for (Gamer openedGamers : mySqlGamer.getAllGamers()) {
+                    lastOpenGamers.addItem(openedGamers.getGamerName());
+                    //JComboBox test = new JComboBox();
+                    //test.addItem(new ComboItem(0, "orange"));
+                }
+            } catch (DALException ex) {
+                Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
