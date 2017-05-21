@@ -176,10 +176,10 @@ public class NoteTrackerTool extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(searchGamerName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchGamerButton)
                                 .addGap(27, 27, 27)
                                 .addComponent(lastOpenGamers, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -512,13 +512,19 @@ public class NoteTrackerTool extends javax.swing.JFrame {
             MySqlGamer mySqlGamer = new MySqlGamer(dbmsConnString, userName, password);
             try {
                 mySqlGamer.insertNewGamer(gamerName);
+                gamer = mySqlGamer.getGamer(gamerName);
+                mySqlGamer.insertLastSearchedGamer(gamer.getGamerId());
+                
             } catch (DALException ex) {
+                Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(NoteTrackerTool.class.getName()).log(Level.SEVERE, null, ex);
             }
             String text = gamerName + " is added!";
             //addNewGamerNote.setText(text);
             addGamerName.setText("");
             loadAllGamers.removeAllItems();
+            lastOpenGamers.removeAllItems();
             try {
                 for (Gamer openedGamers : mySqlGamer.loadAllGamers()) {
                     loadAllGamers.addItem(openedGamers.getGamerName());
