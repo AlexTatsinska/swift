@@ -586,6 +586,11 @@ counterPicture++;
         jButtonMinimizeGamer1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonMinimizeGamer1.setText("-");
         jButtonMinimizeGamer1.setToolTipText("Minimize Gamer");
+        jButtonMinimizeGamer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMinimizeGamer1ActionPerformed(evt);
+            }
+        });
 
         jComboBoxColorsGamer1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Red", "Green", "Blue" }));
         jComboBoxColorsGamer1.setToolTipText("Choise Color");
@@ -1141,6 +1146,10 @@ counterPicture++;
             Logger.getLogger(GamerForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonPic12Gamer1ActionPerformed
+
+    private void jButtonMinimizeGamer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinimizeGamer1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonMinimizeGamer1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
